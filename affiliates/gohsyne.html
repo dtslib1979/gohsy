@@ -3,21 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GOHSY | GOHSY GROUP</title>
-  <meta name="description" content="GOHSY - 말 못 하는 것들의 목소리. 세계를 말하게 하는 채널.">
+  <title>GOHSYNE | GOHSY GROUP</title>
+  <meta name="description" content="GOHSYNE - 하루를 설명하는 언어. 세계를 정리해서 건네는 채널.">
   <link rel="icon" href="../assets/icons/logo.jpg">
   <style>
     :root {
       --bg: #0F1F15;
       --bg-elevated: #1A2E22;
       --bg-card: #243529;
-      --accent: #D4AF37;
+      --accent: #4ECDC4;
       --gold: #D4AF37;
       --text: #F5F5F0;
       --text-secondary: rgba(245,245,240,.7);
       --text-muted: rgba(245,245,240,.5);
       --border: rgba(245,245,240,.1);
-      --border-gold: rgba(212,175,55,.3);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -49,28 +48,16 @@
     }
 
     .back-link:hover {
-      color: var(--gold);
+      color: var(--accent);
     }
 
     .hero {
       text-align: center;
       padding: 40px 20px;
       background: var(--bg-elevated);
-      border: 2px solid var(--gold);
+      border: 1px solid var(--accent);
       border-radius: 20px;
       margin-bottom: 24px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: radial-gradient(circle at center, rgba(212,175,55,0.1) 0%, transparent 70%);
     }
 
     .hero-icon {
@@ -78,10 +65,9 @@
       height: 80px;
       margin: 0 auto 16px;
       border-radius: 50%;
-      border: 3px solid var(--gold);
+      border: 3px solid var(--accent);
       overflow: hidden;
       background: var(--bg-card);
-      position: relative;
     }
 
     .hero-icon img {
@@ -91,11 +77,10 @@
     }
 
     .hero-title {
-      font-size: 36px;
+      font-size: 32px;
       font-weight: 700;
-      color: var(--gold);
+      color: var(--accent);
       margin-bottom: 8px;
-      position: relative;
     }
 
     .hero-tagline {
@@ -103,37 +88,22 @@
       color: var(--text);
       margin-bottom: 8px;
       font-style: italic;
-      position: relative;
     }
 
     .hero-role {
       font-size: 14px;
       color: var(--text-muted);
       margin-bottom: 16px;
-      position: relative;
-    }
-
-    .hero-badges {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      position: relative;
     }
 
     .hero-badge {
       display: inline-block;
-      background: rgba(212, 175, 55, 0.2);
-      color: var(--gold);
-      padding: 6px 14px;
+      background: rgba(78, 205, 196, 0.2);
+      color: var(--accent);
+      padding: 6px 16px;
       border-radius: 20px;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
-    }
-
-    .hero-badge.root {
-      background: var(--gold);
-      color: var(--bg);
     }
 
     .section {
@@ -144,14 +114,10 @@
       margin-bottom: 16px;
     }
 
-    .section.highlight {
-      border-color: var(--border-gold);
-    }
-
     .section-title {
       font-size: 14px;
       font-weight: 600;
-      color: var(--gold);
+      color: var(--accent);
       margin-bottom: 12px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -195,8 +161,8 @@
     }
 
     .rule-box {
-      background: rgba(212, 175, 55, 0.1);
-      border: 1px solid rgba(212, 175, 55, 0.3);
+      background: rgba(78, 205, 196, 0.1);
+      border: 1px solid rgba(78, 205, 196, 0.3);
       border-radius: 12px;
       padding: 16px;
       margin-top: 12px;
@@ -204,7 +170,7 @@
 
     .rule-title {
       font-size: 12px;
-      color: var(--gold);
+      color: var(--accent);
       font-weight: 600;
       margin-bottom: 8px;
     }
@@ -223,7 +189,7 @@
       text-align: center;
       padding: 20px;
       background: var(--bg-card);
-      border-left: 3px solid var(--gold);
+      border-left: 3px solid var(--accent);
       border-radius: 0 12px 12px 0;
       margin-top: 16px;
     }
@@ -234,29 +200,11 @@
       font-style: italic;
     }
 
-    /* Power Graph */
-    .power-graph {
-      background: var(--bg-card);
-      border: 1px solid var(--border-gold);
-      border-radius: 12px;
-      padding: 16px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      font-size: 12px;
-      line-height: 1.8;
-      color: var(--text-secondary);
-      margin-top: 12px;
-    }
-
-    .power-graph .root {
-      color: var(--gold);
-      font-weight: 600;
-    }
-
     .channel-btn {
       display: block;
       width: 100%;
       padding: 16px;
-      background: var(--gold);
+      background: var(--accent);
       color: var(--bg);
       border: none;
       border-radius: 12px;
@@ -280,31 +228,28 @@
 
     <div class="hero">
       <div class="hero-icon">
-        <img src="../assets/affiliates/gohsy.jpg" alt="GOHSY" onerror="this.parentElement.innerHTML='🔴'">
+        <img src="../assets/affiliates/gohsyne.jpg" alt="GOHSYNE" onerror="this.parentElement.innerHTML='🔵'">
       </div>
-      <h1 class="hero-title">GOHSY</h1>
-      <p class="hero-tagline">"말 못 하는 것들의 목소리"</p>
-      <p class="hero-role">Root · Engine · 서사</p>
-      <div class="hero-badges">
-        <span class="hero-badge root">ROOT</span>
-        <span class="hero-badge">세계를 말하게 하는 채널</span>
-      </div>
+      <h1 class="hero-title">GOHSYNE</h1>
+      <p class="hero-tagline">"하루를 설명하는 언어"</p>
+      <p class="hero-role">Explanation · 생활 · 교육</p>
+      <span class="hero-badge">세계를 정리해서 건네는 채널</span>
     </div>
 
-    <div class="section highlight">
+    <div class="section">
       <h2 class="section-title">Identity</h2>
       <div class="identity-grid">
         <div class="identity-item">
-          <span class="identity-icon">🎭</span>
-          <span class="identity-text">사물·현장·인간의 내부 독백</span>
+          <span class="identity-icon">🌤</span>
+          <span class="identity-text">생활 리듬</span>
         </div>
         <div class="identity-item">
-          <span class="identity-icon">📖</span>
-          <span class="identity-text">서사 중심</span>
+          <span class="identity-icon">📝</span>
+          <span class="identity-text">날씨, 일상, 언어</span>
         </div>
         <div class="identity-item">
-          <span class="identity-icon">💎</span>
-          <span class="identity-text">감정 밀도 높음</span>
+          <span class="identity-icon">🎯</span>
+          <span class="identity-text">설명자 포지션</span>
         </div>
       </div>
     </div>
@@ -312,16 +257,16 @@
     <div class="section">
       <h2 class="section-title">Content Tone</h2>
       <div class="section-content">
-        <p><strong>느림</strong> · 여백 · 연극적 발성</p>
-        <p>설명 없이, 교육 없이, 교훈 없이.</p>
+        <p><strong>차분</strong> · 명확 · 안정</p>
+        <p>감정 과잉 없이, 드라마화 없이, 사연 중심 없이.</p>
       </div>
 
       <div class="rule-box">
         <div class="rule-title">금지 사항</div>
         <div class="rule-list">
-          <span>❌ 설명</span>
-          <span>❌ 교육</span>
-          <span>❌ 교훈</span>
+          <span>❌ 감정 과잉</span>
+          <span>❌ 사연 중심</span>
+          <span>❌ 드라마화</span>
         </div>
       </div>
     </div>
@@ -329,22 +274,12 @@
     <div class="section">
       <h2 class="section-title">Role</h2>
       <div class="section-content">
-        <p>GOHSY는 세계를 말하게 한다.</p>
-        <p>감정 몰입 → 댓글 → 체류 시간. 그룹의 서사 중심.</p>
+        <p>GOHSYNE는 세계를 정리해서 건넨다.</p>
+        <p>설명 → 신뢰 → 구매 전환. 그룹 내 전환 담당.</p>
       </div>
 
       <div class="quote-box">
-        <p class="quote-text">"말 못 하는 것들의 목소리"</p>
-      </div>
-    </div>
-
-    <div class="section highlight">
-      <h2 class="section-title">Group Structure</h2>
-      <div class="power-graph">
-        <span class="root">GOHSY GROUP</span><br>
-        ├─ <span class="root">GOHSY</span> (Root / Engine / 서사)<br>
-        ├─ GOHSYNE (Explanation / 생활·교육)<br>
-        └─ GOHSIA (Growth / 유년·감각)
+        <p class="quote-text">"하루를 설명하는 언어"</p>
       </div>
     </div>
 

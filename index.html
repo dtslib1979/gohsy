@@ -1669,9 +1669,8 @@
     }
 
     .legend-dot.gohsy { background: var(--gold); }
-    .legend-dot.mathq { background: #4ECDC4; }
-    .legend-dot.sjoonmo { background: #A78BFA; }
-    .legend-dot.quicksilver { background: #C0C0C0; }
+    .legend-dot.gohsyne { background: #4ECDC4; }
+    .legend-dot.gohsia { background: #A78BFA; }
 
     .graph-hint {
       text-align: center;
@@ -1697,9 +1696,8 @@
       border-color: var(--gold);
     }
 
-    .affiliate-card[data-affiliate="mathq"]:hover { border-color: #4ECDC4; }
-    .affiliate-card[data-affiliate="sjoonmo"]:hover { border-color: #A78BFA; }
-    .affiliate-card[data-affiliate="quicksilver"]:hover { border-color: #C0C0C0; }
+    .affiliate-card[data-affiliate="gohsyne"]:hover { border-color: #4ECDC4; }
+    .affiliate-card[data-affiliate="gohsia"]:hover { border-color: #A78BFA; }
 
     .affiliate-header {
       display: flex;
@@ -2291,10 +2289,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Node data with URLs and images
   var nodes = [
-    { id: 'gohsy', label: 'GOHSY', color: '#D4AF37', url: './affiliates/gohsy.html', img: './assets/1.jpg', radius: 45, x: 0, y: 0, vx: 0, vy: 0, image: null },
-    { id: 'mathq', label: 'MathQ', color: '#4ECDC4', url: './affiliates/mathq.html', img: './assets/2.jpg', radius: 38, x: 0, y: 0, vx: 0, vy: 0, image: null },
-    { id: 'sjoonmo', label: 'S-Joonmo', color: '#A78BFA', url: './affiliates/sjoonmo.html', img: './assets/3.jpg', radius: 38, x: 0, y: 0, vx: 0, vy: 0, image: null },
-    { id: 'quicksilver', label: 'QuickSilver', color: '#C0C0C0', url: './affiliates/quicksilver.html', img: './assets/4.jpg', radius: 38, x: 0, y: 0, vx: 0, vy: 0, image: null }
+    { id: 'gohsy', label: 'GOHSY', color: '#D4AF37', url: './affiliates/gohsy.html', img: './assets/affiliates/gohsy.jpg', radius: 45, x: 0, y: 0, vx: 0, vy: 0, image: null },
+    { id: 'gohsyne', label: 'GOHSYNE', color: '#4ECDC4', url: './affiliates/gohsyne.html', img: './assets/affiliates/gohsyne.jpg', radius: 38, x: 0, y: 0, vx: 0, vy: 0, image: null },
+    { id: 'gohsia', label: 'GOHSIA', color: '#A78BFA', url: './affiliates/gohsia.html', img: './assets/affiliates/gohsia.jpg', radius: 38, x: 0, y: 0, vx: 0, vy: 0, image: null }
   ];
 
   // Load images
@@ -2311,7 +2308,6 @@ document.addEventListener('DOMContentLoaded', function() {
   var edges = [
     { from: 0, to: 1 },
     { from: 0, to: 2 },
-    { from: 0, to: 3 },
     { from: 1, to: 2 },
   ];
 
