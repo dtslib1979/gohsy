@@ -3,19 +3,19 @@
 **날짜**: 2026-01-14
 **작업자**: Claude Code
 **브랜치**: `claude/evaluate-repo-structure-9dWsE`
-**기반 템플릿**: buddies.kr → KOOSY
+**기반 템플릿**: buddies.kr → GOHSY
 
 ---
 
 ## 작업 요약
 
-dtslib 보일러플레이트를 KOOSY 브랜딩으로 전환하고, 자동 아티클 피드 시스템 구축
+dtslib 보일러플레이트를 GOHSY 브랜딩으로 전환하고, 자동 아티클 피드 시스템 구축
 
 ---
 
 ## 변경 목록
 
-### 1. 브랜딩 변경 (dtslib → KOOSY)
+### 1. 브랜딩 변경 (dtslib → GOHSY)
 
 | 파일 | 변경 내용 |
 |------|----------|

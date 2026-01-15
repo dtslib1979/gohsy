@@ -1,6 +1,6 @@
 # 개발일지 (Development Log)
 
-KOOSY 프로젝트 개발 이력 관리
+GOHSY 프로젝트 개발 이력 관리
 
 ---
 
@@ -21,7 +21,7 @@ KOOSY 프로젝트 개발 이력 관리
 
 | # | 날짜 | 작업 | 파일 |
 |---|------|------|------|
-| 001 | 2026-01-14 | 초기 세팅 (dtslib → KOOSY), 자동 피드 시스템 | [001_2026-01-14_initial-setup.md](./001_2026-01-14_initial-setup.md) |
+| 001 | 2026-01-14 | 초기 세팅 (dtslib → GOHSY), 자동 피드 시스템 | [001_2026-01-14_initial-setup.md](./001_2026-01-14_initial-setup.md) |
 | 002 | 2026-01-14 | UI 폴리싱 세션 | [002_2026-01-14_ui-polish-session.md](./002_2026-01-14_ui-polish-session.md) |
 | 003 | 2026-01-14 | 플랫폼별 구조적 한계 분석 | [003_2026-01-14_platform-analysis.md](./003_2026-01-14_platform-analysis.md) |
 | 004 | 2026-01-15 | KakaoTalk 스타일 채팅 시스템 (GitHub Issues 연동) | [004_2026-01-15_kakaotalk-chat-system.md](./004_2026-01-15_kakaotalk-chat-system.md) |

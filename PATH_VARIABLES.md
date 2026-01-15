@@ -1,16 +1,16 @@
 # GOHSY 경로 변수 리스트
 
-> koosy → gohsy 복제 시 업데이트 필요한 변수들
+> gohsy → gohsy 복제 시 업데이트 필요한 변수들
 
 ---
 
 ## 1. 도메인 & URL (필수 변경)
 
-| 현재 값 (koosy) | 변경할 값 (gohsy) | 설명 |
+| 현재 값 (gohsy) | 변경할 값 (gohsy) | 설명 |
 |-----------------|-------------------|------|
-| `koosy.com` | `gohsy.com` | 메인 도메인 |
-| `dtslib1979.github.io/koosy/` | `dtslib1979.github.io/gohsy/` | GitHub Pages URL |
-| `github.com/dtslib1979/koosy` | `github.com/dtslib1979/gohsy` | GitHub 레포 URL |
+| `gohsy.com` | `gohsy.com` | 메인 도메인 |
+| `dtslib1979.github.io/gohsy/` | `dtslib1979.github.io/gohsy/` | GitHub Pages URL |
+| `github.com/dtslib1979/gohsy` | `github.com/dtslib1979/gohsy` | GitHub 레포 URL |
 
 ---
 
@@ -18,9 +18,9 @@
 
 | 현재 값 | 변경할 값 | 위치 |
 |---------|-----------|------|
-| `koosy@koosy.com` | `gohsy@gohsy.com` | 메인 연락처 |
-| `mathq@koosy.com` | `mathq@gohsy.com` | affiliates/mathq.html |
-| `sjoonmo@koosy.com` | `sjoonmo@gohsy.com` | affiliates/sjoonmo.html |
+| `gohsy@gohsy.com` | `gohsy@gohsy.com` | 메인 연락처 |
+| `mathq@gohsy.com` | `mathq@gohsy.com` | affiliates/mathq.html |
+| `sjoonmo@gohsy.com` | `sjoonmo@gohsy.com` | affiliates/sjoonmo.html |
 
 ---
 
@@ -28,8 +28,8 @@
 
 | 현재 값 | 변경할 값 | 사용처 |
 |---------|-----------|--------|
-| `KOOSY` | `GOHSY` | 타이틀, 헤더, 로고 텍스트 |
-| `koosy` | `gohsy` | URL 경로, 변수명 |
+| `GOHSY` | `GOHSY` | 타이틀, 헤더, 로고 텍스트 |
+| `gohsy` | `gohsy` | URL 경로, 변수명 |
 
 ---
 
@@ -72,9 +72,9 @@
 
 | 현재 값 | 변경할 값 | 파일 |
 |---------|-----------|------|
-| `koosy_repo_config` | `gohsy_repo_config` | index.html, staff/index.html |
-| `koosy_staff_auth` | `gohsy_staff_auth` | staff/index.html |
-| `koosy_staff_admin` | `gohsy_staff_admin` | staff/index.html |
+| `gohsy_repo_config` | `gohsy_repo_config` | index.html, staff/index.html |
+| `gohsy_staff_auth` | `gohsy_staff_auth` | staff/index.html |
+| `gohsy_staff_admin` | `gohsy_staff_admin` | staff/index.html |
 
 ---
 
@@ -82,8 +82,8 @@
 
 | 현재 값 | 변경할 값 | 파일 |
 |---------|-----------|------|
-| `GITHUB_REPO = 'koosy'` | `GITHUB_REPO = 'gohsy'` | staff/archive.html |
-| `CHAT_GITHUB_REPO = 'koosy'` | `CHAT_GITHUB_REPO = 'gohsy'` | staff/index.html |
+| `GITHUB_REPO = 'gohsy'` | `GITHUB_REPO = 'gohsy'` | staff/archive.html |
+| `CHAT_GITHUB_REPO = 'gohsy'` | `CHAT_GITHUB_REPO = 'gohsy'` | staff/index.html |
 
 ---
 
@@ -91,7 +91,7 @@
 
 ### index.html
 - 라인 20, 24, 30: OG 이미지/URL
-- 라인 1671: CSS 클래스 `.legend-dot.koosy`
+- 라인 1671: CSS 클래스 `.legend-dot.gohsy`
 - 라인 1962-1987: 푸터 연락처
 - 라인 2100: 공유 URL
 - 라인 2143-2144: vCard
@@ -132,11 +132,11 @@
 ## 10. 일괄 치환 명령어 (참고용)
 
 ```bash
-# 소문자 koosy → gohsy
-find . -type f \( -name "*.html" -o -name "*.json" -o -name "*.xml" -o -name "*.md" \) -exec sed -i 's/koosy/gohsy/g' {} \;
+# 소문자 gohsy → gohsy
+find . -type f \( -name "*.html" -o -name "*.json" -o -name "*.xml" -o -name "*.md" \) -exec sed -i 's/gohsy/gohsy/g' {} \;
 
-# 대문자 KOOSY → GOHSY
-find . -type f \( -name "*.html" -o -name "*.json" -o -name "*.xml" -o -name "*.md" \) -exec sed -i 's/KOOSY/GOHSY/g' {} \;
+# 대문자 GOHSY → GOHSY
+find . -type f \( -name "*.html" -o -name "*.json" -o -name "*.xml" -o -name "*.md" \) -exec sed -i 's/GOHSY/GOHSY/g' {} \;
 ```
 
 ---

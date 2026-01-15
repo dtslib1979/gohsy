@@ -1,8 +1,8 @@
 {
-  "name": "KOOSY",
-  "short_name": "KOOSY",
-  "description": "KOOSY ≡ Built on Gold. Measured in Silver.",
-  "start_url": "/koosy/",
+  "name": "GOHSY",
+  "short_name": "GOHSY",
+  "description": "GOHSY ≡ Built on Gold. Measured in Silver.",
+  "start_url": "/gohsy/",
   "display": "standalone",
   "background_color": "#0a1f1a",
   "theme_color": "#D4AF37",

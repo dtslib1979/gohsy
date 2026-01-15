@@ -1,4 +1,4 @@
-# KOOSY Design System & Development Log
+# GOHSY Design System & Development Log
 
 > 마지막 업데이트: 2026-01-15
 
@@ -10,7 +10,7 @@
 
 | 변수 | 현재 값 | 설명 |
 |------|---------|------|
-| **Brand Name** | KOOSY | 브랜드명 |
+| **Brand Name** | GOHSY | 브랜드명 |
 | **Slogan** | Real Money, Real World | 핵심 메시지 |
 | **Primary Color** | #D4AF37 (Gold) | 메인 컬러 |
 | **Background Color** | #040806 (Dark Green-Black) | 배경 컬러 |
@@ -124,11 +124,11 @@
 ## 📁 FILE STRUCTURE
 
 ```
-koosy/
+gohsy/
 ├── index.html          # 메인 (모든 CSS 인라인)
 ├── assets/
 │   ├── manifest.json   # PWA 설정
-│   ├── 1.jpg          # KOOSY 코인 아이콘
+│   ├── 1.jpg          # GOHSY 코인 아이콘
 │   └── icons/
 │       ├── profile.jpg
 │       └── logo.jpg
@@ -161,6 +161,6 @@ koosy/
 
 ## 🔗 LINKS
 
-- **Live:** https://dtslib1979.github.io/koosy/
-- **Repo:** https://github.com/dtslib1979/koosy
-- **PR:** https://github.com/dtslib1979/koosy/compare/main...claude/review-exit-transfer-code-bZ2oR
+- **Live:** https://dtslib1979.github.io/gohsy/
+- **Repo:** https://github.com/dtslib1979/gohsy
+- **PR:** https://github.com/dtslib1979/gohsy/compare/main...claude/review-exit-transfer-code-bZ2oR

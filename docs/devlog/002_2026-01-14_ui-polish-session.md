@@ -31,7 +31,7 @@
 | 로딩 UX | YouTube 로고 노출 | 썸네일 포스터 → 페이드인 |
 | 끝 처리 | YouTube 로고 노출 | 1초 전 자동 재시작 |
 
-### 3. 프리미엄 KOOSY 타이틀
+### 3. 프리미엄 GOHSY 타이틀
 
 | 항목 | Before | After |
 |------|--------|-------|
@@ -177,7 +177,7 @@ setInterval(() => {
 |------|--------|
 | `cf98905` | feat: update tagline - Not Content. Not Hype. A Standard for Real Money. |
 | `f9d19d8` | fix: hide YouTube logo during loading - show thumbnail poster until video plays |
-| `2314e8c` | feat: premium KOOSY title with Cinzel font + animated gold shine effect |
+| `2314e8c` | feat: premium GOHSY title with Cinzel font + animated gold shine effect |
 | `51aff66` | feat: horizontal YouTube frame + auto-restart 1sec before end to hide YouTube logo |
 | `2536489` | feat: replace logo video with YouTube embed (2FaUlNhuvTA) |
 | `b9a1985` | fix: reduce fingerprint button to 2x size (80px) |

@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0F1F15">
 
-  <title>KOOSY | Card</title>
-  <meta name="description" content="KOOSY - Real Money, Real World | EST. 2026.01.13">
+  <title>GOHSY | Card</title>
+  <meta name="description" content="GOHSY - Real Money, Real World | EST. 2026.01.13">
 
   <!-- Google Fonts - 고급스러운 세리프 폰트 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,11 +15,11 @@
 
   <!-- Open Graph / 카카오톡 미리보기 -->
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="KOOSY">
-  <meta property="og:url" content="https://dtslib1979.github.io/koosy/card/">
-  <meta property="og:title" content="KOOSY">
+  <meta property="og:site_name" content="GOHSY">
+  <meta property="og:url" content="https://dtslib1979.github.io/gohsy/card/">
+  <meta property="og:title" content="GOHSY">
   <meta property="og:description" content="Real Money, Real World | EST. 2026.01.13">
-  <meta property="og:image" content="https://dtslib1979.github.io/koosy/assets/icons/profile.jpg">
+  <meta property="og:image" content="https://dtslib1979.github.io/gohsy/assets/icons/profile.jpg">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1824">
   <meta property="og:image:height" content="2336">
@@ -27,11 +27,11 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="KOOSY">
+  <meta name="twitter:title" content="GOHSY">
   <meta name="twitter:description" content="Real Money, Real World | EST. 2026.01.13">
-  <meta name="twitter:image" content="https://dtslib1979.github.io/koosy/assets/icons/profile.jpg">
+  <meta name="twitter:image" content="https://dtslib1979.github.io/gohsy/assets/icons/profile.jpg">
 
-  <link rel="canonical" href="https://dtslib1979.github.io/koosy/card/">
+  <link rel="canonical" href="https://dtslib1979.github.io/gohsy/card/">
   <link rel="icon" href="../assets/icons/logo.jpg">
 
   <style>
@@ -335,12 +335,12 @@
     <article class="business-card" id="businessCard">
       <!-- Profile Photo -->
       <div class="card-logo">
-        <img src="../assets/icons/profile.jpg" alt="KOOSY" loading="eager">
+        <img src="../assets/icons/profile.jpg" alt="GOHSY" loading="eager">
       </div>
 
       <!-- Brand -->
       <div class="card-brand">
-        <h1 class="card-brand-name">KOOSY</h1>
+        <h1 class="card-brand-name">GOHSY</h1>
         <p class="card-tagline">Not Content. Not Hype. A Standard for Real Money.<br>Built on Gold. Measured in Silver.</p>
       </div>
 
@@ -354,13 +354,13 @@
       <!-- Contact -->
       <div class="card-contact">
         <p class="card-contact-item">
-          <a href="https://koosy.com" target="_blank" rel="noopener">
-            <span class="card-contact-icon">🌐</span>koosy.com
+          <a href="https://gohsy.com" target="_blank" rel="noopener">
+            <span class="card-contact-icon">🌐</span>gohsy.com
           </a>
         </p>
         <p class="card-contact-item">
-          <a href="mailto:koosy@koosy.com">
-            <span class="card-contact-icon">✉️</span>koosy@koosy.com
+          <a href="mailto:gohsy@gohsy.com">
+            <span class="card-contact-icon">✉️</span>gohsy@gohsy.com
           </a>
         </p>
       </div>
@@ -371,7 +371,7 @@
           <span>📇</span>
           Save Contact
         </button>
-        <a href="mailto:koosy@koosy.com?subject=Contact%20KOOSY" class="card-btn primary">
+        <a href="mailto:gohsy@gohsy.com?subject=Contact%20GOHSY" class="card-btn primary">
           <span>✉️</span>
           Contact
         </a>
@@ -410,7 +410,7 @@
     businessCard.addEventListener('click', (e) => {
       if (e.target.closest('button') || e.target.closest('a')) return;
 
-      const url = 'https://dtslib1979.github.io/koosy/card/';
+      const url = 'https://dtslib1979.github.io/gohsy/card/';
       navigator.clipboard.writeText(url).then(() => {
         showToast('Link copied');
         if (navigator.vibrate) navigator.vibrate(50);
@@ -421,11 +421,11 @@
     function saveContact() {
       const vCard = `BEGIN:VCARD
 VERSION:3.0
-FN:KOOSY
-ORG:KOOSY
+FN:GOHSY
+ORG:GOHSY
 TITLE:Bluffing based editing broadcasting CELEB story
-EMAIL;TYPE=WORK:koosy@koosy.com
-URL:https://koosy.com
+EMAIL;TYPE=WORK:gohsy@gohsy.com
+URL:https://gohsy.com
 NOTE:Real Money, Real World | EST. 2026.01.13
 END:VCARD`;
 
@@ -433,7 +433,7 @@ END:VCARD`;
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = 'KOOSY.vcf';
+      link.download = 'GOHSY.vcf';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);

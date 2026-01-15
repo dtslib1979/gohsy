@@ -46,7 +46,7 @@ GitHub 레포 (마크다운 자동 축적)
 
 **dtslib.com Mobile-first AI Builder**는 비개발자가 스마트폰만으로 완전한 IT 인프라를 구축할 수 있게 해주는 **보일러플레이트 시스템**입니다.
 
-**KOOSY**는 이 시스템의 첫 번째 브랜치 구현입니다.
+**GOHSY**는 이 시스템의 첫 번째 브랜치 구현입니다.
 
 ```
 dtslib.com Mobile-first AI Builder
@@ -58,7 +58,7 @@ dtslib.com Mobile-first AI Builder
 │   └── 데이터 캡처 시스템 (Parksy)
 │
 ├── 브랜치 구현
-│   ├── KOOSY (콘텐츠 비즈니스) ← 첫 번째
+│   ├── GOHSY (콘텐츠 비즈니스) ← 첫 번째
 │   ├── [다음 브랜치] ← config.json만 수정
 │   └── [계열사 N] ← 무한 확장
 │
@@ -226,7 +226,7 @@ GitHub + Termux + Claude Code 체인 중 **하나만 막혀도 끝**
 - [x] Staff Portal
 - [x] PWA/APK 빌드 파이프라인
 - [x] Parksy Capture 연동
-- [x] KOOSY 브랜치 구현
+- [x] GOHSY 브랜치 구현
 
 ### Phase 2: 계열사 복제
 - [ ] 브랜치 템플릿 표준화
@@ -295,11 +295,11 @@ dtslib.com Mobile-first AI Builder는 **3가지**를 제공합니다:
 **단순한 도구가 아닙니다.**
 **디지털 자아를 구축하는 시스템입니다.**
 
-KOOSY는 그 첫 번째 증명입니다.
+GOHSY는 그 첫 번째 증명입니다.
 
 ---
 
-## 부록: KOOSY 브랜치 상세
+## 부록: GOHSY 브랜치 상세
 
 ### Staff Portal 구조
 ```
