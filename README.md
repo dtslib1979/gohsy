@@ -1,2 +1,3 @@
-# gohsy
-gohsy comes true
+# dtslib
+
+Boilerplate dev and actual model
