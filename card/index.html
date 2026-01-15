@@ -231,6 +231,26 @@
       box-shadow: 0 4px 20px rgba(212,175,55,.3);
     }
 
+    .card-license-section {
+      margin-top: 16px;
+      text-align: center;
+    }
+
+    .card-license-toggle {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      padding: 8px;
+      transition: color 0.2s;
+    }
+
+    .card-license-toggle:hover {
+      color: var(--gold);
+    }
+
     .card-footer-note {
       text-align: center;
       margin-top: 16px;
@@ -238,6 +258,53 @@
       color: var(--text-muted);
       letter-spacing: 0.08em;
       text-transform: uppercase;
+    }
+
+    /* 사업자등록증 모달 */
+    .license-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,.9);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .license-modal.show {
+      display: flex;
+    }
+
+    .license-modal-content {
+      position: relative;
+      max-width: 500px;
+      width: 100%;
+      background: var(--bg-elevated);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .license-modal-content img {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    .license-close {
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      width: 32px;
+      height: 32px;
+      background: var(--gold);
+      border: none;
+      border-radius: 50%;
+      color: var(--bg);
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .toast {
@@ -310,9 +377,21 @@
         </a>
       </div>
 
+      <!-- Business License -->
+      <div class="card-license-section">
+        <button class="card-license-toggle" onclick="toggleLicense()">사업자등록증 보기</button>
+      </div>
     </article>
 
     <p class="card-footer-note">Tap card to copy link</p>
+  </div>
+
+  <!-- 사업자등록증 모달 -->
+  <div class="license-modal" id="licenseModal" onclick="closeLicenseModal(event)">
+    <div class="license-modal-content">
+      <button class="license-close" onclick="toggleLicense()">&times;</button>
+      <img src="../assets/icons/business-license.jpg" alt="사업자등록증">
+    </div>
   </div>
 
   <div class="toast" id="toast">Link copied</div>
@@ -364,6 +443,17 @@ END:VCARD`;
       if (navigator.vibrate) navigator.vibrate(50);
     }
 
+    // 사업자등록증 모달
+    function toggleLicense() {
+      const modal = document.getElementById('licenseModal');
+      modal.classList.toggle('show');
+    }
+
+    function closeLicenseModal(event) {
+      if (event.target === event.currentTarget) {
+        toggleLicense();
+      }
+    }
   </script>
 </body>
 </html>
