@@ -1,16 +1,16 @@
 {
   "articles": [
     {
-      "file": "gohsy-studio-osd.html",
-      "title": "Gohsy Studio OSD — Operational Standard Document v1.01",
-      "description": "Human-in-the-loop Media Engine 운영 표준 문서. 인간을 소모하지 않고 시스템이 굴러가게 만드는 구조.",
+      "file": "1500.html",
+      "title": "1500원 환율 시대가 시사하는 바",
+      "description": "",
       "date": "2026-01-15",
       "status": "published"
     },
     {
-      "file": "1500.html",
-      "title": "1500원 환율 시대가 시사하는 바",
-      "description": "",
+      "file": "gohsy-studio-osd.html",
+      "title": "Gohsy Studio OSD — Operational Standard Document v1.01",
+      "description": "Gohsy Studio Integrated Whitepaper — Operational Standard Document (OSD) v1.01",
       "date": "2026-01-15",
       "status": "published"
     },
