@@ -3,27 +3,28 @@
   "short_name": "GOHSY",
   "description": "GOHSY ≡ Built on Gold. Measured in Silver.",
   "start_url": "/gohsy/",
-  "display": "standalone",
+  "display": "browser",
   "background_color": "#0a1f1a",
   "theme_color": "#D4AF37",
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "1.jpg",
       "sizes": "192x192",
       "type": "image/jpeg",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "1.jpg",
       "sizes": "512x512",
       "type": "image/jpeg",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "1.jpg",
       "sizes": "1024x1024",
       "type": "image/jpeg",
-      "purpose": "any maskable"
+      "purpose": "any"
     }
   ]
 }
