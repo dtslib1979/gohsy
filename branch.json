@@ -1,0 +1,38 @@
+{
+  "id": "gohsy",
+  "name": "GOHSY",
+  "tagline": "Wish Fulfillment Platform",
+  "hq": "dtslib1979/dtslib-branch",
+  "version": "1.0",
+  "status": "active",
+  "visibility": "private",
+  "area": "business",
+  "tier": "standard",
+  "theme": {
+    "primary": "#6366F1",
+    "accent": "#F59E0B",
+    "bg": "#0f0f1a",
+    "text": "#f5f5f5"
+  },
+  "subscriptions": [
+    {
+      "feedId": "eae-courses",
+      "publisher": "eae",
+      "autoSync": true,
+      "target": "assets/feeds/eae"
+    },
+    {
+      "feedId": "hq-notices",
+      "publisher": "hq",
+      "autoSync": true,
+      "target": null
+    },
+    {
+      "feedId": "hq-sdk",
+      "publisher": "hq",
+      "autoSync": true,
+      "target": "assets/js"
+    }
+  ],
+  "features": ["wish-tracking", "goal-setting"]
+}
