@@ -1,6 +1,13 @@
 {
   "articles": [
     {
+      "file": "brand-naming-philosophy.html",
+      "title": "브랜드 네이밍 철학 — THE HOUSE OF GOHSY",
+      "description": "GO(엔진) + h(왕좌) + sy(형용사) = 무한한 창조의 알고리즘. Brand White Paper Ver 1.0",
+      "date": "2026-02-05",
+      "status": "published"
+    },
+    {
       "file": "gohsy-studio-osd.html",
       "title": "Gohsy Studio OSD — Operational Standard Document v1.01",
       "description": "Gohsy Studio Integrated Whitepaper — Operational Standard Document (OSD) v1.01",
