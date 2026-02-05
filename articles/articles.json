@@ -2,8 +2,8 @@
   "articles": [
     {
       "file": "brand-naming-philosophy.html",
-      "title": "브랜드 네이밍 철학 — THE HOUSE OF GOHSY",
-      "description": "GO(엔진) + h(왕좌) + sy(형용사) = 무한한 창조의 알고리즘. Brand White Paper Ver 1.0",
+      "title": "Brand Naming Philosophy — THE HOUSE OF GOHSY",
+      "description": "BRAND WHITE PAPER: THE HOUSE OF GOHSY — 브랜드 네이밍 철학. GO(엔진) + h(왕좌) + sy(형용사) = 무한한 창조의 알고리즘.",
       "date": "2026-02-05",
       "status": "published"
     },
@@ -11,21 +11,21 @@
       "file": "gohsy-studio-osd.html",
       "title": "Gohsy Studio OSD — Operational Standard Document v1.01",
       "description": "Gohsy Studio Integrated Whitepaper — Operational Standard Document (OSD) v1.01",
-      "date": "2026-01-22",
+      "date": "2026-02-05",
       "status": "published"
     },
     {
       "file": "investor-deck.html",
       "title": "GOHSY — Investor Deck",
       "description": "GOHSY - Real Money, Real World | Bluffing based editing broadcasting CELEB story",
-      "date": "2026-01-22",
+      "date": "2026-02-05",
       "status": "draft"
     },
     {
       "file": "실버90.html",
       "title": "Gohsy Manifesto — Built on Gold. Measured in Silver",
       "description": "Gohsy Manifesto — Built on Gold. Measured in Silver",
-      "date": "2026-01-22",
+      "date": "2026-02-05",
       "status": "published"
     }
   ]
