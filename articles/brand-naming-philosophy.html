@@ -412,26 +412,43 @@
     }
 
     /* Visual Identity */
-    .vi-grid{
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
+    .vi-list{
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
       margin: 20px 0;
     }
-    .vi-card{
+    .vi-item{
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      padding: 22px;
+      padding: 20px 22px;
       background: rgba(0,0,0,.25);
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
     }
-    .vi-card h4{
-      margin: 0 0 10px;
-      font-size: 14px;
+    .vi-item .vi-icon{
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: rgba(212,175,55,.10);
+      border: 1px solid rgba(212,175,55,.25);
+      font-size: 18px;
+    }
+    .vi-item .vi-body{
+      flex: 1;
+      min-width: 0;
+    }
+    .vi-item h4{
+      margin: 0 0 6px;
+      font-size: 15px;
       font-weight: 700;
-      color: var(--silver);
-      letter-spacing: .3px;
+      color: var(--text);
     }
-    .vi-card p{
+    .vi-item p{
       margin: 0;
       font-size: 14px;
       color: var(--muted);
@@ -439,24 +456,27 @@
     }
     .color-row{
       display: flex;
-      gap: 12px;
-      margin-top: 8px;
+      gap: 10px;
+      margin-top: 10px;
+      flex-wrap: wrap;
     }
     .color-chip{
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 12px;
+      padding: 8px 14px;
       border-radius: 10px;
       border: 1px solid var(--line);
       background: rgba(255,255,255,.03);
       font-size: 13px;
       font-weight: 600;
+      color: var(--muted);
     }
     .color-chip .swatch{
-      width: 20px;
-      height: 20px;
-      border-radius: 6px;
+      width: 18px;
+      height: 18px;
+      border-radius: 5px;
+      flex-shrink: 0;
     }
 
     /* Tone */
@@ -606,7 +626,7 @@
     @media (max-width: 720px){
       .doc-hero h1{ font-size: 28px; }
       .trinity-grid{ grid-template-columns: 1fr; }
-      .vi-grid{ grid-template-columns: 1fr; }
+      .vi-item{ flex-direction: column; gap: 10px; }
       .tone-grid{ grid-template-columns: 1fr; }
       .manifesto{ padding: 28px 20px; }
       .manifesto h2{ font-size: 22px; }
@@ -617,7 +637,7 @@
       .doc-hero h1{ font-size: 24px; }
       .doc-hero{ padding: 40px 16px 36px; }
       .syntax-card{ padding: 18px; }
-      .color-row{ flex-direction: column; }
+      .color-row{ flex-direction: column; gap: 8px; }
     }
   </style>
 </head>
@@ -760,34 +780,65 @@
         </div>
         <p><strong>'현대적 기술(Tech)'</strong>과 <strong>'고전적 권위(Classic)'</strong>의 결합.</p>
 
-        <div class="vi-grid">
-          <div class="vi-card">
-            <h4>Symbol &mdash; The Gold Coin</h4>
-            <p>결과물은 화폐처럼 교환 가치를 지니며, 훈장처럼 명예롭다. 세 개의 코인이 연결된 구조는 끊어지지 않는 혈맹(Family)을 상징한다.</p>
+        <div class="vi-list">
+          <div class="vi-item">
+            <div class="vi-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="9" stroke="rgba(212,175,55,.9)" stroke-width="1.5"/>
+                <path d="M12 7v5l3 3" stroke="rgba(200,204,208,.8)" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="vi-body">
+              <h4>Symbol &mdash; The Gold Coin</h4>
+              <p>결과물은 화폐처럼 교환 가치를 지니며, 훈장처럼 명예롭다. 세 개의 코인이 연결된 구조는 끊어지지 않는 혈맹(Family)을 상징한다.</p>
+            </div>
           </div>
 
-          <div class="vi-card">
-            <h4>Typography &mdash; Serif</h4>
-            <p>모던함보다는 전통과 역사가 느껴지는 명조 서체. 디지털 시대에도 변하지 않는 장인정신(Craftsmanship)을 표현한다.</p>
+          <div class="vi-item">
+            <div class="vi-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M4 7h16M4 12h10M4 17h14" stroke="rgba(212,175,55,.9)" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="vi-body">
+              <h4>Typography &mdash; Serif</h4>
+              <p>모던함보다는 전통과 역사가 느껴지는 명조 서체. 디지털 시대에도 변하지 않는 장인정신(Craftsmanship)을 표현한다.</p>
+            </div>
           </div>
 
-          <div class="vi-card" style="grid-column: span 2;">
-            <h4>Color Palette</h4>
-            <div class="color-row">
-              <div class="color-chip">
-                <span class="swatch" style="background: #D4AF37;"></span>
-                Royal Gold &mdash; 불변의 가치, 번영
-              </div>
-              <div class="color-chip">
-                <span class="swatch" style="background: #0a0a0a; border: 1px solid rgba(255,255,255,.15);"></span>
-                Deep Black &mdash; 무한한 우주, 몰입
+          <div class="vi-item">
+            <div class="vi-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <rect x="3" y="3" width="8" height="8" rx="2" stroke="rgba(212,175,55,.9)" stroke-width="1.5"/>
+                <rect x="13" y="13" width="8" height="8" rx="2" stroke="rgba(200,204,208,.8)" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <div class="vi-body">
+              <h4>Color Palette</h4>
+              <div class="color-row">
+                <div class="color-chip">
+                  <span class="swatch" style="background: #D4AF37;"></span>
+                  Royal Gold &mdash; 불변의 가치, 번영
+                </div>
+                <div class="color-chip">
+                  <span class="swatch" style="background: #0a0a0a; border: 1px solid rgba(255,255,255,.15);"></span>
+                  Deep Black &mdash; 무한한 우주, 몰입
+                </div>
               </div>
             </div>
           </div>
 
-          <div class="vi-card" style="grid-column: span 2;">
-            <h4>Key Visual &mdash; Genesis Texture</h4>
-            <p>히브리어 성경 텍스트(Genesis)를 텍스처로 활용하여, 브랜드의 깊이(Depth)와 신비(Mystery)를 더한다.</p>
+          <div class="vi-item">
+            <div class="vi-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M12 3v18M3 12h18" stroke="rgba(212,175,55,.9)" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M7 7l10 10M17 7L7 17" stroke="rgba(200,204,208,.5)" stroke-width="1" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="vi-body">
+              <h4>Key Visual &mdash; Genesis Texture</h4>
+              <p>히브리어 성경 텍스트(Genesis)를 텍스처로 활용하여, 브랜드의 깊이(Depth)와 신비(Mystery)를 더한다.</p>
+            </div>
           </div>
         </div>
       </div>
