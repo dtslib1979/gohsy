@@ -1,0 +1,112 @@
+{
+  "meta": {
+    "name": "GOHSY 방송/배우 길드",
+    "description": "AI 시대 방송인/배우 12슬롯 길드",
+    "industry": "entertainment",
+    "totalSlots": 12,
+    "version": "1.0.0",
+    "updatedAt": "2026-02-06"
+  },
+  "slots": [
+    {
+      "id": "slot01",
+      "status": "active",
+      "type": "anchor",
+      "member": {
+        "name": "길드장",
+        "fullName": "GOHSY 길드장",
+        "avatar": "G",
+        "photo": "/assets/members/guildmaster.png",
+        "title": "방송/배우 길드 길드장",
+        "tagline": "Voices for the Voiceless"
+      },
+      "contact": {
+        "phone": "",
+        "email": "gohsy@gohsy.com"
+      },
+      "social": {
+        "youtube": "",
+        "blog": ""
+      },
+      "joinedAt": "2026-02-06",
+      "theme": "gold"
+    },
+    {
+      "id": "slot02",
+      "status": "empty",
+      "type": "paid",
+      "member": null,
+      "contact": null
+    },
+    {
+      "id": "slot03",
+      "status": "empty",
+      "type": "paid",
+      "member": null,
+      "contact": null
+    },
+    {
+      "id": "slot04",
+      "status": "empty",
+      "type": "paid",
+      "member": null,
+      "contact": null
+    },
+    {
+      "id": "slot05",
+      "status": "empty",
+      "type": "paid",
+      "member": null,
+      "contact": null
+    },
+    {
+      "id": "slot06",
+      "status": "empty",
+      "type": "paid",
+      "member": null,
+      "contact": null
+    },
+    {
+      "id": "slot07",
+      "status": "empty",
+      "type": "paid",
+      "member": null,
+      "contact": null
+    },
+    {
+      "id": "slot08",
+      "status": "empty",
+      "type": "paid",
+      "member": null,
+      "contact": null
+    },
+    {
+      "id": "slot09",
+      "status": "empty",
+      "type": "paid",
+      "member": null,
+      "contact": null
+    },
+    {
+      "id": "slot10",
+      "status": "empty",
+      "type": "paid",
+      "member": null,
+      "contact": null
+    },
+    {
+      "id": "slot11",
+      "status": "empty",
+      "type": "paid",
+      "member": null,
+      "contact": null
+    },
+    {
+      "id": "slot12",
+      "status": "empty",
+      "type": "paid",
+      "member": null,
+      "contact": null
+    }
+  ]
+}

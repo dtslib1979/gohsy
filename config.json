@@ -4,7 +4,7 @@
     "shortName": "GOHSY",
     "domain": "gohsy.com",
     "url": "https://dtslib1979.github.io/gohsy/",
-    "description": "Human-in-the-loop Media Engine",
+    "description": "AI 시대 방송인/배우 12슬롯 길드",
     "tagline": "Voices for the Voiceless",
     "established": "2026.01.13",
     "themeColor": "#D4AF37"
@@ -13,6 +13,15 @@
     "name": "DIMAS",
     "email": "dimas@dtslib.com",
     "location": "대한민국"
+  },
+  "guild": {
+    "enabled": true,
+    "name": "GOHSY 방송/배우 길드",
+    "industry": "entertainment",
+    "totalSlots": 12,
+    "registryPath": "/registry.json",
+    "masterSlot": "slot01",
+    "features": ["walkie", "card", "reel", "console"]
   },
   "service": {
     "title": "AI 업무 자동화 세팅",
