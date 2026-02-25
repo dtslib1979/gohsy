@@ -6,7 +6,7 @@
     "url": "https://dtslib1979.github.io/gohsy/",
     "description": "AI 시대 방송인/배우 12슬롯 길드",
     "tagline": "Voices for the Voiceless",
-    "established": "2026.01.13",
+    "established": "2026.02.25",
     "themeColor": "#D4AF37"
   },
   "owner": {
@@ -35,11 +35,11 @@
     ]
   },
   "staff": {
-    "accessCode": "1126",
+    "accessCode": "0225",
     "storageKey": "dtslib_staff_auth"
   },
   "console": {
-    "accessCode": "1126",
+    "accessCode": "0225",
     "storageKey": "gohsy_console_auth"
   },
   "pr": {
@@ -64,7 +64,7 @@
     "title": "Human-in-the-loop Media Engine",
     "organization": "GOHSY",
     "tagline": "The engine remains. The node is free.",
-    "quote": "EST. 2026.01.13",
+    "quote": "EST. 2026.02.25",
     "email": "gohsy@gohsy.com",
     "phone": "",
     "website": "https://gohsy.com",
