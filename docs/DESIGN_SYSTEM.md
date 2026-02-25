@@ -19,7 +19,7 @@
 | **Unique Concept** | 히브리어 배경 텍스처 | 차별화 요소 |
 | **UI Metaphor** | 명함 카드 | UX 콘셉트 |
 | **Tagline** | Built on Gold. Measured in Silver. | 서브 메시지 |
-| **EST. Date** | 2026.01.13 | 설립일 |
+| **EST. Date** | 2026.02.25 | 설립일 |
 
 ---
 
