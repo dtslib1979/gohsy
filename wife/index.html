@@ -424,7 +424,6 @@
   const r = await fetch('../data/personas.json');
   const d = await r.json();
   const p = d.personas.find(x => x.id === 'wife');
-  // (unchanged)
   const iframe = document.getElementById('wife-youtube');
   const yt = p?.youtube;
   if (yt && yt.playlist_id && !yt.playlist_id.includes('PLACEHOLDER')) {
