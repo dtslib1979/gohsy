@@ -1,0 +1,47 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2026-04-26",
+  "coin": {
+    "image": "assets/mh.jpg",
+    "established": "2026.02.25",
+    "nodes": 4
+  },
+  "personas": [
+    {
+      "id": "wife",
+      "name": "와이프",
+      "role": "어학 YouTube 강사",
+      "channel": "youtube",
+      "node_color": "#4A90E2",
+      "icon": "language",
+      "youtube": {
+        "playlist_id": "PLACEHOLDER_WIFE_LANGUAGE",
+        "channel_id": "PLACEHOLDER_WIFE_CHANNEL"
+      }
+    },
+    {
+      "id": "daughter",
+      "name": "딸",
+      "role": "차세대 크리에이터",
+      "channel": "youtube",
+      "node_color": "#7ED321",
+      "icon": "creative",
+      "youtube": {
+        "playlist_id": "PLACEHOLDER_DAUGHTER_CREATIVE",
+        "channel_id": "PLACEHOLDER_DAUGHTER_CHANNEL"
+      }
+    },
+    {
+      "id": "gohsy",
+      "name": "GOHSY",
+      "role": "배우 · 커머스",
+      "channel": "commerce",
+      "node_color": "#D4AF37",
+      "icon": "crown",
+      "youtube": {
+        "playlist_id": "PLACEHOLDER_GOHSY_COMMERCE",
+        "channel_id": "PLACEHOLDER_GOHSY_CHANNEL"
+      }
+    }
+  ]
+}

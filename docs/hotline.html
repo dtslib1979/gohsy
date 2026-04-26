@@ -1,318 +1,663 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hotline</title>
-  <link rel="icon" href="../assets/icons/logo.jpg">
-  <link rel="apple-touch-icon" href="../assets/icons/logo.jpg">
-  <link rel="manifest" href="../assets/manifest.json">
-  <meta name="theme-color" content="#D4AF37">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <title>Hotline — 긴급 연락 | GOHSY</title>
+  <meta name="description" content="GOHSY Hotline — 긴급 연락" />
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=JetBrains+Mono:wght@100;200;400;700&display=swap" rel="stylesheet">
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="GOHSY" />
+  <meta property="og:title" content="Hotline — 긴급 연락" />
+  <meta property="og:description" content="GOHSY Hotline — 긴급 연락" />
+  <meta property="og:image" content="https://gohsy.kr/assets/1.jpg" />
+  <meta property="og:url" content="https://gohsy.kr/docs/hotline.html" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hotline — 긴급 연락">
+  <meta name="twitter:description" content="GOHSY Hotline — 긴급 연락">
+  <meta name="twitter:image" content="https://gohsy.kr/assets/1.jpg">
+  <link rel="canonical" href="https://gohsy.kr/docs/hotline.html">
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebSite",
+    "name":"GOHSY",
+    "url":"https://gohsy.kr/",
+    "description":"GOHSY — 매트릭스 — 와이프(Wife)/Daughter/GOHsy(Guild)",
+    "publisher":{"@type":"Organization","name":"GOHSY","logo":"https://gohsy.kr/assets/mh.jpg"}
+  }
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+  <link rel="stylesheet" href="../assets/discord/discord.css">
+
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #0d1117;
-      color: #e6edf3;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;background:#000}
+    body{
+      font-family:'Pretendard Variable',sans-serif;
+      background:#0a0a0a;color:#f0f0f0;
+      min-height:100vh;overflow-x:hidden;
     }
-    .header {
-      background: #161b22;
-      padding: 16px 20px;
-      border-bottom: 1px solid #30363d;
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    a{color:inherit;text-decoration:none}
+    img,video{max-width:100%;display:block}
+
+    /* === NAV === */
+    nav.top{
+      position:fixed;top:0;left:0;right:0;z-index:50;
+      display:flex;justify-content:space-between;align-items:center;
+      padding:1.25rem 2rem;
+      background:linear-gradient(180deg,rgba(10,10,10,0.92) 0%,rgba(10,10,10,0) 100%);
+      backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
     }
-    .header h1 { font-size: 18px; font-weight: 600; }
-    .hotline-badge {
-      background: #da3633;
-      padding: 4px 10px;
-      border-radius: 12px;
-      font-size: 12px;
+    nav.top .brand{
+      font-family:'Cinzel',serif;font-weight:600;letter-spacing:.25em;
+      font-size:1.05rem;color:#D4AF37;
+      background:linear-gradient(180deg,#F5DC8C 0%,#D4AF37 50%,#9C7A1E 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
     }
-    .partner-badge {
-      background: #1f6feb;
-      padding: 4px 10px;
-      border-radius: 12px;
-      font-size: 12px;
+    nav.top .links{display:flex;gap:1.5rem;font-size:.85rem;color:#888;font-family:'JetBrains Mono',monospace;letter-spacing:.1em}
+    @media(max-width:600px){nav.top .links{gap:.9rem;font-size:.75rem}}
+    nav.top .links a{transition:color .3s}
+    nav.top .links a:hover{color:#D4AF37}
+
+    /* === HERO with VIDEO === */
+    .hero{
+      min-height:100vh;position:relative;overflow:hidden;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;padding:6rem 2rem 4rem;
     }
-    .sync-btn {
-      margin-left: auto;
-      background: #30363d;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 8px;
-      color: #e6edf3;
-      cursor: pointer;
-      font-size: 12px;
+    .hero-bg-video{
+      position:absolute;inset:0;width:100%;height:100%;
+      object-fit:cover;opacity:0.18;filter:blur(2px) saturate(1.3);
+      z-index:0;pointer-events:none;
     }
-    .chat-container {
-      flex: 1;
-      overflow-y: auto;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+    .hero-bg-overlay{
+      position:absolute;inset:0;
+      background:radial-gradient(ellipse at center,rgba(26,20,16,0.4) 0%,rgba(10,10,10,0.95) 75%);
+      z-index:1;
     }
-    .message {
-      max-width: 80%;
-      padding: 12px 16px;
-      border-radius: 16px;
-      font-size: 14px;
-      line-height: 1.5;
+    .hero-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center}
+    .coin-image{
+      width:min(60vmin,520px);height:auto;
+      filter:drop-shadow(0 0 80px rgba(212,175,55,0.45));
+      animation:coinFloat 9s ease-in-out infinite;
+      margin-bottom:2.5rem;border-radius:50%;
     }
-    .message.mine {
-      align-self: flex-end;
-      background: #da3633;
-      border-bottom-right-radius: 4px;
+    @keyframes coinFloat{
+      0%,100%{transform:translateY(0) rotate(0deg)}
+      50%{transform:translateY(-25px) rotate(2deg)}
     }
-    .message.other {
-      align-self: flex-start;
-      background: #30363d;
-      border-bottom-left-radius: 4px;
+    .brand-mark{
+      font-family:'Cinzel',serif;
+      font-size:clamp(2.5rem,11vw,7rem);
+      font-weight:600;letter-spacing:.25em;
+      background:linear-gradient(180deg,#F8E89E 0%,#E5C158 25%,#D4AF37 50%,#A8842E 75%,#5C4A1A 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      margin-bottom:1.5rem;line-height:1;
+      filter:drop-shadow(0 4px 20px rgba(212,175,55,0.3));
     }
-    .message .sender { font-size: 11px; opacity: 0.7; margin-bottom: 4px; }
-    .message .time { font-size: 10px; opacity: 0.5; margin-top: 4px; text-align: right; }
-    .input-area {
-      background: #161b22;
-      padding: 16px 20px;
-      border-top: 1px solid #30363d;
-      display: flex;
-      gap: 12px;
+    .tagline-en{
+      font-family:'Cinzel',serif;
+      font-size:clamp(.95rem,2vw,1.25rem);
+      color:#F5DC8C;letter-spacing:.15em;font-weight:500;
+      margin-bottom:.6rem;text-transform:uppercase;
     }
-    .input-area input {
-      flex: 1;
-      background: #0d1117;
-      border: 1px solid #30363d;
-      border-radius: 20px;
-      padding: 12px 20px;
-      color: #e6edf3;
-      font-size: 14px;
-      outline: none;
+    .tagline-ko{
+      font-size:clamp(.95rem,2vw,1.15rem);
+      color:#d8d8d8;font-weight:300;letter-spacing:.05em;
+      margin-bottom:1rem;
     }
-    .input-area button {
-      background: #da3633;
-      border: none;
-      border-radius: 20px;
-      padding: 12px 24px;
-      color: white;
-      font-weight: 600;
-      cursor: pointer;
+    .established{
+      font-family:'JetBrains Mono',monospace;
+      font-size:.8rem;color:#999;letter-spacing:.35em;
     }
-    .status { font-size: 12px; color: #8b949e; text-align: center; padding: 8px; }
-    .setup-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.9);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 100;
+    .scroll-hint{
+      position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+      font-family:'JetBrains Mono',monospace;font-size:.7rem;
+      color:#555;letter-spacing:.3em;z-index:3;
+      animation:scrollHint 2.2s ease-in-out infinite;
     }
-    .setup-overlay.hidden { display: none; }
-    .setup-box {
-      background: #161b22;
-      padding: 32px;
-      border-radius: 16px;
-      border: 1px solid #30363d;
-      width: 90%;
-      max-width: 400px;
+    @keyframes scrollHint{
+      0%,100%{opacity:.4;transform:translateX(-50%) translateY(0)}
+      50%{opacity:1;transform:translateX(-50%) translateY(8px)}
     }
-    .setup-box h2 { margin-bottom: 20px; text-align: center; }
-    .setup-box label { display: block; margin-bottom: 8px; font-size: 14px; color: #8b949e; }
-    .setup-box input, .setup-box select {
-      width: 100%;
-      background: #0d1117;
-      border: 1px solid #30363d;
-      border-radius: 8px;
-      padding: 12px 16px;
-      color: #e6edf3;
-      font-size: 14px;
-      margin-bottom: 16px;
-      outline: none;
+
+    /* === SECTION COMMON === */
+    section{padding:7rem 2rem;max-width:1400px;margin:0 auto}
+    .section-header{text-align:center;margin-bottom:5rem}
+    .section-label{
+      font-family:'JetBrains Mono',monospace;
+      font-size:.78rem;letter-spacing:.4em;color:#D4AF37;
+      margin-bottom:1.2rem;
     }
-    .setup-box button {
-      width: 100%;
-      background: #da3633;
-      border: none;
-      border-radius: 8px;
-      padding: 14px;
-      color: white;
-      font-weight: 600;
-      cursor: pointer;
+    .section-title{
+      font-family:'Cinzel',serif;
+      font-size:clamp(2rem,5vw,3.5rem);
+      font-weight:500;letter-spacing:.05em;
+      background:linear-gradient(180deg,#F5DC8C 0%,#D4AF37 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
     }
+    @media(max-width:600px){section{padding:4rem 2rem}}
+
+    /* === CHAPTER NAVIGATION === */
+    .matrix-section{padding:7rem 2rem;border-top:1px solid #1a1a1a}
+    .matrix-grid{
+      display:grid;grid-template-columns:repeat(4,1fr);
+      gap:1.5rem;max-width:1200px;margin:0 auto;
+    }
+    @media(max-width:900px){.matrix-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:480px){.matrix-grid{grid-template-columns:1fr}}
+    .coin-card{
+      position:relative;text-align:center;padding:2rem 1rem;
+      background:linear-gradient(180deg,#161208 0%,#0a0a0a 100%);
+      border:1px solid #1a1410;
+      transition:transform .5s cubic-bezier(.2,.8,.2,1),border-color .4s,box-shadow .4s;
+    }
+    .coin-card:hover{
+      transform:translateY(-8px);
+      border-color:#D4AF37;
+      box-shadow:0 30px 80px rgba(0,0,0,0.6),0 0 60px rgba(212,175,55,0.15);
+    }
+    .coin-card img{
+      width:100%;aspect-ratio:1;object-fit:cover;border-radius:50%;
+      filter:drop-shadow(0 8px 30px rgba(212,175,55,0.25));
+      transition:transform 1s ease;
+    }
+    .coin-card:hover img{transform:rotate(360deg)}
+    .coin-card .coin-name{
+      font-family:'Cinzel',serif;font-weight:600;letter-spacing:.1em;
+      font-size:1.15rem;color:#D4AF37;margin-top:1.2rem;
+    }
+    .coin-card .coin-role{
+      font-family:'JetBrains Mono',monospace;font-size:.7rem;
+      color:#b0b0b0;letter-spacing:.2em;margin-top:.4rem;text-transform:uppercase;
+    }
+
+    /* === CHAPTER CONTENT === */
+    .personas-section{padding:7rem 2rem;border-top:1px solid #1a1a1a;max-width:1400px;margin:0 auto}
+    .persona-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+    @media(max-width:900px){.persona-grid{grid-template-columns:1fr}}
+    .persona-card{
+      position:relative;padding:2.5rem 2rem;
+      background:linear-gradient(180deg,#161616 0%,#0d0d0d 100%);
+      border:1px solid #222;
+      transition:transform .5s cubic-bezier(.2,.8,.2,1),border-color .4s,box-shadow .5s;
+      overflow:hidden;display:flex;flex-direction:column;cursor:pointer;
+      min-height:560px;
+    }
+    .persona-card::before{
+      content:'';position:absolute;top:0;left:0;right:0;height:4px;
+      background:var(--accent,#D4AF37);opacity:.7;
+      transition:opacity .4s,height .4s;
+    }
+    .persona-card::after{
+      content:'';position:absolute;inset:0;
+      background:radial-gradient(circle at 50% 0%,var(--accent,#D4AF37) 0%,transparent 70%);
+      opacity:0;transition:opacity .4s;pointer-events:none;
+    }
+    .persona-card:hover{
+      transform:translateY(-12px) scale(1.02);
+      border-color:var(--accent,#D4AF37);
+      box-shadow:0 30px 80px rgba(0,0,0,0.5);
+    }
+    .persona-card:hover::before{height:8px;opacity:1}
+    .persona-card:hover::after{opacity:.06}
+    .persona-card .coin-art{
+      width:180px;height:180px;border-radius:50%;
+      object-fit:cover;margin:0 auto 1.5rem;
+      filter:drop-shadow(0 8px 25px rgba(0,0,0,0.5));
+      transition:transform .8s ease;
+    }
+    @media(max-width:600px){.persona-card .coin-art{width:220px;height:220px}}
+    .persona-card:hover .coin-art{transform:rotate(15deg) scale(1.05)}
+    .persona-card h3{
+      font-family:'Cinzel',serif;font-size:1.6rem;
+      font-weight:600;letter-spacing:.05em;
+      color:var(--accent,#D4AF37);text-align:center;margin-bottom:.4rem;
+    }
+    .persona-card .ko-name{
+      font-size:1.05rem;font-weight:400;color:#f0f0f0;
+      text-align:center;margin-bottom:1.2rem;letter-spacing:.05em;
+    }
+    .persona-card .role{
+      font-size:.95rem;color:#d0d0d0;line-height:1.7;text-align:center;
+      margin-bottom:1.5rem;
+    }
+    .persona-card .channel-badge{
+      align-self:center;font-family:'JetBrains Mono',monospace;
+      font-size:.7rem;letter-spacing:.25em;color:#c0c0c0;
+      padding:.4rem .9rem;border:1px solid #555;
+      text-transform:uppercase;margin-bottom:auto;
+    }
+    .persona-card .cta{
+      font-family:'JetBrains Mono',monospace;font-size:.8rem;
+      letter-spacing:.2em;color:var(--accent,#D4AF37);
+      padding-top:1.5rem;margin-top:1.5rem;
+      border-top:1px solid #1a1a1a;text-align:center;
+      transition:letter-spacing .3s;
+    }
+    .persona-card:hover .cta{letter-spacing:.3em}
+
+    /* === BACK — HOTLINE === */
+    .operator-section{
+      padding:7rem 2rem;border-top:1px solid #1a1a1a;
+      max-width:900px;margin:0 auto;text-align:center;
+    }
+    .operator-photo{
+      width:140px;height:140px;border-radius:50%;
+      object-fit:cover;margin:0 auto 2rem;
+      border:2px solid #D4AF37;
+      filter:drop-shadow(0 0 40px rgba(212,175,55,0.3));
+    }
+    .operator-name{
+      font-family:'Cinzel',serif;font-size:1.6rem;
+      font-weight:500;letter-spacing:.1em;color:#D4AF37;margin-bottom:.4rem;
+    }
+    .operator-role{
+      font-family:'JetBrains Mono',monospace;font-size:.78rem;
+      letter-spacing:.3em;color:#666;text-transform:uppercase;margin-bottom:2rem;
+    }
+    .operator-desc{color:#d8d8d8;line-height:1.85;margin-bottom:2.5rem;font-size:1rem}
+    .operator-desc strong{color:#D4AF37;font-weight:500}
+    .operator-cta-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem}
+    .btn-gold{
+      display:inline-block;padding:.95rem 2rem;
+      border:1px solid #D4AF37;color:#D4AF37;
+      font-family:'JetBrains Mono',monospace;font-size:.82rem;letter-spacing:.2em;
+      transition:background .3s,color .3s,letter-spacing .3s;
+    }
+    .btn-gold:hover{background:#D4AF37;color:#0a0a0a;letter-spacing:.3em}
+    .btn-ghost{
+      display:inline-block;padding:.95rem 2rem;
+      border:1px solid #333;color:#888;
+      font-family:'JetBrains Mono',monospace;font-size:.82rem;letter-spacing:.2em;
+      transition:border-color .3s,color .3s;
+    }
+    .btn-ghost:hover{border-color:#D4AF37;color:#D4AF37}
+    .license-note{
+      display:inline-flex;align-items:center;gap:.8rem;
+      padding:.6rem 1.2rem;border:1px solid #1a1a1a;
+      font-family:'JetBrains Mono',monospace;font-size:.7rem;
+      color:#999;letter-spacing:.2em;
+    }
+    .license-note img{width:24px;height:24px;border-radius:3px;object-fit:cover;opacity:.7}
+
+    /* === DISCORD === */
+    .discord-section{padding:7rem 2rem;border-top:1px solid #1a1a1a;max-width:1400px;margin:0 auto}
+    .discord-widget-wrap{display:flex;flex-direction:column;gap:2rem;align-items:center;max-width:600px;margin:0 auto}
+    .presence-fallback,.feed-fallback{font-family:'JetBrains Mono',monospace;font-size:.9rem;color:#b0b0b0;letter-spacing:.1em;text-align:center;padding:2rem 0}
+
+    /* === TIMELINE === */
+    .timeline-section{padding:7rem 2rem;border-top:1px solid #1a1a1a;max-width:1100px;margin:0 auto}
+    .timeline{position:relative;padding-left:2rem}
+    .timeline::before{
+      content:'';position:absolute;top:0;bottom:0;left:.5rem;
+      width:1px;background:linear-gradient(180deg,#D4AF37 0%,#1a1a1a 100%);
+    }
+    .timeline-item{
+      position:relative;padding:1.5rem 0 1.5rem 2rem;
+    }
+    .timeline-item::before{
+      content:'';position:absolute;left:-.45rem;top:1.9rem;
+      width:14px;height:14px;border-radius:50%;
+      background:#0a0a0a;border:2px solid #D4AF37;
+      box-shadow:0 0 12px rgba(212,175,55,0.4);
+    }
+    .timeline-item.current::before{background:#D4AF37}
+    .timeline-date{
+      font-family:'JetBrains Mono',monospace;font-size:.72rem;
+      color:#666;letter-spacing:.25em;margin-bottom:.4rem;
+    }
+    .timeline-title{
+      font-family:'Cinzel',serif;font-size:1.15rem;font-weight:500;
+      color:#f0f0f0;margin-bottom:.4rem;letter-spacing:.05em;
+    }
+    .timeline-desc{color:#c8c8c8;font-size:.92rem;line-height:1.7}
+
+    /* === FOOTER === */
+    footer{
+      padding:3rem 2rem;text-align:center;
+      border-top:1px solid #1a1a1a;
+      font-family:'JetBrains Mono',monospace;
+      font-size:.72rem;color:#444;letter-spacing:.2em;
+    }
+    footer .links{margin-bottom:1rem;display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap}
+    footer .links a{transition:color .3s}
+    footer .links a:hover{color:#D4AF37}
+
+    /* === REVEAL === */
+    .js [data-reveal]{opacity:0;transform:translateY(40px)}
   </style>
 </head>
 <body>
-  <div class="setup-overlay" id="setupOverlay">
-    <div class="setup-box">
-      <h2>Hotline Setup</h2>
-      <label>Your Name</label>
-      <input type="text" id="inputUser" placeholder="Name">
-      <label>Your Role</label>
-      <select id="inputRole">
-        <option value="hq">HQ (본사)</option>
-        <option value="branch">Branch (계열사)</option>
-      </select>
-      <label>Partner Branch</label>
-      <select id="inputPartner">
-        <option value="koosy">Koosy</option>
-        <option value="gohsy">Gohsy</option>
-        <option value="papafly">Papafly</option>
-      </select>
-      <label>GitHub Token</label>
-      <input type="password" id="inputToken" placeholder="ghp_xxxx...">
-      <button onclick="saveSetup()">Connect Hotline</button>
+<script>document.documentElement.classList.add('js');</script>
+
+<nav class="top" aria-label="Main navigation">
+  <a href="/" class="brand">GOHSY</a>
+  <div class="links">
+    <a href="../wife/">Wife</a>
+    <a href="../daughter/">Daughter</a>
+    <a href="../gohsy/">GOHSY</a>
+    <a href="../staff/">Backoffice</a>
+  </div>
+</nav>
+
+<!-- 1. HERO with logo video bg + GOHSY coin -->
+<section class="hero">
+  <video class="hero-bg-video" autoplay muted loop playsinline>
+    <source src="../assets/icons/logo-video.mp4" type="video/mp4">
+  </video>
+  <div class="hero-bg-overlay"></div>
+  <div class="hero-inner">
+    <img src="../assets/1.jpg" alt="GOHSY Coin"
+         class="coin-image"
+         data-tilt data-tilt-max="8" data-tilt-glare data-tilt-max-glare="0.3">
+    <h1 class="brand-mark" data-splitting>Hotline</h1>
+    <p class="tagline-en">Direct Line</p>
+    <p class="tagline-ko">박씨 직통 핫라인</p>
+    <p class="established">EST. 2026.01.13</p>
+  </div>
+  <div class="scroll-hint">SCROLL ↓</div>
+</section>
+
+<!-- 2. CONTACT METHODS -->
+<section class="matrix-section">
+  <div class="section-header" data-reveal>
+    <p class="section-label">CONTACT METHODS</p>
+    <h2 class="section-title">연락 방법</h2>
+  </div>
+  <div class="matrix-grid">
+    <a href="#method1" class="coin-card" data-reveal style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;background:linear-gradient(180deg,#0a0f14 0%,#050505 100%);border:1px solid #1a1a1a;border-top:3px solid #D4AF37;text-decoration:none;color:inherit">
+      <div style="font-size:3rem;margin-bottom:1rem">✈️</div>
+      <div class="coin-name">텔레그램</div>
+      <div class="coin-role">Telegram</div>
+      <div style="font-size:.8rem;color:#888;margin-top:.5rem">@dtsli — 즉시 도착</div>
+    </a>
+    <a href="#method2" class="coin-card" data-reveal style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;background:linear-gradient(180deg,#0a0f14 0%,#050505 100%);border:1px solid #1a1a1a;border-top:3px solid #D4AF37;text-decoration:none;color:inherit">
+      <div style="font-size:3rem;margin-bottom:1rem">💬</div>
+      <div class="coin-name">카카오톡</div>
+      <div class="coin-role">KakaoTalk</div>
+      <div style="font-size:.8rem;color:#888;margin-top:.5rem">오픈채팅 · ID: gohsy</div>
+    </a>
+    <a href="#method3" class="coin-card" data-reveal style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;background:linear-gradient(180deg,#0a0f14 0%,#050505 100%);border:1px solid #1a1a1a;border-top:3px solid #D4AF37;text-decoration:none;color:inherit">
+      <div style="font-size:3rem;margin-bottom:1rem">📧</div>
+      <div class="coin-name">이메일</div>
+      <div class="coin-role">Email</div>
+      <div style="font-size:.8rem;color:#888;margin-top:.5rem">dtsli@gohsy.kr — 업무</div>
+    </a>
+    <a href="#method4" class="coin-card" data-reveal style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;background:linear-gradient(180deg,#0a0f14 0%,#050505 100%);border:1px solid #1a1a1a;border-top:3px solid #D4AF37;text-decoration:none;color:inherit">
+      <div style="font-size:3rem;margin-bottom:1rem">🚨</div>
+      <div class="coin-name">긴급</div>
+      <div class="coin-role">Emergency</div>
+      <div style="font-size:.8rem;color:#888;margin-top:.5rem">SMS · 전화 · 우회 채널</div>
+    </a>
+  </div>
+</section>
+
+<!-- 3. CONTACT DETAILS -->
+<section class="personas-section" id="method1">
+  <div class="section-header" data-reveal>
+    <p class="section-label">연락처 정보</p>
+    <h2 class="section-title">Contact Details</h2>
+  </div>
+  <div style="max-width:800px;margin:0 auto;padding:0 2rem">
+    <div style="background:linear-gradient(180deg,#161616 0%,#0d0d0d 100%);border:1px solid #222;border-radius:8px;padding:2rem;margin-bottom:1.5rem">
+      <h3 style="font-family:'Cinzel',serif;color:#D4AF37;font-size:1.2rem;letter-spacing:.1em;margin-bottom:1.5rem">✈️ 텔레그램</h3>
+      <p style="color:#d8d8d8;line-height:1.8;margin-bottom:.8rem"><strong style="color:#f0f0f0">ID:</strong> @dtsli</p>
+      <p style="color:#d8d8d8;line-height:1.8;margin-bottom:.8rem"><strong style="color:#f0f0f0">응답:</strong> 즉시 (봇 자동 응답)</p>
+      <p style="color:#d8d8d8;line-height:1.8"><strong style="color:#f0f0f0">용도:</strong> 일반 문의 · 긴급 연락 · 파일 전송</p>
+    </div>
+    <div style="background:linear-gradient(180deg,#161616 0%,#0d0d0d 100%);border:1px solid #222;border-radius:8px;padding:2rem;margin-bottom:1.5rem">
+      <h3 style="font-family:'Cinzel',serif;color:#D4AF37;font-size:1.2rem;letter-spacing:.1em;margin-bottom:1.5rem">💬 카카오톡</h3>
+      <p style="color:#d8d8d8;line-height:1.8;margin-bottom:.8rem"><strong style="color:#f0f0f0">ID:</strong> gohsy (오픈채팅)</p>
+      <p style="color:#d8d8d8;line-height:1.8;margin-bottom:.8rem"><strong style="color:#f0f0f0">응답:</strong> 평일 10:00–18:00</p>
+      <p style="color:#d8d8d8;line-height:1.8"><strong style="color:#f0f0f0">용도:</strong> 일반 상담 · 커뮤니티</p>
+    </div>
+    <div style="background:linear-gradient(180deg,#161616 0%,#0d0d0d 100%);border:1px solid #222;border-radius:8px;padding:2rem;margin-bottom:1.5rem">
+      <h3 style="font-family:'Cinzel',serif;color:#D4AF37;font-size:1.2rem;letter-spacing:.1em;margin-bottom:1.5rem">📧 이메일</h3>
+      <p style="color:#d8d8d8;line-height:1.8;margin-bottom:.8rem"><strong style="color:#f0f0f0">주소:</strong> dtsli@gohsy.kr</p>
+      <p style="color:#d8d8d8;line-height:1.8;margin-bottom:.8rem"><strong style="color:#f0f0f0">응답:</strong> 24시간 이내</p>
+      <p style="color:#d8d8d8;line-height:1.8"><strong style="color:#f0f0f0">용도:</strong> 업무 제안 · 파트너십 · 공식 문의</p>
+    </div>
+    <div style="background:linear-gradient(180deg,#161616 0%,#0d0d0d 100%);border:1px solid #222;border-radius:8px;padding:2rem;margin-bottom:1.5rem">
+      <h3 style="font-family:'Cinzel',serif;color:#D4AF37;font-size:1.2rem;letter-spacing:.1em;margin-bottom:1.5rem">🚨 긴급 연락</h3>
+      <p style="color:#d8d8d8;line-height:1.8;margin-bottom:.8rem"><strong style="color:#f0f0f0">SMS:</strong> 텔레그램 긴급 채널</p>
+      <p style="color:#d8d8d8;line-height:1.8;margin-bottom:.8rem"><strong style="color:#f0f0f0">응답:</strong> 30분 이내</p>
+      <p style="color:#d8d8d8;line-height:1.8"><strong style="color:#f0f0f0">용도:</strong> 시스템 장애 · 보안 사고 · 당장 필요한 연락</p>
+    </div>
+
+    <!-- 응답 시간 표 -->
+    <div style="margin-top:2.5rem;padding:2rem;background:linear-gradient(180deg,#161616 0%,#0d0d0d 100%);border:1px solid #222;border-radius:8px">
+      <p style="font-family:'Cinzel',serif;color:#D4AF37;margin-bottom:1.5rem;font-size:1.1rem;letter-spacing:.1em;text-align:center">⏱ 채널별 응답 시간</p>
+      <div style="overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:.82rem">
+          <thead>
+            <tr style="border-bottom:1px solid #333">
+              <th style="padding:.8rem;text-align:left;color:#D4AF37;letter-spacing:.1em">채널</th>
+              <th style="padding:.8rem;text-align:center;color:#D4AF37;letter-spacing:.1em">평일</th>
+              <th style="padding:.8rem;text-align:center;color:#D4AF37;letter-spacing:.1em">주말/공휴일</th>
+              <th style="padding:.8rem;text-align:center;color:#D4AF37;letter-spacing:.1em">긴급</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #1a1a1a">
+              <td style="padding:.8rem;color:#f0f0f0">텔레그램</td>
+              <td style="padding:.8rem;text-align:center;color:#b0b0b0">&lt; 5분</td>
+              <td style="padding:.8rem;text-align:center;color:#b0b0b0">&lt; 30분</td>
+              <td style="padding:.8rem;text-align:center;color:#D4AF37">즉시</td>
+            </tr>
+            <tr style="border-bottom:1px solid #1a1a1a">
+              <td style="padding:.8rem;color:#f0f0f0">카카오톡</td>
+              <td style="padding:.8rem;text-align:center;color:#b0b0b0">&lt; 2시간</td>
+              <td style="padding:.8rem;text-align:center;color:#b0b0b0">&lt; 12시간</td>
+              <td style="padding:.8rem;text-align:center;color:#999">—</td>
+            </tr>
+            <tr style="border-bottom:1px solid #1a1a1a">
+              <td style="padding:.8rem;color:#f0f0f0">이메일</td>
+              <td style="padding:.8rem;text-align:center;color:#b0b0b0">&lt; 24시간</td>
+              <td style="padding:.8rem;text-align:center;color:#b0b0b0">&lt; 48시간</td>
+              <td style="padding:.8rem;text-align:center;color:#999">—</td>
+            </tr>
+            <tr>
+              <td style="padding:.8rem;color:#f0f0f0">긴급 채널</td>
+              <td style="padding:.8rem;text-align:center;color:#b0b0b0">&lt; 30분</td>
+              <td style="padding:.8rem;text-align:center;color:#b0b0b0">&lt; 30분</td>
+              <td style="padding:.8rem;text-align:center;color:#D4AF37">즉시</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="color:#666;font-size:.75rem;text-align:center;margin-top:1.5rem;font-family:'JetBrains Mono',monospace;letter-spacing:.1em">* 긴급은 시스템 장애/보안 사고 한정</p>
     </div>
   </div>
+</section>
 
-  <div class="header">
-    <h1>Hotline</h1>
-    <span class="hotline-badge">1:1</span>
-    <span class="partner-badge" id="partnerBadge">-</span>
-    <button class="sync-btn" onclick="syncFromGitHub()">Sync</button>
+<!-- 4. BACK — ABOUT HOTLINE -->
+<section class="operator-section" data-reveal>
+  <img src="../assets/icons/profile.jpg" alt="핫라인" class="operator-photo">
+  <div class="operator-name">Hotline</div>
+  <div class="operator-role">DIRECT LINE</div>
+  <p class="operator-desc">
+    <strong>Hotline</strong> 은 박씨 직통 핫라인입니다.<br>
+    텔레그램 · 카카오톡 · 이메일 · 긴급 — 4개 채널로<br>
+    <strong>박씨</strong>에게 직접 연락할 수 있습니다.
+  </p>
+  <div class="operator-cta-row">
+    <a href="../" class="btn-gold">GOHSY →</a>
   </div>
-
-  <div class="chat-container" id="chatContainer"></div>
-  <div class="status" id="status">Ready</div>
-
-  <div class="input-area">
-    <input type="text" id="messageInput" placeholder="Type a message..." onkeypress="if(event.key==='Enter')sendMessage()">
-    <button onclick="sendMessage()">Send</button>
+  <div class="license-note">
+    <img src="../assets/icons/business-license.jpg" alt="사업자등록">
+    REGISTERED · 정식 등록 사업자
   </div>
+</section>
 
-  <script>
-    const REPO_OWNER = 'dtslib1979';
-    const REPO_NAME = 'dtslib-branch';
+<!-- 5. DISCORD CHAT -->
+<section class="discord-section" data-reveal>
+  <div class="section-header">
+    <p class="section-label">COMMUNITY · DISCORD</p>
+    <h2 class="section-title">Real-time Hub</h2>
+  </div>
+  <div class="discord-widget-wrap">
+    <div id="gohsy-discord-presence"></div>
+    <div id="gohsy-discord-messages"></div>
+    <div id="gohsy-discord-widget-wrap" style="width:100%;display:flex;justify-content:center">
+      <iframe id="gohsy-discord-widget" loading="lazy" title="GOHSY Discord 실시간 채팅"
+        sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+        allow="clipboard-write"
+        style="width:100%;max-width:600px;height:400px;border-radius:12px;border:1px solid #1a1a1a">
+      </iframe>
+    </div>
+    <a href="#" id="gohsy-discord-invite" class="btn-gold">Discord 참여 →</a>
+  </div>
+</section>
 
-    let currentUser = localStorage.getItem('hotlineUser');
-    let currentRole = localStorage.getItem('hotlineRole');
-    let partner = localStorage.getItem('hotlinePartner');
-    let ghToken = localStorage.getItem('ghToken');
-    let messages = [];
-    let fileSha = null;
+<!-- 6. TIMELINE - 박씨 GOHSY 진화 서사 -->
+<section class="timeline-section">
+  <div class="section-header" data-reveal>
+    <p class="section-label">REPO AS NOVEL · 헌법 제1조</p>
+    <h2 class="section-title">진화의 6 챕터</h2>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item" data-reveal>
+      <div class="timeline-date">CHAPTER 1 · 시작</div>
+      <div class="timeline-title">Celebrity Stories</div>
+      <div class="timeline-desc">셀럽 스토리 편집 방송 — 블러핑 기반 편집 콘텐츠.</div>
+    </div>
+    <div class="timeline-item" data-reveal>
+      <div class="timeline-date">CHAPTER 2 · 전환</div>
+      <div class="timeline-title">A Standard for Real Money</div>
+      <div class="timeline-desc">하이프가 아니라 진짜 돈의 기준. 매크로 금융 + 금속 투자.</div>
+    </div>
+    <div class="timeline-item" data-reveal>
+      <div class="timeline-date">CHAPTER 3 · 확장</div>
+      <div class="timeline-title">Guild HQ + Chalkboard Pack</div>
+      <div class="timeline-desc">과외 길드 본부 + 칠판 콘텐츠 시스템.</div>
+    </div>
+    <div class="timeline-item" data-reveal>
+      <div class="timeline-date">CHAPTER 4 · 각성</div>
+      <div class="timeline-title">Commerce Phase 0~6</div>
+      <div class="timeline-desc">KS-001 첫 상품. 51.5% 마진. 4 채널 (쿠팡 · 네이버 · YouTube · Showroom).</div>
+    </div>
+    <div class="timeline-item" data-reveal>
+      <div class="timeline-date">CHAPTER 5 · 분화</div>
+      <div class="timeline-title">4 Coin Matrix</div>
+      <div class="timeline-desc">GOHSY — 4 Coin Matrix 디자인 완성.</div>
+    </div>
+    <div class="timeline-item current" data-reveal>
+      <div class="timeline-date">CHAPTER 6 · 현재 · 2026-04-25</div>
+      <div class="timeline-title">3 Persona Affiliate Matrix</div>
+      <div class="timeline-desc">Wife · Daughter · GOHSY 페르소나 정식 진입. 박씨 backoffice 인큐베이터 모델 라이브.</div>
+    </div>
+  </div>
+</section>
 
-    function getFilePath() {
-      return `meeting-minutes/hotline/${partner}.json`;
-    }
+<!-- FOOTER -->
+<footer>
+  <div class="links">
+    <a href="../wife/">Wife</a>
+    <a href="../daughter/">Daughter</a>
+    <a href="../gohsy/">GOHSY</a>
+    <a href="../staff/">Backoffice</a>
+    <a href="../card/">Card</a>
+    <a href="https://github.com/dtslib1979/gohsy" target="_blank">GitHub</a>
+  </div>
+  <div>© 2026 GOHSY · EST. 2026.01.13 · Operated by 박씨 · Hotline</div>
+</footer>
 
-    function init() {
-      if (!currentUser || !ghToken || !partner) {
-        document.getElementById('setupOverlay').classList.remove('hidden');
-      } else {
-        document.getElementById('setupOverlay').classList.add('hidden');
-        document.getElementById('partnerBadge').textContent = partner.toUpperCase();
-        syncFromGitHub();
-      }
-    }
+<script>
+  if (window.Splitting) Splitting();
+  if (window.VanillaTilt) VanillaTilt.init(document.querySelectorAll('[data-tilt]'));
 
-    function saveSetup() {
-      const user = document.getElementById('inputUser').value.trim();
-      const role = document.getElementById('inputRole').value;
-      const part = document.getElementById('inputPartner').value;
-      const token = document.getElementById('inputToken').value.trim();
-      if (user && token && part) {
-        currentUser = user;
-        currentRole = role;
-        partner = part;
-        ghToken = token;
-        localStorage.setItem('hotlineUser', user);
-        localStorage.setItem('hotlineRole', role);
-        localStorage.setItem('hotlinePartner', part);
-        localStorage.setItem('ghToken', token);
-        document.getElementById('setupOverlay').classList.add('hidden');
-        document.getElementById('partnerBadge').textContent = partner.toUpperCase();
-        syncFromGitHub();
-      }
-    }
+  if (window.gsap && window.ScrollTrigger){
+    gsap.registerPlugin(ScrollTrigger);
 
-    function setStatus(msg) {
-      document.getElementById('status').textContent = msg;
-    }
+    // Hero entry sequence
+    gsap.from('.coin-image', {opacity:0, scale:0.4, rotation:180, duration:2, ease:'elastic.out(1, 0.6)', delay:0.3});
+    gsap.from('.brand-mark .char', {opacity:0, y:80, duration:0.9, stagger:0.07, ease:'power3.out', delay:0.7});
+    gsap.from('.tagline-en', {opacity:0, y:20, duration:0.8, ease:'power3.out', delay:1.6});
+    gsap.from('.tagline-ko', {opacity:0, y:20, duration:0.8, ease:'power3.out', delay:1.85});
+    gsap.from('.established', {opacity:0, duration:0.6, delay:2.1});
 
-    async function syncFromGitHub() {
-      setStatus('Syncing...');
-      try {
-        const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${getFilePath()}`, {
-          headers: { 'Authorization': `token ${ghToken}` }
-        });
-        if (res.ok) {
-          const data = await res.json();
-          fileSha = data.sha;
-          messages = JSON.parse(atob(data.content));
-          renderMessages();
-          setStatus('Synced: ' + new Date().toLocaleTimeString());
-        } else {
-          setStatus('Sync failed: ' + res.status);
-        }
-      } catch (e) {
-        setStatus('Error: ' + e.message);
-      }
-    }
-
-    function renderMessages() {
-      const container = document.getElementById('chatContainer');
-      container.innerHTML = '';
-      messages.forEach(msg => {
-        const div = document.createElement('div');
-        div.className = 'message ' + (msg.user === currentUser ? 'mine' : 'other');
-        div.innerHTML = `
-          <div class="sender">${msg.user} (${msg.role})</div>
-          <div class="text">${msg.text}</div>
-          <div class="time">${msg.time}</div>
-        `;
-        container.appendChild(div);
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('[data-reveal]');
+    reveals.forEach(el => {
+      gsap.to(el, {
+        opacity:1, y:0, duration:1, ease:'power3.out',
+        scrollTrigger: {trigger:el, start:'top 95%', toggleActions:'play none none none'}
       });
-      container.scrollTop = container.scrollHeight;
-    }
-
-    async function sendMessage() {
-      const input = document.getElementById('messageInput');
-      const text = input.value.trim();
-      if (!text) return;
-
-      const msg = {
-        user: currentUser,
-        role: currentRole === 'hq' ? 'HQ' : partner,
-        text: text,
-        time: new Date().toLocaleString('ko-KR')
-      };
-
-      messages.push(msg);
-      renderMessages();
-      input.value = '';
-
-      setStatus('Saving...');
-      try {
-        const content = btoa(unescape(encodeURIComponent(JSON.stringify(messages, null, 2))));
-        const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${getFilePath()}`, {
-          method: 'PUT',
-          headers: {
-            'Authorization': `token ${ghToken}`,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            message: `hotline: ${currentUser} → ${partner}`,
-            content: content,
-            sha: fileSha
-          })
-        });
-        if (res.ok) {
-          const data = await res.json();
-          fileSha = data.content.sha;
-          setStatus('Saved');
-        } else {
-          setStatus('Save failed');
+    });
+    setTimeout(() => {
+      reveals.forEach(el => {
+        if (parseFloat(getComputedStyle(el).opacity) < 0.5) {
+          gsap.to(el, {opacity:1, y:0, duration:0.6});
         }
-      } catch (e) {
-        setStatus('Error: ' + e.message);
-      }
-    }
+      });
+    }, 1500);
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(el => {
+      el.style.opacity = '1'; el.style.transform = 'none';
+    });
+  }
+  // 인터랙션: 코인 클릭 → CONTACT METHODS
+  const heroCoin = document.querySelector('.coin-image');
+  if (heroCoin) {
+    heroCoin.style.cursor = 'pointer';
+    heroCoin.addEventListener('click', () => {
+      document.querySelector('.matrix-section').scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  }
+  // 인터랙션: SCROLL ↓ 클릭 → 다음 섹션
+  const scrollHint = document.querySelector('.scroll-hint');
+  if (scrollHint) {
+    scrollHint.style.cursor = 'pointer';
+    scrollHint.addEventListener('click', () => {
+      document.querySelector('.matrix-section').scrollIntoView({behavior:'smooth'});
+    });
+  }
+  // 인터랙션: parallax — 마우스에 따라 hero 코인 이동
+  if (window.gsap) {
+    document.querySelector('.hero').addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 20;
+      const y = (e.clientY / window.innerHeight - 0.5) * 20;
+      gsap.to('.coin-image', {x, y, duration:0.6, ease:'power2.out'});
+    });
+  }
+</script>
 
-    init();
-  </script>
+<script type="module">
+  import { CFG } from '../assets/discord/config.js';
+  import { renderPresence } from '../assets/discord/presence.js';
+  import { renderFeed } from '../assets/discord/messages-feed.js';
+
+  const presenceEl = document.getElementById('gohsy-discord-presence');
+  const feedEl     = document.getElementById('gohsy-discord-messages');
+  if (presenceEl) renderPresence(presenceEl);
+  if (feedEl)     renderFeed(feedEl);
+
+  const widgetIframe = document.getElementById('gohsy-discord-widget');
+  if (widgetIframe) {
+    const ch = CFG.CH_ID && !CFG.CH_ID.includes('PLACEHOLDER') ? `/${CFG.CH_ID}` : '';
+    widgetIframe.src = `https://e.widgetbot.io/channels/${CFG.GUILD_ID}${ch}`;
+  }
+
+  const chatWidget = document.getElementById('gohsy-chat-widget');
+  if (chatWidget) {
+    const ch = CFG.CH_ID && !CFG.CH_ID.includes('PLACEHOLDER') ? `/${CFG.CH_ID}` : '';
+    chatWidget.src = `https://e.widgetbot.io/channels/${CFG.GUILD_ID}${ch}`;
+  }
+</script>
 </body>
 </html>

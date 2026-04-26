@@ -1,1379 +1,630 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>dtslib.com Mobile-first AI Builder</title>
-    <link rel="icon" href="../assets/icons/logo.jpg">
-    <link rel="apple-touch-icon" href="../assets/icons/logo.jpg">
-    <link rel="manifest" href="../assets/manifest.json">
-    <meta name="theme-color" content="#D4AF37">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
-
-        :root {
-            --dark-green: #0a1f1a;
-            --deep-green: #0d2b24;
-            --accent-green: #1a4d40;
-            --gold: #d4af37;
-            --gold-light: #f4d03f;
-            --gold-dark: #b8860b;
-            --text-primary: #e8e8e8;
-            --text-secondary: #a0a0a0;
-            --text-muted: #666;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Noto Sans KR', -apple-system, sans-serif;
-            background: var(--dark-green);
-            color: var(--text-primary);
-            line-height: 1.8;
-            overflow-x: hidden;
-        }
-
-        /* Particle Background */
-        #particles-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--gold);
-            border-radius: 50%;
-            opacity: 0.3;
-            animation: float 15s infinite ease-in-out;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
-            25% { transform: translateY(-100px) translateX(50px); opacity: 0.6; }
-            50% { transform: translateY(-200px) translateX(-30px); opacity: 0.3; }
-            75% { transform: translateY(-100px) translateX(-50px); opacity: 0.6; }
-        }
-
-        /* Progress Bar */
-        .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
-            z-index: 1000;
-            transition: width 0.1s ease;
-            box-shadow: 0 0 10px var(--gold);
-        }
-
-        /* Navigation */
-        .nav {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 999;
-            display: flex;
-            gap: 10px;
-        }
-
-        .nav-dot {
-            width: 12px;
-            height: 12px;
-            border: 2px solid var(--gold);
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .nav-dot.active {
-            background: var(--gold);
-            box-shadow: 0 0 15px var(--gold);
-        }
-
-        .nav-dot:hover {
-            transform: scale(1.3);
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background:
-                radial-gradient(ellipse at 20% 80%, rgba(26, 77, 64, 0.4) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 20%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(13, 43, 36, 0.8) 0%, var(--dark-green) 100%);
-            z-index: -1;
-        }
-
-        .hero-badge {
-            display: inline-block;
-            padding: 8px 24px;
-            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
-            color: var(--dark-green);
-            font-size: 0.85rem;
-            font-weight: 700;
-            border-radius: 50px;
-            margin-bottom: 30px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
-            50% { box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); }
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 20px;
-            letter-spacing: -2px;
-        }
-
-        .hero-subtitle {
-            font-size: clamp(1.1rem, 3vw, 1.5rem);
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin-bottom: 40px;
-        }
-
-        .typewriter {
-            font-size: clamp(1rem, 2.5vw, 1.3rem);
-            color: var(--gold);
-            height: 2em;
-            overflow: hidden;
-        }
-
-        .typewriter-text {
-            border-right: 3px solid var(--gold);
-            padding-right: 5px;
-            animation: blink 0.7s infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { border-color: var(--gold); }
-            50% { border-color: transparent; }
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
-        }
-
-        .scroll-indicator svg {
-            width: 30px;
-            height: 30px;
-            stroke: var(--gold);
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(10px); }
-        }
-
-        /* Sections */
-        section {
-            position: relative;
-            z-index: 1;
-            padding: 100px 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            font-size: clamp(2rem, 5vw, 3rem);
-            font-weight: 900;
-            text-align: center;
-            margin-bottom: 60px;
-            position: relative;
-        }
-
-        .section-title span {
-            background: linear-gradient(135deg, var(--gold-light), var(--gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            margin: 20px auto 0;
-        }
-
-        /* Three Key Points */
-        .key-points {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            margin-bottom: 60px;
-        }
-
-        .key-point {
-            background: linear-gradient(135deg, var(--deep-green), var(--accent-green));
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 20px;
-            padding: 40px 30px;
-            position: relative;
-            overflow: hidden;
-            transform: translateY(50px);
-            opacity: 0;
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .key-point.visible {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .key-point::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
-        }
-
-        .key-point:hover {
-            transform: translateY(-10px);
-            border-color: var(--gold);
-            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.2);
-        }
-
-        .key-point-number {
-            font-size: 4rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            opacity: 0.3;
-            position: absolute;
-            top: 20px;
-            right: 30px;
-        }
-
-        .key-point h3 {
-            font-size: 1.5rem;
-            color: var(--gold);
-            margin-bottom: 20px;
-        }
-
-        .key-point-content {
-            color: var(--text-secondary);
-            font-size: 1rem;
-        }
-
-        .key-point-content code {
-            display: block;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px;
-            border-radius: 8px;
-            font-family: 'Monaco', monospace;
-            font-size: 0.85rem;
-            margin: 15px 0;
-            white-space: pre-wrap;
-            color: var(--gold-light);
-        }
-
-        /* Counter Animation */
-        .counter-section {
-            background: linear-gradient(135deg, var(--accent-green), var(--deep-green));
-            padding: 80px 20px;
-            margin: 60px 0;
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        .counters {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            text-align: center;
-        }
-
-        .counter-item {
-            padding: 20px;
-        }
-
-        .counter-value {
-            font-size: 4rem;
-            font-weight: 900;
-            color: var(--gold);
-            display: block;
-            line-height: 1;
-        }
-
-        .counter-label {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            margin-top: 10px;
-        }
-
-        /* Pipeline Visualization */
-        .pipeline {
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 20px;
-            padding: 40px;
-            margin: 40px 0;
-            position: relative;
-        }
-
-        .pipeline-steps {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .pipeline-step {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            padding: 20px;
-            background: var(--deep-green);
-            border-radius: 12px;
-            border-left: 4px solid var(--gold);
-            transform: translateX(-50px);
-            opacity: 0;
-            transition: all 0.5s ease;
-        }
-
-        .pipeline-step.visible {
-            transform: translateX(0);
-            opacity: 1;
-        }
-
-        .pipeline-step-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            flex-shrink: 0;
-        }
-
-        .pipeline-step-content h4 {
-            color: var(--gold);
-            margin-bottom: 5px;
-        }
-
-        .pipeline-step-content p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .pipeline-arrow {
-            text-align: center;
-            color: var(--gold);
-            font-size: 2rem;
-            animation: arrowPulse 1.5s infinite;
-        }
-
-        @keyframes arrowPulse {
-            0%, 100% { opacity: 0.3; transform: translateY(0); }
-            50% { opacity: 1; transform: translateY(5px); }
-        }
-
-        /* Comparison Table */
-        .comparison-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 40px 0;
-            background: var(--deep-green);
-            border-radius: 12px;
-            overflow: hidden;
-        }
-
-        .comparison-table th {
-            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
-            color: var(--dark-green);
-            padding: 20px;
-            font-weight: 700;
-            text-align: left;
-        }
-
-        .comparison-table td {
-            padding: 20px;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
-        }
-
-        .comparison-table tr:hover td {
-            background: rgba(212, 175, 55, 0.05);
-        }
-
-        .comparison-table .highlight {
-            color: var(--gold);
-            font-weight: 700;
-        }
-
-        .comparison-table .old {
-            color: #ff6b6b;
-            text-decoration: line-through;
-            opacity: 0.7;
-        }
-
-        /* Timeline */
-        .timeline {
-            position: relative;
-            padding-left: 40px;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 15px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, var(--gold), var(--gold-dark), transparent);
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 40px;
-            padding: 25px;
-            background: var(--deep-green);
-            border-radius: 12px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            transform: translateX(30px);
-            opacity: 0;
-            transition: all 0.5s ease;
-        }
-
-        .timeline-item.visible {
-            transform: translateX(0);
-            opacity: 1;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -33px;
-            top: 30px;
-            width: 16px;
-            height: 16px;
-            background: var(--gold);
-            border-radius: 50%;
-            box-shadow: 0 0 20px var(--gold);
-        }
-
-        .timeline-item.completed::before {
-            background: #4ecdc4;
-            box-shadow: 0 0 20px #4ecdc4;
-        }
-
-        .timeline-item h4 {
-            color: var(--gold);
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-        }
-
-        .timeline-item ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .timeline-item li {
-            padding: 5px 0;
-            padding-left: 25px;
-            position: relative;
-            color: var(--text-secondary);
-        }
-
-        .timeline-item li::before {
-            content: '→';
-            position: absolute;
-            left: 0;
-            color: var(--gold);
-        }
-
-        .timeline-item.completed li::before {
-            content: '✓';
-            color: #4ecdc4;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            text-align: center;
-            padding: 100px 20px;
-            background: linear-gradient(135deg, var(--deep-green), var(--accent-green));
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
-            animation: rotate 20s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .cta-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .cta-title {
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
-            margin-bottom: 20px;
-        }
-
-        .cta-highlight {
-            display: block;
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--gold-light), var(--gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin: 20px 0;
-        }
-
-        .cta-subtitle {
-            color: var(--text-secondary);
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto 40px;
-        }
-
-        /* Final Summary */
-        .final-summary {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin: 60px 0;
-        }
-
-        .summary-card {
-            background: linear-gradient(135deg, var(--deep-green), var(--accent-green));
-            border: 2px solid var(--gold);
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .summary-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.3);
-        }
-
-        .summary-card-number {
-            font-size: 3rem;
-            font-weight: 900;
-            color: var(--gold);
-            margin-bottom: 10px;
-        }
-
-        .summary-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            color: var(--text-primary);
-        }
-
-        .summary-card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 60px 20px;
-            background: var(--dark-green);
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        .footer-logo {
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: var(--gold);
-            margin-bottom: 20px;
-        }
-
-        .footer-info {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav {
-                top: auto;
-                bottom: 20px;
-                right: 50%;
-                transform: translateX(50%);
-            }
-
-            .key-points {
-                grid-template-columns: 1fr;
-            }
-
-            .pipeline-step {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .timeline {
-                padding-left: 30px;
-            }
-
-            .timeline-item::before {
-                left: -23px;
-                width: 12px;
-                height: 12px;
-            }
-        }
-
-        /* Animation Classes */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .slide-in-left {
-            opacity: 0;
-            transform: translateX(-50px);
-            transition: all 0.6s ease;
-        }
-
-        .slide-in-left.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .slide-in-right {
-            opacity: 0;
-            transform: translateX(50px);
-            transition: all 0.6s ease;
-        }
-
-        .slide-in-right.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        /* Glow effect for important text */
-        .glow {
-            text-shadow: 0 0 10px var(--gold), 0 0 20px var(--gold), 0 0 30px var(--gold);
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <title>Whitepaper — GOHSY 백서 | GOHSY</title>
+  <meta name="description" content="GOHSY Whitepaper — 길드/커머스 백서" />
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=JetBrains+Mono:wght@100;200;400;700&display=swap" rel="stylesheet">
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="GOHSY" />
+  <meta property="og:title" content="Whitepaper — GOHSY 백서" />
+  <meta property="og:description" content="GOHSY Whitepaper — 길드/커머스 백서" />
+  <meta property="og:image" content="https://gohsy.kr/assets/1.jpg" />
+  <meta property="og:url" content="https://gohsy.kr/docs/whitepaper.html" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Whitepaper — GOHSY 백서">
+  <meta name="twitter:description" content="GOHSY Whitepaper — 길드/커머스 백서">
+  <meta name="twitter:image" content="https://gohsy.kr/assets/1.jpg">
+  <link rel="canonical" href="https://gohsy.kr/docs/whitepaper.html">
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebSite",
+    "name":"GOHSY",
+    "url":"https://gohsy.kr/",
+    "description":"GOHSY — 매트릭스 — 와이프(Wife)/Daughter/GOHsy(Guild)",
+    "publisher":{"@type":"Organization","name":"GOHSY","logo":"https://gohsy.kr/assets/mh.jpg"}
+  }
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+  <link rel="stylesheet" href="../assets/discord/discord.css">
+
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;background:#000}
+    body{
+      font-family:'Pretendard Variable',sans-serif;
+      background:#0a0a0a;color:#f0f0f0;
+      min-height:100vh;overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none}
+    img,video{max-width:100%;display:block}
+
+    /* === NAV === */
+    nav.top{
+      position:fixed;top:0;left:0;right:0;z-index:50;
+      display:flex;justify-content:space-between;align-items:center;
+      padding:1.25rem 2rem;
+      background:linear-gradient(180deg,rgba(10,10,10,0.92) 0%,rgba(10,10,10,0) 100%);
+      backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    }
+    nav.top .brand{
+      font-family:'Cinzel',serif;font-weight:600;letter-spacing:.25em;
+      font-size:1.05rem;color:#D4AF37;
+      background:linear-gradient(180deg,#F5DC8C 0%,#D4AF37 50%,#9C7A1E 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
+    nav.top .links{display:flex;gap:1.5rem;font-size:.85rem;color:#888;font-family:'JetBrains Mono',monospace;letter-spacing:.1em}
+    @media(max-width:600px){nav.top .links{gap:.9rem;font-size:.75rem}}
+    nav.top .links a{transition:color .3s}
+    nav.top .links a:hover{color:#D4AF37}
+
+    /* === HERO with VIDEO === */
+    .hero{
+      min-height:100vh;position:relative;overflow:hidden;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;padding:6rem 2rem 4rem;
+    }
+    .hero-bg-video{
+      position:absolute;inset:0;width:100%;height:100%;
+      object-fit:cover;opacity:0.18;filter:blur(2px) saturate(1.3);
+      z-index:0;pointer-events:none;
+    }
+    .hero-bg-overlay{
+      position:absolute;inset:0;
+      background:radial-gradient(ellipse at center,rgba(26,20,16,0.4) 0%,rgba(10,10,10,0.95) 75%);
+      z-index:1;
+    }
+    .hero-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center}
+    .coin-image{
+      width:min(60vmin,520px);height:auto;
+      filter:drop-shadow(0 0 80px rgba(212,175,55,0.45));
+      animation:coinFloat 9s ease-in-out infinite;
+      margin-bottom:2.5rem;border-radius:50%;
+    }
+    @keyframes coinFloat{
+      0%,100%{transform:translateY(0) rotate(0deg)}
+      50%{transform:translateY(-25px) rotate(2deg)}
+    }
+    .brand-mark{
+      font-family:'Cinzel',serif;
+      font-size:clamp(2.5rem,11vw,7rem);
+      font-weight:600;letter-spacing:.25em;
+      background:linear-gradient(180deg,#F8E89E 0%,#E5C158 25%,#D4AF37 50%,#A8842E 75%,#5C4A1A 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      margin-bottom:1.5rem;line-height:1;
+      filter:drop-shadow(0 4px 20px rgba(212,175,55,0.3));
+    }
+    .tagline-en{
+      font-family:'Cinzel',serif;
+      font-size:clamp(.95rem,2vw,1.25rem);
+      color:#F5DC8C;letter-spacing:.15em;font-weight:500;
+      margin-bottom:.6rem;text-transform:uppercase;
+    }
+    .tagline-ko{
+      font-size:clamp(.95rem,2vw,1.15rem);
+      color:#d8d8d8;font-weight:300;letter-spacing:.05em;
+      margin-bottom:1rem;
+    }
+    .established{
+      font-family:'JetBrains Mono',monospace;
+      font-size:.8rem;color:#999;letter-spacing:.35em;
+    }
+    .scroll-hint{
+      position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+      font-family:'JetBrains Mono',monospace;font-size:.7rem;
+      color:#555;letter-spacing:.3em;z-index:3;
+      animation:scrollHint 2.2s ease-in-out infinite;
+    }
+    @keyframes scrollHint{
+      0%,100%{opacity:.4;transform:translateX(-50%) translateY(0)}
+      50%{opacity:1;transform:translateX(-50%) translateY(8px)}
+    }
+
+    /* === SECTION COMMON === */
+    section{padding:7rem 2rem;max-width:1400px;margin:0 auto}
+    .section-header{text-align:center;margin-bottom:5rem}
+    .section-label{
+      font-family:'JetBrains Mono',monospace;
+      font-size:.78rem;letter-spacing:.4em;color:#D4AF37;
+      margin-bottom:1.2rem;
+    }
+    .section-title{
+      font-family:'Cinzel',serif;
+      font-size:clamp(2rem,5vw,3.5rem);
+      font-weight:500;letter-spacing:.05em;
+      background:linear-gradient(180deg,#F5DC8C 0%,#D4AF37 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
+    @media(max-width:600px){section{padding:4rem 2rem}}
+
+    /* === CHAPTER NAVIGATION === */
+    .matrix-section{padding:7rem 2rem;border-top:1px solid #1a1a1a}
+    .matrix-grid{
+      display:grid;grid-template-columns:repeat(4,1fr);
+      gap:1.5rem;max-width:1200px;margin:0 auto;
+    }
+    @media(max-width:900px){.matrix-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:480px){.matrix-grid{grid-template-columns:1fr}}
+    .coin-card{
+      position:relative;text-align:center;padding:2rem 1rem;
+      background:linear-gradient(180deg,#161208 0%,#0a0a0a 100%);
+      border:1px solid #1a1410;
+      transition:transform .5s cubic-bezier(.2,.8,.2,1),border-color .4s,box-shadow .4s;
+    }
+    .coin-card:hover{
+      transform:translateY(-8px);
+      border-color:#D4AF37;
+      box-shadow:0 30px 80px rgba(0,0,0,0.6),0 0 60px rgba(212,175,55,0.15);
+    }
+    .coin-card img{
+      width:100%;aspect-ratio:1;object-fit:cover;border-radius:50%;
+      filter:drop-shadow(0 8px 30px rgba(212,175,55,0.25));
+      transition:transform 1s ease;
+    }
+    .coin-card:hover img{transform:rotate(360deg)}
+    .coin-card .coin-name{
+      font-family:'Cinzel',serif;font-weight:600;letter-spacing:.1em;
+      font-size:1.15rem;color:#D4AF37;margin-top:1.2rem;
+    }
+    .coin-card .coin-role{
+      font-family:'JetBrains Mono',monospace;font-size:.7rem;
+      color:#b0b0b0;letter-spacing:.2em;margin-top:.4rem;text-transform:uppercase;
+    }
+
+    /* === CHAPTER CONTENT === */
+    .personas-section{padding:7rem 2rem;border-top:1px solid #1a1a1a;max-width:1400px;margin:0 auto}
+    .persona-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+    @media(max-width:900px){.persona-grid{grid-template-columns:1fr}}
+    .persona-card{
+      position:relative;padding:2.5rem 2rem;
+      background:linear-gradient(180deg,#161616 0%,#0d0d0d 100%);
+      border:1px solid #222;
+      transition:transform .5s cubic-bezier(.2,.8,.2,1),border-color .4s,box-shadow .5s;
+      overflow:hidden;display:flex;flex-direction:column;cursor:pointer;
+      min-height:560px;
+    }
+    .persona-card::before{
+      content:'';position:absolute;top:0;left:0;right:0;height:4px;
+      background:var(--accent,#D4AF37);opacity:.7;
+      transition:opacity .4s,height .4s;
+    }
+    .persona-card::after{
+      content:'';position:absolute;inset:0;
+      background:radial-gradient(circle at 50% 0%,var(--accent,#D4AF37) 0%,transparent 70%);
+      opacity:0;transition:opacity .4s;pointer-events:none;
+    }
+    .persona-card:hover{
+      transform:translateY(-12px) scale(1.02);
+      border-color:var(--accent,#D4AF37);
+      box-shadow:0 30px 80px rgba(0,0,0,0.5);
+    }
+    .persona-card:hover::before{height:8px;opacity:1}
+    .persona-card:hover::after{opacity:.06}
+    .persona-card .coin-art{
+      width:180px;height:180px;border-radius:50%;
+      object-fit:cover;margin:0 auto 1.5rem;
+      filter:drop-shadow(0 8px 25px rgba(0,0,0,0.5));
+      transition:transform .8s ease;
+    }
+    @media(max-width:600px){.persona-card .coin-art{width:220px;height:220px}}
+    .persona-card:hover .coin-art{transform:rotate(15deg) scale(1.05)}
+    .persona-card h3{
+      font-family:'Cinzel',serif;font-size:1.6rem;
+      font-weight:600;letter-spacing:.05em;
+      color:var(--accent,#D4AF37);text-align:center;margin-bottom:.4rem;
+    }
+    .persona-card .ko-name{
+      font-size:1.05rem;font-weight:400;color:#f0f0f0;
+      text-align:center;margin-bottom:1.2rem;letter-spacing:.05em;
+    }
+    .persona-card .role{
+      font-size:.95rem;color:#d0d0d0;line-height:1.7;text-align:center;
+      margin-bottom:1.5rem;
+    }
+    .persona-card .channel-badge{
+      align-self:center;font-family:'JetBrains Mono',monospace;
+      font-size:.7rem;letter-spacing:.25em;color:#c0c0c0;
+      padding:.4rem .9rem;border:1px solid #555;
+      text-transform:uppercase;margin-bottom:auto;
+    }
+    .persona-card .cta{
+      font-family:'JetBrains Mono',monospace;font-size:.8rem;
+      letter-spacing:.2em;color:var(--accent,#D4AF37);
+      padding-top:1.5rem;margin-top:1.5rem;
+      border-top:1px solid #1a1a1a;text-align:center;
+      transition:letter-spacing .3s;
+    }
+    .persona-card:hover .cta{letter-spacing:.3em}
+
+    /* === BACK — WHITEPAPER === */
+    .operator-section{
+      padding:7rem 2rem;border-top:1px solid #1a1a1a;
+      max-width:900px;margin:0 auto;text-align:center;
+    }
+    .operator-photo{
+      width:140px;height:140px;border-radius:50%;
+      object-fit:cover;margin:0 auto 2rem;
+      border:2px solid #D4AF37;
+      filter:drop-shadow(0 0 40px rgba(212,175,55,0.3));
+    }
+    .operator-name{
+      font-family:'Cinzel',serif;font-size:1.6rem;
+      font-weight:500;letter-spacing:.1em;color:#D4AF37;margin-bottom:.4rem;
+    }
+    .operator-role{
+      font-family:'JetBrains Mono',monospace;font-size:.78rem;
+      letter-spacing:.3em;color:#666;text-transform:uppercase;margin-bottom:2rem;
+    }
+    .operator-desc{color:#d8d8d8;line-height:1.85;margin-bottom:2.5rem;font-size:1rem}
+    .operator-desc strong{color:#D4AF37;font-weight:500}
+    .operator-cta-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem}
+    .btn-gold{
+      display:inline-block;padding:.95rem 2rem;
+      border:1px solid #D4AF37;color:#D4AF37;
+      font-family:'JetBrains Mono',monospace;font-size:.82rem;letter-spacing:.2em;
+      transition:background .3s,color .3s,letter-spacing .3s;
+    }
+    .btn-gold:hover{background:#D4AF37;color:#0a0a0a;letter-spacing:.3em}
+    .btn-ghost{
+      display:inline-block;padding:.95rem 2rem;
+      border:1px solid #333;color:#888;
+      font-family:'JetBrains Mono',monospace;font-size:.82rem;letter-spacing:.2em;
+      transition:border-color .3s,color .3s;
+    }
+    .btn-ghost:hover{border-color:#D4AF37;color:#D4AF37}
+    .license-note{
+      display:inline-flex;align-items:center;gap:.8rem;
+      padding:.6rem 1.2rem;border:1px solid #1a1a1a;
+      font-family:'JetBrains Mono',monospace;font-size:.7rem;
+      color:#999;letter-spacing:.2em;
+    }
+    .license-note img{width:24px;height:24px;border-radius:3px;object-fit:cover;opacity:.7}
+
+    /* === DISCORD === */
+    .discord-section{padding:7rem 2rem;border-top:1px solid #1a1a1a;max-width:1400px;margin:0 auto}
+    .discord-widget-wrap{display:flex;flex-direction:column;gap:2rem;align-items:center;max-width:600px;margin:0 auto}
+    .presence-fallback,.feed-fallback{font-family:'JetBrains Mono',monospace;font-size:.9rem;color:#b0b0b0;letter-spacing:.1em;text-align:center;padding:2rem 0}
+
+    /* === TIMELINE === */
+    .timeline-section{padding:7rem 2rem;border-top:1px solid #1a1a1a;max-width:1100px;margin:0 auto}
+    .timeline{position:relative;padding-left:2rem}
+    .timeline::before{
+      content:'';position:absolute;top:0;bottom:0;left:.5rem;
+      width:1px;background:linear-gradient(180deg,#D4AF37 0%,#1a1a1a 100%);
+    }
+    .timeline-item{
+      position:relative;padding:1.5rem 0 1.5rem 2rem;
+    }
+    .timeline-item::before{
+      content:'';position:absolute;left:-.45rem;top:1.9rem;
+      width:14px;height:14px;border-radius:50%;
+      background:#0a0a0a;border:2px solid #D4AF37;
+      box-shadow:0 0 12px rgba(212,175,55,0.4);
+    }
+    .timeline-item.current::before{background:#D4AF37}
+    .timeline-date{
+      font-family:'JetBrains Mono',monospace;font-size:.72rem;
+      color:#666;letter-spacing:.25em;margin-bottom:.4rem;
+    }
+    .timeline-title{
+      font-family:'Cinzel',serif;font-size:1.15rem;font-weight:500;
+      color:#f0f0f0;margin-bottom:.4rem;letter-spacing:.05em;
+    }
+    .timeline-desc{color:#c8c8c8;font-size:.92rem;line-height:1.7}
+
+    /* === FOOTER === */
+    footer{
+      padding:3rem 2rem;text-align:center;
+      border-top:1px solid #1a1a1a;
+      font-family:'JetBrains Mono',monospace;
+      font-size:.72rem;color:#444;letter-spacing:.2em;
+    }
+    footer .links{margin-bottom:1rem;display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap}
+    footer .links a{transition:color .3s}
+    footer .links a:hover{color:#D4AF37}
+
+    /* === REVEAL === */
+    .js [data-reveal]{opacity:0;transform:translateY(40px)}
+  </style>
 </head>
 <body>
-    <!-- Particle Background -->
-    <div id="particles-container"></div>
+<script>document.documentElement.classList.add('js');</script>
 
-    <!-- Progress Bar -->
-    <div class="progress-bar" id="progressBar"></div>
+<nav class="top" aria-label="Main navigation">
+  <a href="/" class="brand">GOHSY</a>
+  <div class="links">
+    <a href="../wife/">Wife</a>
+    <a href="../daughter/">Daughter</a>
+    <a href="../gohsy/">GOHSY</a>
+    <a href="../staff/">Backoffice</a>
+  </div>
+</nav>
 
-    <!-- Navigation Dots -->
-    <nav class="nav" id="navDots">
-        <div class="nav-dot active" data-section="hero" title="Home"></div>
-        <div class="nav-dot" data-section="key-points" title="핵심 차별점"></div>
-        <div class="nav-dot" data-section="speed" title="10배 속도"></div>
-        <div class="nav-dot" data-section="digital-self" title="디지털 자아"></div>
-        <div class="nav-dot" data-section="roadmap" title="로드맵"></div>
-        <div class="nav-dot" data-section="conclusion" title="결론"></div>
-    </nav>
+<!-- 1. HERO with logo video bg + GOHSY coin -->
+<section class="hero">
+  <video class="hero-bg-video" autoplay muted loop playsinline>
+    <source src="../assets/icons/logo-video.mp4" type="video/mp4">
+  </video>
+  <div class="hero-bg-overlay"></div>
+  <div class="hero-inner">
+    <img src="../assets/1.jpg" alt="GOHSY Coin"
+         class="coin-image"
+         data-tilt data-tilt-max="8" data-tilt-glare data-tilt-max-glare="0.3">
+    <h1 class="brand-mark" data-splitting>Whitepaper</h1>
+    <p class="tagline-en">GOHSY Guild Whitepaper</p>
+    <p class="tagline-ko">GOHSY 길드 <p class="tagline-ko">어필리에이트 매트릭스 백서</p> 커머스 백서</p>
+    <p class="established">EST. 2026.01.13</p>
+  </div>
+  <div class="scroll-hint">SCROLL ↓</div>
+</section>
 
-    <!-- Hero Section -->
-    <section class="hero" id="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-badge">FIRST IMPLEMENTATION: GOHSY</div>
-        <h1>dtslib.com</h1>
-        <p class="hero-subtitle">Mobile-first AI Builder</p>
-        <div class="typewriter">
-            <span class="typewriter-text" id="typewriter"></span>
-        </div>
-        <div class="scroll-indicator">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
-                <path d="M12 5v14M5 12l7 7 7-7"/>
-            </svg>
-        </div>
-    </section>
+<!-- 2. CHAPTER NAVIGATION -->
+<section class="matrix-section">
+  <div class="section-header" data-reveal>
+    <p class="section-label">CHAPTER NAVIGATION</p>
+    <h2 class="section-title">백서 챕터</h2>
+  </div>
+  <div class="matrix-grid">
+    <a href="#ch1" class="coin-card" data-reveal style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;background:linear-gradient(180deg,#0a0f14 0%,#050505 100%);border:1px solid #1a1a1a;border-top:3px solid #D4AF37;text-decoration:none;color:inherit">
+      <div style="font-size:3rem;margin-bottom:1rem">📖</div>
+      <div class="coin-name">CHAPTER 1</div>
+      <div class="coin-role">Celebrity Stories</div>
+      <div style="font-size:.8rem;color:#888;margin-top:.5rem">셀럽 스토리 편집 방송</div>
+    </a>
+    <a href="#ch2" class="coin-card" data-reveal style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;background:linear-gradient(180deg,#0a0f14 0%,#050505 100%);border:1px solid #1a1a1a;border-top:3px solid #D4AF37;text-decoration:none;color:inherit">
+      <div style="font-size:3rem;margin-bottom:1rem">💰</div>
+      <div class="coin-name">CHAPTER 2</div>
+      <div class="coin-role">A Standard for Real Money</div>
+      <div style="font-size:.8rem;color:#888;margin-top:.5rem">매크로 금융 · 금속 투자</div>
+    </a>
+    <a href="#ch3" class="coin-card" data-reveal style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;background:linear-gradient(180deg,#0a0f14 0%,#050505 100%);border:1px solid #1a1a1a;border-top:3px solid #D4AF37;text-decoration:none;color:inherit">
+      <div style="font-size:3rem;margin-bottom:1rem">🏗️</div>
+      <div class="coin-name">CHAPTER 3</div>
+      <div class="coin-role">Guild HQ + Commerce</div>
+      <div style="font-size:.8rem;color:#888;margin-top:.5rem">과외 길드 · 키트 커머스</div>
+    </a>
+    <a href="#ch4" class="coin-card" data-reveal style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;background:linear-gradient(180deg,#0a0f14 0%,#050505 100%);border:1px solid #1a1a1a;border-top:3px solid #D4AF37;text-decoration:none;color:inherit">
+      <div style="font-size:3rem;margin-bottom:1rem">🎯</div>
+      <div class="coin-name">CHAPTER 4</div>
+      <div class="coin-role">4 Coin Matrix</div>
+      <div style="font-size:.8rem;color:#888;margin-top:.5rem">4 코인 디자인 · 매트릭스</div>
+    </a>
+  </div>
+</section>
 
-    <!-- Key Points Section -->
-    <section id="key-points">
-        <div class="container">
-            <h2 class="section-title"><span>핵심 차별점 3가지</span></h2>
+<!-- 3. CHAPTER CONTENT -->
+<section class="personas-section" id="ch1">
+  <div class="section-header" data-reveal>
+    <p class="section-label">CHAPTER 1</p>
+    <h2 class="section-title">Celebrity Stories</h2>
+  </div>
+  <div style="max-width:800px;margin:0 auto;padding:0 2rem;line-height:1.85;color:#d8d8d8;font-size:1.05rem">
+    <p style="margin-bottom:1.5rem">VOICES FOR THE VOICELESS — GOHSY의 시작. 방송인/배우 12슬롯 길드로 출발해, 커머스와 콘텐츠로 확장 중이다.</p>
+    <p style="margin-bottom:1.5rem">초기 콘텐츠는 셀럽 뉴스와 경제 이야기를 블러핑과 편집으로 재구성한 형태였다. 시청자 반응은 좋았지만, '하이프'가 아니라 '진짜'를 원하는 박씨의 방향성과 점차 괴리가 생겼다.</p>
+    <p style="color:#888;font-style:italic">— 이 챕터는 GOHSY의 시작과 방향을 다룹니다.</p>
+  </div>
+</section>
 
-            <div class="key-points">
-                <div class="key-point">
-                    <div class="key-point-number">01</div>
-                    <h3>생산 속도 10배</h3>
-                    <div class="key-point-content">
-                        <code>기존: 경험 → 메모 → PPT → 촬영 → 편집 → 업로드
-시간: 며칠 ~ 일주일
+<section class="personas-section" id="ch2" style="border-top:1px solid #1a1a1a">
+  <div class="section-header" data-reveal>
+    <p class="section-label">CHAPTER 2</p>
+    <h2 class="section-title">A Standard for Real Money</h2>
+  </div>
+  <div style="max-width:800px;margin:0 auto;padding:0 2rem;line-height:1.85;color:#d8d8d8;font-size:1.05rem">
+    <p style="margin-bottom:1.5rem">하이프가 아니라 진짜 돈의 기준. 매크로 금융과 금속 투자를 중심으로 콘텐츠 방향이 전환되었다.</p>
+    <p style="margin-bottom:1.5rem">금 · 은 · 구리 등 실물 자산 투자와 글로벌 매크로 경제 흐름을 분석하는 채널로 재탄생. 박씨의 금속 투자 철학과 결합해 'A Standard for Real Money'라는 슬로건이 탄생했다.</p>
+    <p style="color:#888;font-style:italic">— 이 챕터는 콘텐츠의 방향 전환과 철학 정립을 다룹니다.</p>
+  </div>
+</section>
 
-dtslib: 경험 → Parksy → 화면녹화 → 업로드
-시간: 수십 분
+<section class="personas-section" id="ch3" style="border-top:1px solid #1a1a1a">
+  <div class="section-header" data-reveal>
+    <p class="section-label">CHAPTER 3</p>
+    <h2 class="section-title">Guild HQ + Commerce</h2>
+  </div>
+  <div style="max-width:800px;margin:0 auto;padding:0 2rem;line-height:1.85;color:#d8d8d8;font-size:1.05rem">
+    <p style="margin-bottom:1.5rem">과외 길드 본부 설립과 칠판 콘텐츠 시스템. 길드 모델로 전환하며 안정적인 수익 기반을 마련했다.</p>
+    <p style="margin-bottom:1.5rem">KS-001 첫 상품 출시 — 51.5% 마진. 4개 채널 (쿠팡 · 네이버 · YouTube · Showroom)을 통한 커머스 확장. 키트 커머스와 어필리에이트 매트릭스의 기초가 다져졌다.</p>
+    <p style="color:#888;font-style:italic">— 이 챕터는 길드 모델과 커머스 시스템 구축을 다룹니다.</p>
+  </div>
+</section>
 
-편집? 없음.
-남들이 1개 만들 때 우리는 10개.</code>
-                    </div>
-                </div>
+<section class="personas-section" id="ch4" style="border-top:1px solid #1a1a1a">
+  <div class="section-header" data-reveal>
+    <p class="section-label">CHAPTER 4</p>
+    <h2 class="section-title">4 Coin Matrix</h2>
+  </div>
+  <div style="max-width:800px;margin:0 auto;padding:0 2rem;line-height:1.85;color:#d8d8d8;font-size:1.05rem">
+    <p style="margin-bottom:1.5rem">GOHSY · Wife · Daughter · Guild — 4 코인 매트릭스 완성. 각 페르소나의 역할과 콘텐츠 방향이 정립되었다.</p>
+    <p style="margin-bottom:1.5rem">GOHSY · Wife · Daughter — 3 페르소나의 콘텐츠와 커머스를 GOHSY 길드가 통합. 박씨 Backoffice 인큐베이터 모델이 인프라를 받쳐준다.</p>
+    <p style="color:#888;font-style:italic">— 이 챕터는 4 코인 매트릭스의 완성과 현재를 다룹니다.</p>
+  </div>
+</section>
 
-                <div class="key-point">
-                    <div class="key-point-number">02</div>
-                    <h3>디지털 자아 파이프라인</h3>
-                    <div class="key-point-content">
-                        <code>Parksy Capture (일상 캡처)
-        ↓
-GitHub (마크다운 축적)
-        ↓
-   RAG + Fine-tuning
-        ↓
-    나만의 LLM
-        ↓
-   "나" 복제 가능</code>
-                    </div>
-                </div>
+<!-- 4. BACK — ABOUT WHITEPAPER -->
+<section class="operator-section" data-reveal>
+  <img src="../assets/icons/profile.jpg" alt="백서" class="operator-photo">
+  <div class="operator-name">Whitepaper</div>
+  <div class="operator-role">GOHSY WHITEPAPER</div>
+  <p class="operator-desc">
+    <strong>Whitepaper</strong> 는 GOHSY 길드/커머스 백서입니다.<br>
+    4개 챕터로 GOHSY의 시작 · 확장 · 길드 · 커머스를<br>
+    <strong>GOHSY</strong> 길드/커머스 관점에서 기록합니다.
+  </p>
+  <div class="operator-cta-row">
+    <a href="../" class="btn-gold">GOHSY →</a>
+  </div>
+  <div class="license-note">
+    <img src="../assets/icons/business-license.jpg" alt="사업자등록">
+    REGISTERED · 정식 등록 사업자
+  </div>
+</section>
 
-                <div class="key-point">
-                    <div class="key-point-number">03</div>
-                    <h3>월 5,000원 풀스택</h3>
-                    <div class="key-point-content">
-                        <p>서버 비용: <span class="old">30,000원+</span> → <strong style="color: var(--gold)">0원</strong></p>
-                        <p>DB 비용: <span class="old">20,000원+</span> → <strong style="color: var(--gold)">0원</strong></p>
-                        <p>CDN 비용: <span class="old">10,000원+</span> → <strong style="color: var(--gold)">0원</strong></p>
-                        <p style="margin-top: 15px; font-size: 1.2rem;">총: <span class="old">60,000원+</span> → <strong style="color: var(--gold); font-size: 1.5rem;">5,000원</strong></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Counter Section -->
-    <div class="counter-section">
-        <div class="container">
-            <div class="counters">
-                <div class="counter-item">
-                    <span class="counter-value" data-target="10">0</span>
-                    <div class="counter-label">배 빠른 생산 속도</div>
-                </div>
-                <div class="counter-item">
-                    <span class="counter-value" data-target="6">0</span>
-                    <div class="counter-label">개 레포지토리 네트워크</div>
-                </div>
-                <div class="counter-item">
-                    <span class="counter-value" data-target="5000">0</span>
-                    <div class="counter-label">원/월 운영비</div>
-                </div>
-                <div class="counter-item">
-                    <span class="counter-value" data-target="0">0</span>
-                    <div class="counter-label">원 서버 비용</div>
-                </div>
-            </div>
-        </div>
+<!-- 5. DISCORD -->
+<section class="discord-section" data-reveal>
+  <div class="section-header">
+    <p class="section-label">COMMUNITY · DISCORD</p>
+    <h2 class="section-title">Real-time Hub</h2>
+  </div>
+  <div class="discord-widget-wrap">
+    <div id="gohsy-discord-presence"></div>
+    <div id="gohsy-discord-messages"></div>
+    <div id="gohsy-discord-widget-wrap" style="width:100%;display:flex;justify-content:center">
+      <iframe id="gohsy-discord-widget" loading="lazy" title="GOHSY Discord 실시간 채팅"
+        sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+        allow="clipboard-write"
+        style="width:100%;max-width:600px;height:400px;border-radius:12px;border:1px solid #1a1a1a">
+      </iframe>
     </div>
+    <a href="#" id="gohsy-discord-invite" class="btn-gold">Discord 참여 →</a>
+  </div>
+</section>
 
-    <!-- Speed Section -->
-    <section id="speed">
-        <div class="container">
-            <h2 class="section-title"><span>왜 10배 빠른가?</span></h2>
+<!-- 6. TIMELINE - GOHSY 진화 서사 -->
+<section class="timeline-section">
+  <div class="section-header" data-reveal>
+    <p class="section-label">REPO AS NOVEL · 헌법 제1조</p>
+    <h2 class="section-title">진화의 6 챕터</h2>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item" data-reveal>
+      <div class="timeline-date">CHAPTER 1 · 시작</div>
+      <div class="timeline-title">Celebrity Stories</div>
+      <div class="timeline-desc">셀럽 스토리 편집 방송 — 블러핑 기반 편집 콘텐츠.</div>
+    </div>
+    <div class="timeline-item" data-reveal>
+      <div class="timeline-date">CHAPTER 2 · 전환</div>
+      <div class="timeline-title">A Standard for Real Money</div>
+      <div class="timeline-desc">하이프가 아니라 진짜 돈의 기준. 매크로 금융 + 금속 투자.</div>
+    </div>
+    <div class="timeline-item" data-reveal>
+      <div class="timeline-date">CHAPTER 3 · 확장</div>
+      <div class="timeline-title">Guild HQ + Chalkboard Pack</div>
+      <div class="timeline-desc">과외 길드 본부 + 칠판 콘텐츠 시스템.</div>
+    </div>
+    <div class="timeline-item" data-reveal>
+      <div class="timeline-date">CHAPTER 4 · 각성</div>
+      <div class="timeline-title">Commerce Phase 0~6</div>
+      <div class="timeline-desc">KS-001 첫 상품. 51.5% 마진. 4 채널 (쿠팡 · 네이버 · YouTube · Showroom).</div>
+    </div>
+    <div class="timeline-item" data-reveal>
+      <div class="timeline-date">CHAPTER 5 · 분화</div>
+      <div class="timeline-title">4 Coin Matrix</div>
+      <div class="timeline-desc">GOHSY · Wife · Daughter · Guild — 4 코인 매트릭스 완성.</div>
+    </div>
+    <div class="timeline-item current" data-reveal>
+      <div class="timeline-date">CHAPTER 6 · 현재 · 2026-04-25</div>
+      <div class="timeline-title">3 Persona Affiliate Matrix</div>
+      <div class="timeline-desc">Wife · Daughter · GOHSY 페르소나 정식 진입. 박씨 backoffice 인큐베이터 모델 라이브.</div>
+    </div>
+  </div>
+</section>
 
-            <div class="pipeline">
-                <h3 style="text-align: center; margin-bottom: 30px; color: var(--text-secondary);">기존 콘텐츠 제작 플로우</h3>
-                <div class="pipeline-steps">
-                    <div class="pipeline-step">
-                        <div class="pipeline-step-icon">1</div>
-                        <div class="pipeline-step-content">
-                            <h4>경험/아이디어 발생</h4>
-                        </div>
-                    </div>
-                    <div class="pipeline-arrow">↓</div>
-                    <div class="pipeline-step">
-                        <div class="pipeline-step-icon">2</div>
-                        <div class="pipeline-step-content">
-                            <h4>메모장에 정리</h4>
-                            <p>30분 소요</p>
-                        </div>
-                    </div>
-                    <div class="pipeline-arrow">↓</div>
-                    <div class="pipeline-step">
-                        <div class="pipeline-step-icon">3</div>
-                        <div class="pipeline-step-content">
-                            <h4>PPT/자료 제작</h4>
-                            <p>2-3시간 소요</p>
-                        </div>
-                    </div>
-                    <div class="pipeline-arrow">↓</div>
-                    <div class="pipeline-step" style="border-left-color: #ff6b6b;">
-                        <div class="pipeline-step-icon" style="background: linear-gradient(135deg, #ff6b6b, #ee5a5a);">6</div>
-                        <div class="pipeline-step-content">
-                            <h4 style="color: #ff6b6b;">편집 (3-5시간)</h4>
-                            <p style="color: #ff6b6b;">← 여기서 죽음</p>
-                        </div>
-                    </div>
-                    <div class="pipeline-arrow">↓</div>
-                    <div class="pipeline-step">
-                        <div class="pipeline-step-icon">9</div>
-                        <div class="pipeline-step-content">
-                            <h4>업로드</h4>
-                            <p style="color: #ff6b6b; font-weight: bold;">총 소요: 1-3일</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!-- FOOTER -->
+<footer>
+  <div class="links">
+    <a href="../wife/">Wife</a>
+    <a href="../daughter/">Daughter</a>
+    <a href="../gohsy/">GOHSY</a>
+    <a href="../staff/">Backoffice</a>
+    <a href="../card/">Card</a>
+    <a href="https://github.com/dtslib1979/gohsy" target="_blank">GitHub</a>
+  </div>
+  <div>© 2026 GOHSY · EST. 2026.01.13 · Operated by 박씨 · Whitepaper</div>
+</footer>
 
-            <div class="pipeline" style="border: 2px solid var(--gold);">
-                <h3 style="text-align: center; margin-bottom: 30px; color: var(--gold);">dtslib Builder 플로우</h3>
-                <div class="pipeline-steps">
-                    <div class="pipeline-step" style="border-left-color: var(--gold);">
-                        <div class="pipeline-step-icon">1</div>
-                        <div class="pipeline-step-content">
-                            <h4>경험/아이디어 발생</h4>
-                        </div>
-                    </div>
-                    <div class="pipeline-arrow">↓</div>
-                    <div class="pipeline-step" style="border-left-color: var(--gold);">
-                        <div class="pipeline-step-icon">2</div>
-                        <div class="pipeline-step-content">
-                            <h4>Parksy Capture</h4>
-                            <p>실시간 캡처</p>
-                        </div>
-                    </div>
-                    <div class="pipeline-arrow">↓</div>
-                    <div class="pipeline-step" style="border-left-color: var(--gold);">
-                        <div class="pipeline-step-icon">3</div>
-                        <div class="pipeline-step-content">
-                            <h4>웹페이지 자동 생성</h4>
-                            <p>즉시</p>
-                        </div>
-                    </div>
-                    <div class="pipeline-arrow">↓</div>
-                    <div class="pipeline-step" style="border-left-color: #4ecdc4;">
-                        <div class="pipeline-step-icon" style="background: linear-gradient(135deg, #4ecdc4, #3dbdb5);">4</div>
-                        <div class="pipeline-step-content">
-                            <h4 style="color: #4ecdc4;">화면녹화 + 오버레이</h4>
-                            <p style="color: #4ecdc4;">편집? 없음!</p>
-                        </div>
-                    </div>
-                    <div class="pipeline-arrow">↓</div>
-                    <div class="pipeline-step" style="border-left-color: var(--gold);">
-                        <div class="pipeline-step-icon">5</div>
-                        <div class="pipeline-step-content">
-                            <h4>바로 업로드</h4>
-                            <p style="color: var(--gold); font-weight: bold;">총 소요: 1-2시간</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<script>
+  if (window.Splitting) Splitting();
+  if (window.VanillaTilt) VanillaTilt.init(document.querySelectorAll('[data-tilt]'));
 
-            <div class="fade-in" style="margin-top: 60px;">
-                <table class="comparison-table">
-                    <thead>
-                        <tr>
-                            <th>병목</th>
-                            <th>기존 해결법</th>
-                            <th>dtslib 해결법</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>PPT 제작</td>
-                            <td>수동 작업</td>
-                            <td class="highlight">웹페이지 자동 생성</td>
-                        </tr>
-                        <tr>
-                            <td>편집</td>
-                            <td class="old">프리미어/다빈치</td>
-                            <td class="highlight">편집 안 함 (화면녹화)</td>
-                        </tr>
-                        <tr>
-                            <td>자막</td>
-                            <td>수동/AI 자막</td>
-                            <td class="highlight">크롬 번역 자동</td>
-                        </tr>
-                        <tr>
-                            <td>새 도구 필요</td>
-                            <td class="old">구매/학습</td>
-                            <td class="highlight">Claude로 즉시 개발</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
+  if (window.gsap && window.ScrollTrigger){
+    gsap.registerPlugin(ScrollTrigger);
 
-    <!-- Digital Self Section -->
-    <section id="digital-self">
-        <div class="container">
-            <h2 class="section-title"><span>디지털 자아 = 장기 게임</span></h2>
+    // Hero entry sequence
+    gsap.from('.coin-image', {opacity:0, scale:0.4, rotation:180, duration:2, ease:'elastic.out(1, 0.6)', delay:0.3});
+    gsap.from('.brand-mark .char', {opacity:0, y:80, duration:0.9, stagger:0.07, ease:'power3.out', delay:0.7});
+    gsap.from('.tagline-en', {opacity:0, y:20, duration:0.8, ease:'power3.out', delay:1.6});
+    gsap.from('.tagline-ko', {opacity:0, y:20, duration:0.8, ease:'power3.out', delay:1.85});
+    gsap.from('.established', {opacity:0, duration:0.6, delay:2.1});
 
-            <div class="pipeline" style="border: 2px solid var(--gold);">
-                <h3 style="text-align: center; margin-bottom: 30px; color: var(--gold);">데이터 파이프라인</h3>
-                <div class="pipeline-steps">
-                    <div class="pipeline-step" style="border-left-color: var(--gold);">
-                        <div class="pipeline-step-icon">📱</div>
-                        <div class="pipeline-step-content">
-                            <h4>일상의 모든 경험/대화</h4>
-                            <p>스마트폰으로 캡처</p>
-                        </div>
-                    </div>
-                    <div class="pipeline-arrow">↓</div>
-                    <div class="pipeline-step" style="border-left-color: var(--gold);">
-                        <div class="pipeline-step-icon">📸</div>
-                        <div class="pipeline-step-content">
-                            <h4>Parksy Capture</h4>
-                            <p>안드로이드 공유 기능으로 즉시 캡처</p>
-                        </div>
-                    </div>
-                    <div class="pipeline-arrow">↓</div>
-                    <div class="pipeline-step" style="border-left-color: var(--gold);">
-                        <div class="pipeline-step-icon">📁</div>
-                        <div class="pipeline-step-content">
-                            <h4>GitHub 레포</h4>
-                            <p>마크다운으로 자동 축적</p>
-                        </div>
-                    </div>
-                    <div class="pipeline-arrow">↓</div>
-                    <div class="pipeline-step" style="border-left-color: #4ecdc4;">
-                        <div class="pipeline-step-icon" style="background: linear-gradient(135deg, #4ecdc4, #3dbdb5);">🔍</div>
-                        <div class="pipeline-step-content">
-                            <h4 style="color: #4ecdc4;">RAG 시스템</h4>
-                            <p>"내가 예전에 뭐라고 했지?" → 검색 가능</p>
-                        </div>
-                    </div>
-                    <div class="pipeline-arrow">↓</div>
-                    <div class="pipeline-step" style="border-left-color: var(--gold);">
-                        <div class="pipeline-step-icon">🧠</div>
-                        <div class="pipeline-step-content">
-                            <h4>Fine-tuning</h4>
-                            <p>나만의 LLM 생성</p>
-                        </div>
-                    </div>
-                    <div class="pipeline-arrow">↓</div>
-                    <div class="pipeline-step" style="border-left-color: var(--gold); border-width: 4px;">
-                        <div class="pipeline-step-icon" style="font-size: 2rem;">👤</div>
-                        <div class="pipeline-step-content">
-                            <h4 style="font-size: 1.3rem;">"나" 복제 가능</h4>
-                            <p>디지털 자아 완성</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="key-points" style="margin-top: 60px;">
-                <div class="key-point fade-in">
-                    <h3>단기 (지금)</h3>
-                    <div class="key-point-content">
-                        <ul style="list-style: none; padding: 0;">
-                            <li style="padding: 10px 0;">→ 콘텐츠 빠르게 찍어냄</li>
-                            <li style="padding: 10px 0;">→ YouTube 수익화</li>
-                            <li style="padding: 10px 0;">→ 포기하지 않고 버틸 수 있는 구조</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="key-point fade-in">
-                    <h3>중기 (1-2년)</h3>
-                    <div class="key-point-content">
-                        <ul style="list-style: none; padding: 0;">
-                            <li style="padding: 10px 0;">→ Parksy로 쌓인 마크다운 데이터</li>
-                            <li style="padding: 10px 0;">→ RAG 시스템 구축</li>
-                            <li style="padding: 10px 0;">→ 과거의 나에게 질문 가능</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="key-point fade-in">
-                    <h3>장기 (3년+)</h3>
-                    <div class="key-point-content">
-                        <ul style="list-style: none; padding: 0;">
-                            <li style="padding: 10px 0;">→ 축적된 데이터로 Fine-tuning</li>
-                            <li style="padding: 10px 0;">→ 나만의 LLM 생성</li>
-                            <li style="padding: 10px 0;">→ <strong style="color: var(--gold);">디지털 자아 복제</strong></li>
-                            <li style="padding: 10px 0;">→ 멀티 에이전트로 분신술</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="fade-in" style="background: rgba(0,0,0,0.3); padding: 40px; border-radius: 16px; margin-top: 60px;">
-                <h3 style="color: var(--gold); margin-bottom: 20px; text-align: center;">왜 이게 중요한가?</h3>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
-                    <div style="padding: 20px; background: rgba(255,107,107,0.1); border-radius: 12px; border-left: 4px solid #ff6b6b;">
-                        <h4 style="color: #ff6b6b; margin-bottom: 10px;">일반 유튜버</h4>
-                        <p style="color: var(--text-secondary);">영상만 남음<br>지식은 휘발</p>
-                    </div>
-                    <div style="padding: 20px; background: rgba(212,175,55,0.1); border-radius: 12px; border-left: 4px solid var(--gold);">
-                        <h4 style="color: var(--gold); margin-bottom: 10px;">dtslib 유저</h4>
-                        <p style="color: var(--text-secondary);">
-                            모든 경험이 구조화된 데이터로 영구 축적<br>
-                            → 검색 가능<br>
-                            → 학습 가능<br>
-                            → 복제 가능<br>
-                            → <strong style="color: var(--gold);">양도 가능 (Exit 시 가져감)</strong>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Roadmap Section -->
-    <section id="roadmap">
-        <div class="container">
-            <h2 class="section-title"><span>확장 로드맵</span></h2>
-
-            <div class="timeline">
-                <div class="timeline-item completed">
-                    <h4>Phase 1: 1인 인프라 ✅ (현재)</h4>
-                    <ul>
-                        <li>6개 레포 네트워크</li>
-                        <li>Staff Portal</li>
-                        <li>PWA/APK 빌드 파이프라인</li>
-                        <li>Parksy Capture 연동</li>
-                        <li>GOHSY 브랜치 구현</li>
-                    </ul>
-                </div>
-
-                <div class="timeline-item">
-                    <h4>Phase 2: 계열사 복제</h4>
-                    <ul>
-                        <li>브랜치 템플릿 표준화</li>
-                        <li>온보딩 자동화</li>
-                        <li>수익 트래킹 대시보드</li>
-                        <li>Exit 프로세스 자동화</li>
-                    </ul>
-                </div>
-
-                <div class="timeline-item">
-                    <h4>Phase 3: AI 고도화</h4>
-                    <ul>
-                        <li>RAG 검색 시스템</li>
-                        <li>Fine-tuning 파이프라인</li>
-                        <li>나만의 LLM 생성</li>
-                    </ul>
-                </div>
-
-                <div class="timeline-item">
-                    <h4>Phase 4: 홀딩 구조</h4>
-                    <ul>
-                        <li>서버 LLM 24/7 운영</li>
-                        <li>온톨로지 기반 지식 그래프</li>
-                        <li>확률적 데이터셋 구축</li>
-                        <li>계열사 네트워크 통합 관리</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Conclusion Section -->
-    <section id="conclusion" class="cta-section">
-        <div class="cta-content">
-            <h2 class="cta-title">dtslib.com Mobile-first AI Builder는</h2>
-            <span class="cta-highlight">3가지를 제공합니다</span>
-        </div>
-    </section>
-
-    <section>
-        <div class="container">
-            <div class="final-summary">
-                <div class="summary-card">
-                    <div class="summary-card-number">01</div>
-                    <h3>속도 10배</h3>
-                    <p>남들이 1개 만들 때<br><strong style="color: var(--gold);">우리는 10개</strong></p>
-                </div>
-                <div class="summary-card">
-                    <div class="summary-card-number">02</div>
-                    <h3>디지털 자아</h3>
-                    <p>모든 경험 → RAG → Fine-tuning<br><strong style="color: var(--gold);">→ 나 복제</strong></p>
-                </div>
-                <div class="summary-card">
-                    <div class="summary-card-number">03</div>
-                    <h3>월 5,000원</h3>
-                    <p>서버 없이<br><strong style="color: var(--gold);">풀스택 인프라</strong></p>
-                </div>
-            </div>
-
-            <div style="text-align: center; margin: 80px 0;">
-                <p style="font-size: 1.5rem; color: var(--text-secondary); margin-bottom: 20px;">단순한 도구가 아닙니다.</p>
-                <p style="font-size: 2rem; font-weight: 900; color: var(--gold); margin-bottom: 40px;">디지털 자아를 구축하는 시스템입니다.</p>
-                <p style="font-size: 1.2rem; color: var(--text-muted);">GOHSY는 그 첫 번째 증명입니다.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-logo">dtslib.com</div>
-        <div class="footer-info">
-            <p>문서 버전: 3.0</p>
-            <p>최종 업데이트: 2026-01-15</p>
-        </div>
-    </footer>
-
-    <script>
-        // Particle System
-        function createParticles() {
-            const container = document.getElementById('particles-container');
-            const particleCount = 50;
-
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 15 + 's';
-                particle.style.animationDuration = (10 + Math.random() * 10) + 's';
-                container.appendChild(particle);
-            }
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('[data-reveal]');
+    reveals.forEach(el => {
+      gsap.to(el, {
+        opacity:1, y:0, duration:1, ease:'power3.out',
+        scrollTrigger: {trigger:el, start:'top 95%', toggleActions:'play none none none'}
+      });
+    });
+    setTimeout(() => {
+      reveals.forEach(el => {
+        if (parseFloat(getComputedStyle(el).opacity) < 0.5) {
+          gsap.to(el, {opacity:1, y:0, duration:0.6});
         }
-        createParticles();
+      });
+    }, 1500);
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(el => {
+      el.style.opacity = '1'; el.style.transform = 'none';
+    });
+  }
+  // 인터랙션: 코인 클릭 → 4 COIN MATRIX
+  const heroCoin = document.querySelector('.coin-image');
+  if (heroCoin) {
+    heroCoin.style.cursor = 'pointer';
+    heroCoin.addEventListener('click', () => {
+      document.querySelector('.matrix-section').scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  }
+  // 인터랙션: SCROLL ↓ 클릭 → 다음 섹션
+  const scrollHint = document.querySelector('.scroll-hint');
+  if (scrollHint) {
+    scrollHint.style.cursor = 'pointer';
+    scrollHint.addEventListener('click', () => {
+      document.querySelector('.matrix-section').scrollIntoView({behavior:'smooth'});
+    });
+  }
+  // 인터랙션: parallax — 마우스에 따라 hero 코인 이동
+  if (window.gsap) {
+    document.querySelector('.hero').addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 20;
+      const y = (e.clientY / window.innerHeight - 0.5) * 20;
+      gsap.to('.coin-image', {x, y, duration:0.6, ease:'power2.out'});
+    });
+  }
+</script>
 
-        // Progress Bar
-        function updateProgressBar() {
-            const scrollTop = window.scrollY;
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = (scrollTop / docHeight) * 100;
-            document.getElementById('progressBar').style.width = progress + '%';
-        }
-        window.addEventListener('scroll', updateProgressBar);
+<script type="module">
+  import { CFG } from '../assets/discord/config.js';
+  import { renderPresence } from '../assets/discord/presence.js';
+  import { renderFeed } from '../assets/discord/messages-feed.js';
 
-        // Typewriter Effect
-        const typewriterTexts = [
-            '스마트폰 하나로 1인 IT 기업을 구축하세요',
-            '생산 속도 10배, 편집은 없음',
-            '모든 경험이 디지털 자아로 축적됩니다',
-            '월 5,000원으로 풀스택 인프라',
-            'GOHSY는 첫 번째 증명입니다'
-        ];
+  const presenceEl = document.getElementById('gohsy-discord-presence');
+  const feedEl     = document.getElementById('gohsy-discord-messages');
+  if (presenceEl) renderPresence(presenceEl);
+  if (feedEl)     renderFeed(feedEl);
 
-        let textIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        const typewriterEl = document.getElementById('typewriter');
+  const widgetIframe = document.getElementById('gohsy-discord-widget');
+  if (widgetIframe) {
+    const ch = CFG.CH_ID && !CFG.CH_ID.includes('PLACEHOLDER') ? `/${CFG.CH_ID}` : '';
+    widgetIframe.src = `https://e.widgetbot.io/channels/${CFG.GUILD_ID}${ch}`;
+  }
+</script>
 
-        function typeWriter() {
-            const currentText = typewriterTexts[textIndex];
-
-            if (isDeleting) {
-                typewriterEl.textContent = currentText.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                typewriterEl.textContent = currentText.substring(0, charIndex + 1);
-                charIndex++;
-            }
-
-            let delay = isDeleting ? 30 : 80;
-
-            if (!isDeleting && charIndex === currentText.length) {
-                delay = 2000;
-                isDeleting = true;
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                textIndex = (textIndex + 1) % typewriterTexts.length;
-                delay = 500;
-            }
-
-            setTimeout(typeWriter, delay);
-        }
-        typeWriter();
-
-        // Counter Animation
-        function animateCounters() {
-            const counters = document.querySelectorAll('.counter-value');
-            const speed = 200;
-
-            counters.forEach(counter => {
-                const target = +counter.getAttribute('data-target');
-                const count = +counter.innerText;
-                const increment = target / speed;
-
-                if (count < target) {
-                    counter.innerText = Math.ceil(count + increment);
-                    setTimeout(() => animateCounters(), 1);
-                } else {
-                    counter.innerText = target.toLocaleString();
-                }
-            });
-        }
-
-        // Intersection Observer for Animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-
-                    // Start counter animation when counter section is visible
-                    if (entry.target.closest('.counter-section')) {
-                        animateCounters();
-                    }
-                }
-            });
-        }, observerOptions);
-
-        // Observe all animatable elements
-        document.querySelectorAll('.key-point, .pipeline-step, .timeline-item, .fade-in').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Also observe counter section
-        const counterSection = document.querySelector('.counter-section');
-        if (counterSection) {
-            observer.observe(counterSection);
-        }
-
-        // Navigation Dots
-        const navDots = document.querySelectorAll('.nav-dot');
-        const sections = ['hero', 'key-points', 'speed', 'digital-self', 'roadmap', 'conclusion'];
-
-        navDots.forEach(dot => {
-            dot.addEventListener('click', () => {
-                const sectionId = dot.getAttribute('data-section');
-                const section = document.getElementById(sectionId);
-                if (section) {
-                    section.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-
-        // Update active nav dot on scroll
-        function updateActiveNavDot() {
-            const scrollPosition = window.scrollY + window.innerHeight / 2;
-
-            sections.forEach((sectionId, index) => {
-                const section = document.getElementById(sectionId);
-                if (section) {
-                    const sectionTop = section.offsetTop;
-                    const sectionBottom = sectionTop + section.offsetHeight;
-
-                    if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-                        navDots.forEach(dot => dot.classList.remove('active'));
-                        navDots[index].classList.add('active');
-                    }
-                }
-            });
-        }
-        window.addEventListener('scroll', updateActiveNavDot);
-
-        // Smooth reveal for pipeline steps with delay
-        const pipelineSteps = document.querySelectorAll('.pipeline-step');
-        const pipelineObserver = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add('visible');
-                    }, index * 150);
-                }
-            });
-        }, { threshold: 0.3 });
-
-        pipelineSteps.forEach(step => pipelineObserver.observe(step));
-
-        // Timeline items with staggered animation
-        const timelineItems = document.querySelectorAll('.timeline-item');
-        const timelineObserver = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add('visible');
-                    }, index * 200);
-                }
-            });
-        }, { threshold: 0.2 });
-
-        timelineItems.forEach(item => timelineObserver.observe(item));
-
-        // Key points staggered animation
-        const keyPoints = document.querySelectorAll('.key-point');
-        const keyPointObserver = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add('visible');
-                    }, index * 200);
-                }
-            });
-        }, { threshold: 0.2 });
-
-        keyPoints.forEach(point => keyPointObserver.observe(point));
-
-        // Parallax effect for hero background
-        window.addEventListener('scroll', () => {
-            const scrolled = window.scrollY;
-            const heroBg = document.querySelector('.hero-bg');
-            if (heroBg && scrolled < window.innerHeight) {
-                heroBg.style.transform = `translateY(${scrolled * 0.5}px)`;
-            }
-        });
-
-        // Add hover glow effect to summary cards
-        document.querySelectorAll('.summary-card').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.boxShadow = '0 0 60px rgba(212, 175, 55, 0.4), inset 0 0 30px rgba(212, 175, 55, 0.1)';
-            });
-            card.addEventListener('mouseleave', () => {
-                card.style.boxShadow = '';
-            });
-        });
-    </script>
+<script defer src="../assets/js/personas-loader.js"></script>
 </body>
 </html>

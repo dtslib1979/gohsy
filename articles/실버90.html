@@ -2,780 +2,436 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Gohsy Manifesto — Built on Gold. Measured in Silver" />
-  <title>Gohsy Manifesto — Built on Gold. Measured in Silver</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0d1827" />
+  <title>GOHSY</title>
+  <meta name="description" content="GOHSY — 배우 · 커머스 · 길드" />
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=JetBrains+Mono:wght@100;200;400;700&display=swap" rel="stylesheet">
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="GOHSY" />
+  <meta property="og:title" content="GOHSY" />
+  <meta property="og:description" content="중학 · 고교 수학을 매일의 칠판으로. 와이프 수학 강의 채널." />
+  <meta property="og:image" content="https://gohsy.kr/assets/2.jpg" />
+  <meta property="og:url" content="https://gohsy.kr/wife/" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GOHSY">
+  <meta name="twitter:description" content="중학 · 고교 수학을 매일의 칠판으로. 와이프 수학 강의 채널.">
+  <meta name="twitter:image" content="https://gohsy.kr/assets/2.jpg">
+  <link rel="canonical" href="https://gohsy.kr/wife/">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
 
   <style>
-    :root{
-      --bg: #0b0f0d;
-      --panel: #0f1713;
-      --panel-2: #0c1310;
-      --text: #e8ecea;
-      --muted: #a9b2ad;
-      --line: rgba(255,255,255,.10);
-
-      --gold: #d4af37;
-      --gold-2: rgba(212,175,55,.18);
-      --silver: #c8ccd0;
-
-      --shadow: 0 14px 40px rgba(0,0,0,.45);
-      --radius: 18px;
-      --radius-lg: 24px;
-
-      --container: 1100px;
-    }
-
-    *{ box-sizing: border-box; }
-    html,body{ height: 100%; }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;background:#000}
     body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Segoe UI", Roboto, Arial, sans-serif;
-      background: radial-gradient(1200px 700px at 20% 10%, rgba(212,175,55,.10), transparent 55%),
-                  radial-gradient(900px 600px at 85% 0%, rgba(200,204,208,.08), transparent 50%),
-                  var(--bg);
-      color: var(--text);
-      line-height: 1.55;
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
+      font-family:'Pretendard Variable',sans-serif;
+      background:radial-gradient(ellipse at 50% 0%,#0d1827 0%,#0a0a0a 70%);
+      color:#f0f0f0;min-height:100vh;overflow-x:hidden;
     }
+    a{color:inherit;text-decoration:none}
+    img,video{max-width:100%;display:block}
 
-    a{ color: inherit; text-decoration: none; }
-    .container{
-      width: min(100% - 32px, var(--container));
-      margin: 0 auto;
+    /* === NAV === */
+    nav.top{
+      position:fixed;top:0;left:0;right:0;z-index:50;
+      display:flex;justify-content:space-between;align-items:center;
+      padding:1.25rem 2rem;
+      background:linear-gradient(180deg,rgba(13,24,39,0.92) 0%,rgba(13,24,39,0) 100%);
+      backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
     }
+    nav.top .brand{
+      font-family:'Cinzel',serif;font-weight:600;letter-spacing:.25em;
+      font-size:1.05rem;
+      background:linear-gradient(180deg,#F5DC8C 0%,#D4AF37 50%,#9C7A1E 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
+    nav.top .links{display:flex;gap:1.5rem;font-size:.85rem;color:#888;font-family:'JetBrains Mono',monospace;letter-spacing:.1em}
+    @media(max-width:600px){nav.top .links{gap:.9rem;font-size:.75rem}}
+    nav.top .links a{transition:color .3s}
+    nav.top .links a:hover{color:#D4AF37}
+    nav.top .links a.active{color:#4A90E2}
 
-    /* Header */
-    header{
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(10px);
-      background: rgba(11,15,13,.72);
-      border-bottom: 1px solid var(--line);
+    /* === SECTION COMMON === */
+    section{padding:7rem 2rem;max-width:1400px;margin:0 auto}
+    .section-header{text-align:center;margin-bottom:5rem}
+    .section-label{
+      font-family:'JetBrains Mono',monospace;
+      font-size:.78rem;letter-spacing:.4em;color:#4A90E2;
+      margin-bottom:1.2rem;
     }
-    .header-inner{
-      display:flex;
-      align-items:center;
-      justify-content: space-between;
-      padding: 14px 0;
-      gap: 18px;
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap: 12px;
-      min-width: 220px;
-    }
-    .logo{
-      width: 40px;
-      height: 40px;
-      border-radius: 14px;
-      display:grid;
-      place-items:center;
-      background: linear-gradient(180deg, rgba(212,175,55,.26), rgba(212,175,55,.06));
-      border: 1px solid rgba(212,175,55,.40);
-      box-shadow: 0 10px 28px rgba(0,0,0,.35);
-    }
-    .logo svg{ width: 22px; height: 22px; }
-    .brand-title{
-      display:flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-    .brand-title strong{
-      font-weight: 800;
-      letter-spacing: .2px;
-    }
-    .brand-title span{
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    nav{
-      display:flex;
-      gap: 18px;
-      align-items:center;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-    nav a{
-      font-size: 14px;
-      color: var(--muted);
-      padding: 8px 10px;
-      border-radius: 12px;
-      transition: background .2s ease, color .2s ease;
-    }
-    nav a:hover{
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-    }
-
-    .header-actions{
-      display:flex;
-      gap: 10px;
-      align-items:center;
-      min-width: 220px;
-      justify-content: flex-end;
-    }
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap: 10px;
-      padding: 10px 14px;
-      border-radius: 14px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.05);
-      color: var(--text);
-      font-weight: 700;
-      font-size: 14px;
-      cursor:pointer;
-      transition: transform .12s ease, background .2s ease, border-color .2s ease;
-      user-select:none;
-      white-space: nowrap;
-    }
-    .btn:hover{
-      background: rgba(255,255,255,.08);
-      border-color: rgba(255,255,255,.16);
-      transform: translateY(-1px);
-    }
-    .btn-primary{
-      border-color: rgba(212,175,55,.45);
-      background: linear-gradient(180deg, rgba(212,175,55,.20), rgba(212,175,55,.06));
-    }
-    .btn-primary:hover{
-      background: linear-gradient(180deg, rgba(212,175,55,.26), rgba(212,175,55,.08));
-    }
-
-    /* Hero */
-    main{ padding: 34px 0 80px; }
-    .hero{
-      position: relative;
-      overflow:hidden;
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--line);
-      background:
-        radial-gradient(900px 500px at 10% 0%, rgba(212,175,55,.18), transparent 55%),
-        radial-gradient(700px 450px at 90% 10%, rgba(200,204,208,.12), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-      box-shadow: var(--shadow);
-      padding: 44px;
-    }
-
-    .hero-grid{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap: 26px;
-      align-items: start;
-    }
-
-    .kicker{
-      display:inline-flex;
-      align-items:center;
-      gap: 10px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(212,175,55,.35);
-      background: rgba(212,175,55,.08);
-      color: var(--silver);
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: .2px;
-      margin-bottom: 14px;
-    }
-    .kicker .dot{
-      width: 8px; height: 8px; border-radius: 50%;
-      background: var(--gold);
-      box-shadow: 0 0 0 6px rgba(212,175,55,.12);
-    }
-
-    h1{
-      margin: 0 0 12px;
-      font-size: 42px;
-      line-height: 1.12;
-      letter-spacing: -0.6px;
-    }
-    .subtitle{
-      margin: 0 0 18px;
-      color: var(--muted);
-      font-size: 16px;
-      max-width: 70ch;
-    }
-    .quote{
-      margin: 0;
-      padding: 16px 16px;
-      border-left: 3px solid rgba(212,175,55,.70);
-      background: rgba(0,0,0,.25);
-      border-radius: 14px;
-      color: var(--text);
-      font-weight: 750;
-    }
-    .quote span{
-      display:block;
-      margin-top: 8px;
-      font-size: 13px;
-      color: var(--muted);
-      font-weight: 600;
-    }
-
-    .hero-actions{
-      display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 18px;
-    }
-
-    .hero-card{
-      border-radius: 18px;
-      border: 1px solid var(--line);
-      background: rgba(0,0,0,.25);
-      padding: 16px;
-    }
-    .hero-card h2{
-      margin: 0 0 10px;
-      font-size: 14px;
-      letter-spacing: .2px;
-      color: var(--silver);
-    }
-    .pill{
-      display:flex;
-      align-items:center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 12px 12px;
-      border-radius: 16px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.08);
-      margin-bottom: 10px;
-    }
-    .pill strong{
-      font-size: 13px;
-      letter-spacing: .2px;
-    }
-    .pill span{
-      font-size: 12px;
-      color: var(--muted);
-      text-align: right;
-    }
-    .mini{
-      font-size: 12px;
-      color: var(--muted);
-      margin: 0;
-    }
-
-    /* Sections */
-    section{ margin-top: 26px; }
     .section-title{
-      display:flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 14px;
-      margin-bottom: 14px;
+      font-family:'Cinzel',serif;
+      font-size:clamp(2rem,5vw,3.5rem);
+      font-weight:500;letter-spacing:.05em;
+      background:linear-gradient(180deg,#F5DC8C 0%,#D4AF37 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
     }
-    .section-title h3{
-      margin: 0;
-      font-size: 20px;
-      letter-spacing: -.2px;
+    @media(max-width:600px){section{padding:4rem 2rem}}
+
+    /* === HERO === */
+    .hero{
+      min-height:100vh;position:relative;overflow:hidden;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;padding:6rem 2rem 4rem;
     }
-    .section-title p{
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
+    .hero-bg-glow{
+      position:absolute;top:-30%;left:50%;transform:translateX(-50%);
+      width:80vmin;height:80vmin;
+      background:radial-gradient(circle,rgba(74,144,226,0.12) 0%,transparent 60%);
+      pointer-events:none;z-index:0;
+    }
+    .hero-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center}
+    .coin-image{
+      width:min(50vmin,420px);height:auto;
+      filter:drop-shadow(0 0 80px rgba(74,144,226,0.35));
+      animation:coinFloat 9s ease-in-out infinite;
+      margin-bottom:2.5rem;border-radius:50%;
+    }
+    @keyframes coinFloat{
+      0%,100%{transform:translateY(0) rotate(0deg)}
+      50%{transform:translateY(-25px) rotate(2deg)}
+    }
+    .brand-mark{
+      font-family:'Cinzel',serif;
+      font-size:clamp(2.5rem,11vw,7rem);
+      font-weight:600;letter-spacing:.15em;
+      background:linear-gradient(180deg,#F8E89E 0%,#E5C158 25%,#D4AF37 50%,#A8842E 75%,#5C4A1A 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      margin-bottom:1.5rem;line-height:1;
+      filter:drop-shadow(0 4px 20px rgba(74,144,226,0.3));
+    }
+    .tagline-en{
+      font-family:'Cinzel',serif;
+      font-size:clamp(.95rem,2vw,1.25rem);
+      color:#4A90E2;letter-spacing:.15em;font-weight:500;
+      margin-bottom:.6rem;text-transform:uppercase;
+    }
+    .tagline-ko{
+      font-size:clamp(.95rem,2vw,1.15rem);
+      color:#d8d8d8;font-weight:300;letter-spacing:.05em;
+      margin-bottom:1rem;
+    }
+    .established{
+      font-family:'JetBrains Mono',monospace;
+      font-size:.8rem;color:#999;letter-spacing:.35em;
+    }
+    .scroll-hint{
+      position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+      font-family:'JetBrains Mono',monospace;font-size:.7rem;
+      color:#555;letter-spacing:.3em;z-index:3;
+      animation:scrollHint 2.2s ease-in-out infinite;
+    }
+    @keyframes scrollHint{
+      0%,100%{opacity:.4;transform:translateX(-50%) translateY(0)}
+      50%{opacity:1;transform:translateX(-50%) translateY(8px)}
     }
 
-    .features{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
+    /* === CHALKBOARD CONCEPT === */
+    .chalkboard-section{
+      padding:7rem 2rem;border-top:1px solid #1a2a3a;
+      max-width:1200px;margin:0 auto;
     }
-    .feature{
-      border-radius: var(--radius);
-      border: 1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      padding: 18px;
-      box-shadow: 0 10px 26px rgba(0,0,0,.25);
+    .chalkboard-grid{
+      display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
     }
-    .feature .icon{
-      width: 38px;
-      height: 38px;
-      border-radius: 14px;
-      display:grid;
-      place-items:center;
-      border: 1px solid rgba(212,175,55,.35);
-      background: rgba(212,175,55,.10);
-      margin-bottom: 12px;
+    @media(max-width:768px){.chalkboard-grid{grid-template-columns:1fr;gap:2rem}}
+    .chalkboard-visual{
+      background:linear-gradient(135deg,#1a2a3a 0%,#0d1827 100%);
+      border:1px solid #2a3a4a;border-radius:12px;
+      aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;
+      position:relative;overflow:hidden;
     }
-    .feature h4{
-      margin: 0 0 8px;
-      font-size: 16px;
+    .chalkboard-visual svg{width:60%;height:60%;opacity:.6}
+    .chalkboard-text h3{
+      font-family:'Cinzel',serif;font-size:1.6rem;font-weight:500;
+      color:#4A90E2;margin-bottom:1.5rem;letter-spacing:.05em;
     }
-    .feature p{
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
+    .chalkboard-text p{
+      color:#aaa;line-height:1.85;font-size:1rem;margin-bottom:1rem;
     }
-    .feature ul{
-      margin: 12px 0 0;
-      padding: 0 0 0 18px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-    .feature li{ margin: 6px 0; }
+    .chalkboard-text .highlight{color:#4A90E2;font-weight:500}
 
-    /* Gallery */
-    .gallery{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
+    /* === YOUTUBE === */
+    .youtube-section{
+      padding:7rem 2rem;border-top:1px solid #1a2a3a;
+      max-width:900px;margin:0 auto;text-align:center;
     }
-    .card{
-      border-radius: var(--radius);
-      border: 1px solid var(--line);
-      background: linear-gradient(180deg, rgba(0,0,0,.28), rgba(255,255,255,.02));
-      overflow: hidden;
-      box-shadow: 0 14px 34px rgba(0,0,0,.35);
-      position: relative;
-      min-height: 190px;
+    .youtube-embed-wrap{
+      max-width:800px;margin:0 auto;aspect-ratio:16/9;
+      background:#0d0d0d;border:1px solid #1a2a3a;border-radius:8px;
+      overflow:hidden;
     }
-    .card .img{
-      position:absolute;
-      inset:0;
-      background:
-        radial-gradient(800px 380px at 20% 20%, rgba(212,175,55,.20), transparent 60%),
-        radial-gradient(650px 360px at 80% 0%, rgba(200,204,208,.14), transparent 60%),
-        linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-      filter: saturate(1.05);
-    }
-    .card .overlay{
-      position:absolute;
-      inset:0;
-      background: linear-gradient(180deg, transparent, rgba(0,0,0,.55));
-    }
-    .card .content{
-      position:absolute;
-      left: 14px;
-      right: 14px;
-      bottom: 14px;
-    }
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.25);
-      color: var(--silver);
-      font-size: 12px;
-      font-weight: 700;
-      margin-bottom: 10px;
-      backdrop-filter: blur(8px);
-    }
-    .card h5{
-      margin: 0 0 6px;
-      font-size: 16px;
-      letter-spacing: -.2px;
-    }
-    .card p{
-      margin: 0;
-      color: rgba(232,236,234,.80);
-      font-size: 13px;
+    .youtube-embed-wrap iframe{width:100%;height:100%;border:0}
+    .yt-placeholder{
+      width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+      font-family:'JetBrains Mono',monospace;font-size:.85rem;color:#555;letter-spacing:.2em;
     }
 
-    /* Footer */
+    /* === CURRICULUM === */
+    .curriculum-section{
+      padding:7rem 2rem;border-top:1px solid #1a2a3a;
+      max-width:1200px;margin:0 auto;
+    }
+    .curriculum-grid{
+      display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;
+    }
+    @media(max-width:900px){.curriculum-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:500px){.curriculum-grid{grid-template-columns:1fr}}
+    .curriculum-card{
+      padding:2rem 1.5rem;
+      background:linear-gradient(180deg,#161616 0%,#0d0d0d 100%);
+      border:1px solid #1a2a3a;border-top:3px solid #4A90E2;
+      text-align:center;transition:transform .5s cubic-bezier(.2,.8,.2,1),border-color .4s,box-shadow .5s;
+    }
+    .curriculum-card:hover{
+      transform:translateY(-6px);
+      border-color:#4A90E2;
+      box-shadow:0 30px 80px rgba(0,0,0,0.5);
+    }
+    .curriculum-card .level{
+      font-family:'Cinzel',serif;font-size:1.3rem;font-weight:600;
+      color:#4A90E2;margin-bottom:.8rem;
+    }
+    .curriculum-card .title{
+      font-family:'JetBrains Mono',monospace;font-size:.8rem;
+      color:#888;letter-spacing:.2em;margin-bottom:.8rem;
+    }
+    .curriculum-card .desc{
+      font-size:.9rem;color:#aaa;line-height:1.6;
+    }
+
+    /* === BACK === */
+    .back-section{
+      padding:7rem 2rem;border-top:1px solid #1a2a3a;
+      max-width:900px;margin:0 auto;text-align:center;
+    }
+    .back-section .persona-links{
+      display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;
+      margin-top:3rem;
+    }
+    .back-section .persona-link{
+      padding:1rem 2rem;border:1px solid #333;
+      font-family:'JetBrains Mono',monospace;font-size:.82rem;letter-spacing:.2em;
+      transition:border-color .3s,color .3s,transform .3s;
+    }
+    .back-section .persona-link:hover{transform:translateY(-4px);border-color:var(--pcolor,#4A90E2);color:var(--pcolor,#4A90E2)}
+
+    /* === FOOTER === */
     footer{
-      margin-top: 30px;
-      border-top: 1px solid var(--line);
-      padding: 18px 0 30px;
-      color: var(--muted);
-      font-size: 13px;
+      padding:3rem 2rem;text-align:center;
+      border-top:1px solid #1a2a3a;
+      font-family:'JetBrains Mono',monospace;
+      font-size:.72rem;color:#444;letter-spacing:.2em;
     }
-    .footer-grid{
-      display:flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-    .small-links{
-      display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .small-links a{
-      padding: 8px 10px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.08);
-      background: rgba(255,255,255,.03);
-    }
+    footer .links{margin-bottom:1rem;display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap}
+    footer .links a{transition:color .3s}
+    footer .links a:hover{color:#D4AF37}
 
-    /* Modal */
-    dialog{
-      width: min(720px, calc(100% - 24px));
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(11,15,13,.92);
-      border-radius: 18px;
-      padding: 0;
-      color: var(--text);
-      box-shadow: 0 24px 70px rgba(0,0,0,.55);
-      backdrop-filter: blur(10px);
-    }
-    dialog::backdrop{
-      background: rgba(0,0,0,.55);
-    }
-    .modal-head{
-      padding: 16px 16px;
-      border-bottom: 1px solid rgba(255,255,255,.10);
-      display:flex;
-      align-items:center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-    .modal-head strong{ letter-spacing: .2px; }
-    .modal-body{
-      padding: 16px;
-    }
-    .modal-body p{
-      margin: 0 0 10px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-    .copybox{
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 16px;
-      background: rgba(0,0,0,.25);
-      padding: 14px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 12px;
-      line-height: 1.5;
-      color: var(--silver);
-      white-space: pre-wrap;
-      user-select: text;
-    }
-    .modal-actions{
-      display:flex;
-      gap: 10px;
-      justify-content: flex-end;
-      padding: 14px 16px 16px;
-      border-top: 1px solid rgba(255,255,255,.10);
-    }
+    /* === DISCORD === */
+    .discord-section{padding:7rem 2rem;border-top:1px solid #1a2a3a;max-width:1400px;margin:0 auto}
+    .discord-widget-wrap{display:flex;justify-content:center;align-items:center}
 
-    /* Responsive */
-    @media (max-width: 980px){
-      .hero-grid{ grid-template-columns: 1fr; }
-      .header-actions{ display:none; }
-      .brand{ min-width: auto; }
-    }
-    @media (max-width: 720px){
-      h1{ font-size: 34px; }
-      .features{ grid-template-columns: 1fr; }
-      .gallery{ grid-template-columns: 1fr; }
-      .hero{ padding: 26px; }
-      nav{ gap: 8px; }
-      nav a{ padding: 8px 8px; }
-    }
-    @media (max-width: 480px){
-      .container{ width: min(100% - 18px, var(--container)); }
-      h1{ font-size: 30px; }
-      .subtitle{ font-size: 15px; }
-      .btn{ width: 100%; }
-      .hero-actions{ flex-direction: column; }
-      .kicker{ font-size: 12px; }
-    }
+    /* === REVEAL === */
+    .js [data-reveal]{opacity:0;transform:translateY(40px)}
   </style>
 </head>
-
 <body>
-  <header>
-    <div class="container">
-      <div class="header-inner">
-        <a class="brand" href="#top" aria-label="Gohsy 홈으로">
-          <div class="logo" aria-hidden="true">
-            <!-- Minimal coin/anchor mark (inline SVG) -->
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M12 2.8c5.08 0 9.2 4.12 9.2 9.2S17.08 21.2 12 21.2 2.8 17.08 2.8 12 6.92 2.8 12 2.8Z"
-                    stroke="rgba(212,175,55,.95)" stroke-width="1.6"/>
-              <path d="M12 6.8v7.1" stroke="rgba(200,204,208,.9)" stroke-width="1.6" stroke-linecap="round"/>
-              <path d="M8.6 10.2h6.8" stroke="rgba(200,204,208,.9)" stroke-width="1.6" stroke-linecap="round"/>
-              <path d="M9 15.8c.9 1 2 1.6 3 1.6s2.1-.6 3-1.6"
-                    stroke="rgba(212,175,55,.9)" stroke-width="1.6" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div class="brand-title">
-            <strong>Gohsy</strong>
-            <span>Built on Gold. Measured in Silver.</span>
-          </div>
-        </a>
+<script>document.documentElement.classList.add('js');</script>
 
-        <nav aria-label="주요 메뉴">
-          <a href="#manifesto">매니페스토</a>
-          <a href="#features">원칙</a>
-          <a href="#gallery">카드</a>
-        </nav>
+<nav class="top" aria-label="Main navigation">
+  <a href="/" class="brand">GOHSY</a>
+  <div class="links">
+    <a href="/wife/" class="active">Wife</a>
+    <a href="/daughter/">Daughter</a>
+    <a href="/gohsy/">GOHSY</a>
+    <a href="/staff/">Backoffice</a>
+  </div>
+</nav>
 
-        <div class="header-actions">
-          <button class="btn" id="btnOpenModal" type="button">문구 복사</button>
-          <a class="btn btn-primary" href="#manifesto">지금 읽기</a>
-        </div>
-      </div>
+<!-- 1. HERO -->
+<section class="hero">
+  <div class="hero-bg-glow"></div>
+  <div class="hero-inner">
+    <img src="../assets/2.jpg" alt="GOHSY" class="coin-image"
+         data-tilt data-tilt-max="8" data-tilt-glare data-tilt-max-glare="0.3">
+    <h1 class="brand-mark" data-splitting>GOHSY</h1>
+    <p class="tagline-en">Voices for the Voiceless</p>
+    <p class="tagline-ko">배우 · 커머스 · 12슬롯 길드</p>
+    <p class="established">EST. 2026.01.13</p>
+  </div>
+  <div class="scroll-hint">SCROLL ↓</div>
+</section>
+
+<!-- 2. CHALKBOARD CONCEPT -->
+<section class="chalkboard-section" data-reveal>
+  <div class="section-header">
+    <p class="section-label">CONCEPT · CHALKBOARD</p>
+    <h2 class="section-title">매일의 칠판</h2>
+  </div>
+  <div class="chalkboard-grid">
+    <div class="chalkboard-visual" data-tilt data-tilt-max="5" data-tilt-glare data-tilt-max-glare="0.1">
+      <svg viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="10" width="180" height="130" stroke="#4A90E2" stroke-width="2" fill="none" opacity=".5"/>
+        <line x1="30" y1="45" x2="170" y2="45" stroke="#4A90E2" stroke-width="1.5" opacity=".3"/>
+        <line x1="30" y1="65" x2="170" y2="65" stroke="#4A90E2" stroke-width="1.5" opacity=".3"/>
+        <line x1="30" y1="85" x2="170" y2="85" stroke="#4A90E2" stroke-width="1.5" opacity=".3"/>
+        <line x1="30" y1="105" x2="90" y2="105" stroke="#4A90E2" stroke-width="1.5" opacity=".3"/>
+        <text x="30" y="38" fill="#4A90E2" font-size="8" font-family="monospace" opacity=".6">∫ f(x) dx = F(b) - F(a)</text>
+        <text x="30" y="58" fill="#4A90E2" font-size="8" font-family="monospace" opacity=".6">x² + y² = r²</text>
+        <text x="30" y="78" fill="#4A90E2" font-size="8" font-family="monospace" opacity=".6">sin²θ + cos²θ = 1</text>
+        <text x="30" y="98" fill="#4A90E2" font-size="8" font-family="monospace" opacity=".6">f(x) = lim h→0</text>
+        <circle cx="160" cy="90" r="25" stroke="#4A90E2" stroke-width="1" opacity=".3" fill="none"/>
+        <line x1="160" y1="90" x2="160" y2="65" stroke="#4A90E2" stroke-width="1" opacity=".3"/>
+        <line x1="160" y1="90" x2="180" y2="90" stroke="#4A90E2" stroke-width="1" opacity=".3"/>
+      </svg>
     </div>
-  </header>
-
-  <main id="top">
-    <div class="container">
-      <!-- HERO -->
-      <section class="hero" aria-label="히어로 섹션">
-        <div class="hero-grid">
-          <div>
-            <div class="kicker"><span class="dot" aria-hidden="true"></span> Gohsy Manifesto</div>
-            <h1>Gohsy Manifesto —<br/>Built on Gold. Measured in Silver.</h1>
-
-            <p class="subtitle">
-              Gohsy는 ‘돈이 무엇인가’를 다시 정의하는 기준점이다.
-              이 페이지의 목적은 방문자가 가격이 아니라 질서를 보게 만들고,
-              은과 금이 다시 화폐의 역할로 복귀하고 있다는 ‘현재 진행형 현실’을 인식시키는 것이다.
-            </p>
-
-            <p class="quote">
-              “너는 아직도 가격을 보고 있는가, 아니면 돈의 역할이 바뀌는 과정을 보고 있는가?”
-              <span>Gohsy는 수익을 약속하지 않는다. 대신 질문을 남긴다.</span>
-            </p>
-
-            <div class="hero-actions">
-              <a class="btn btn-primary" href="#manifesto">매니페스토 보기</a>
-              <button class="btn" type="button" id="btnScrollFeatures">Gohsy 원칙</button>
-              <button class="btn" type="button" id="btnOpenModal2">핵심 문구 복사</button>
-            </div>
-          </div>
-
-          <aside class="hero-card" aria-label="요약 카드">
-            <h2>요약</h2>
-
-            <div class="pill">
-              <strong>정체성</strong>
-              <span>투자 브랜드가 아니라<br/>돈의 기준점</span>
-            </div>
-
-            <div class="pill">
-              <strong>관점</strong>
-              <span>차트가 아니라<br/>국가 행동·물류 흐름</span>
-            </div>
-
-            <div class="pill">
-              <strong>목표</strong>
-              <span>고객 모집이 아니라<br/>동지 선별</span>
-            </div>
-
-            <p class="mini">
-              * 이 페이지는 “언제 사고 팔까”를 말하지 않는다.  
-              “무엇이 돈인가”를 다룬다.
-            </p>
-          </aside>
-        </div>
-      </section>
-
-      <!-- MANIFESTO -->
-      <section id="manifesto" aria-label="매니페스토 섹션">
-        <div class="section-title">
-          <h3>매니페스토</h3>
-          <p>정의한다. 설명하지 않는다.</p>
-        </div>
-
-        <article class="feature" style="padding:22px;">
-          <h4 style="margin:0 0 10px;">Gohsy는 ‘돈’의 정의를 다시 세운다.</h4>
-          <p style="margin:0 0 14px; color: var(--muted);">
-            대부분은 여전히 “돈”을 숫자로 본다. 우리는 “돈”을 <strong style="color:var(--text);">질서의 척도</strong>로 본다.
-            가격이 오르는 건 결과일 뿐이다. 진짜 움직임은 구조 아래에서 일어난다.
-          </p>
-
-          <p style="margin:0 0 14px; color: var(--muted);">
-            Gohsy는 수익률을 약속하지 않는다. 대신, 방문자를 아래 질문 앞에 세운다.
-          </p>
-
-          <p class="quote" style="margin:0;">
-            “너는 아직도 가격을 보고 있는가, 아니면 돈의 역할이 바뀌는 과정을 보고 있는가?”
-            <span>이곳은 고객을 모으는 곳이 아니라, 같은 언어를 쓰는 동지를 선별하는 깃발이다.</span>
-          </p>
-        </article>
-      </section>
-
-      <!-- FEATURES -->
-      <section id="features" aria-label="특징/장점 섹션">
-        <div class="section-title">
-          <h3>Gohsy 원칙</h3>
-          <p>실물·질서·정의. 과장 없이 단단하게.</p>
-        </div>
-
-        <div class="features">
-          <article class="feature">
-            <div class="icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M12 2.5c5.25 0 9.5 4.25 9.5 9.5S17.25 21.5 12 21.5 2.5 17.25 2.5 12 6.75 2.5 12 2.5Z"
-                      stroke="rgba(212,175,55,.95)" stroke-width="1.6"/>
-                <path d="M8 12h8" stroke="rgba(200,204,208,.9)" stroke-width="1.6" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <h4>가격이 아니라 질서</h4>
-            <p>Gohsy는 “얼마냐”보다 “무엇이냐”를 먼저 묻는다.</p>
-            <ul>
-              <li>숫자보다 역할</li>
-              <li>뉴스보다 구조</li>
-              <li>유행보다 기준</li>
-            </ul>
-          </article>
-
-          <article class="feature">
-            <div class="icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M7 7h10v10H7z" stroke="rgba(200,204,208,.9)" stroke-width="1.6"/>
-                <path d="M12 5v14" stroke="rgba(212,175,55,.9)" stroke-width="1.6" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <h4>기준과 척도</h4>
-            <p>금은 기준(anchor), 은은 척도(unit). Gohsy는 둘을 다시 연결한다.</p>
-            <ul>
-              <li>Gold = Anchor</li>
-              <li>Silver = Measure</li>
-              <li>Gohsy = 연결점</li>
-            </ul>
-          </article>
-
-          <article class="feature">
-            <div class="icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M4.5 12c2.2-5.2 12.8-5.2 15 0-2.2 5.2-12.8 5.2-15 0Z"
-                      stroke="rgba(200,204,208,.9)" stroke-width="1.6"/>
-                <path d="M12 9.2a2.8 2.8 0 1 0 0 5.6 2.8 2.8 0 0 0 0-5.6Z"
-                      stroke="rgba(212,175,55,.9)" stroke-width="1.6"/>
-              </svg>
-            </div>
-            <h4>동지 선별</h4>
-            <p>Gohsy는 대중을 모으지 않는다. 같은 언어를 쓰는 사람만 남긴다.</p>
-            <ul>
-              <li>고객 모집이 아닌 선별</li>
-              <li>설득이 아닌 정의</li>
-              <li>소란이 아닌 침묵</li>
-            </ul>
-          </article>
-        </div>
-      </section>
-
-      <!-- GALLERY -->
-      <section id="gallery" aria-label="이미지 갤러리 또는 카드 그리드">
-        <div class="section-title">
-          <h3>카드 그리드</h3>
-          <p>Gohsy의 핵심을 ‘장면’처럼 보여준다.</p>
-        </div>
-
-        <div class="gallery">
-          <article class="card" role="group" aria-label="카드 1">
-            <div class="img" aria-hidden="true"></div>
-            <div class="overlay" aria-hidden="true"></div>
-            <div class="content">
-              <div class="badge">Anchor</div>
-              <h5>금은 기준이다</h5>
-              <p>기준이 없으면, 가격은 소음이 된다.</p>
-            </div>
-          </article>
-
-          <article class="card" role="group" aria-label="카드 2">
-            <div class="img" aria-hidden="true" style="background:
-              radial-gradient(800px 380px at 60% 10%, rgba(200,204,208,.18), transparent 60%),
-              radial-gradient(650px 360px at 10% 0%, rgba(212,175,55,.18), transparent 60%),
-              linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));"></div>
-            <div class="overlay" aria-hidden="true"></div>
-            <div class="content">
-              <div class="badge">Measure</div>
-              <h5>은은 척도다</h5>
-              <p>거래와 비교는 결국 ‘척도’를 요구한다.</p>
-            </div>
-          </article>
-
-          <article class="card" role="group" aria-label="카드 3">
-            <div class="img" aria-hidden="true" style="background:
-              radial-gradient(800px 380px at 20% 20%, rgba(212,175,55,.16), transparent 60%),
-              radial-gradient(650px 360px at 85% 0%, rgba(200,204,208,.18), transparent 60%),
-              linear-gradient(135deg, rgba(255,255,255,.05), rgba(255,255,255,.02));"></div>
-            <div class="overlay" aria-hidden="true"></div>
-            <div class="content">
-              <div class="badge">Order</div>
-              <h5>우리는 질서를 본다</h5>
-              <p>차트가 아니라, 행동과 흐름을 읽는다.</p>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <footer>
-        <div class="footer-grid">
-          <div>
-            <strong style="color:var(--text);">Gohsy</strong>
-            <span style="color:var(--muted);"> · Built on Gold. Measured in Silver.</span>
-          </div>
-
-          <div class="small-links" aria-label="보조 링크">
-            <a href="#top">상단</a>
-            <a href="#manifesto">매니페스토</a>
-            <a href="#features">원칙</a>
-            <a href="#gallery">카드</a>
-          </div>
-        </div>
-      </footer>
+    <div class="chalkboard-text">
+      <h3>칠판 위의 수학</h3>
+      <p>와이프는 <span class="highlight">중학 · 고교 수학</span>을 칠판에 직접 쓰며 강의합니다.</p>
+      <p>박씨 backoffice 가 영상 제작 · 편집 · 업로드 · SEO 를 담당하고, 와이프는 오직 <span class="highlight">강의 콘텐츠</span> 자체에 집중합니다.</p>
+      <p>하루 1개 — 매일의 칠판. 수학이 어려운 게 아니라 설명을 못 들어서 그런 겁니다.</p>
     </div>
-  </main>
+  </div>
+</section>
 
-  <!-- Modal (copy) -->
-  <dialog id="copyDialog" aria-label="핵심 문구 복사">
-    <div class="modal-head">
-      <strong>핵심 문구</strong>
-      <button class="btn" type="button" id="btnCloseModal" aria-label="닫기">닫기</button>
+<!-- 3. YOUTUBE PLAYLIST -->
+<section class="youtube-section" data-reveal>
+  <div class="section-header">
+    <p class="section-label">YOUTUBE · PLAYLIST</p>
+    <h2 class="section-title">강의 채널</h2>
+  </div>
+  <div class="youtube-embed-wrap">
+    <iframe id="wife-youtube" title="GOHSY YouTube playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</section>
+
+<!-- 4. CURRICULUM PREVIEW -->
+<section class="curriculum-section" data-reveal>
+  <div class="section-header">
+    <p class="section-label">CURRICULUM · 커리큘럼</p>
+    <h2 class="section-title">수학 로드맵</h2>
+  </div>
+  <div class="curriculum-grid">
+    <div class="curriculum-card" data-tilt data-tilt-max="6" data-tilt-glare data-tilt-max-glare="0.08">
+      <div class="level">중1</div>
+      <div class="title">수학 기초</div>
+      <div class="desc">정수와 유리수 · 방정식 · 함수의 기초 · 도형의 성질</div>
     </div>
-    <div class="modal-body">
-      <p>원하는 문구를 복사해 쓰면 된다. (Gohsy는 길게 설명하지 않고, 짧게 박는다.)</p>
-      <div class="copybox" id="copyBox">Gohsy — Built on Gold. Measured in Silver.
-“너는 아직도 가격을 보고 있는가, 아니면 돈의 역할이 바뀌는 과정을 보고 있는가?”</div>
+    <div class="curriculum-card" data-tilt data-tilt-max="6" data-tilt-glare data-tilt-max-glare="0.08">
+      <div class="level">중2</div>
+      <div class="title">수학 심화</div>
+      <div class="desc">연립방정식 · 부등식 · 확률 · 삼각형의 성질</div>
     </div>
-    <div class="modal-actions">
-      <button class="btn btn-primary" type="button" id="btnCopy">복사하기</button>
+    <div class="curriculum-card" data-tilt data-tilt-max="6" data-tilt-glare data-tilt-max-glare="0.08">
+      <div class="level">중3</div>
+      <div class="title">고등 대비</div>
+      <div class="desc">이차방정식 · 이차함수 · 피타고라스 · 삼각비</div>
     </div>
-  </dialog>
+    <div class="curriculum-card" data-tilt data-tilt-max="6" data-tilt-glare data-tilt-max-glare="0.08">
+      <div class="level">고1</div>
+      <div class="title">고등수학</div>
+      <div class="desc">다항식 · 방정식과 부등식 · 도형의 방정식 · 함수</div>
+    </div>
+  </div>
+</section>
 
-  <script>
-    (function(){
-      const $ = (sel) => document.querySelector(sel);
+<!-- 5. DISCORD -->
+<section class="discord-section" data-reveal>
+  <div class="section-header">
+    <p class="section-label">COMMUNITY · DISCORD</p>
+    <h2 class="section-title">GOHSY · Hub</h2>
+  </div>
+  <div class="discord-widget-wrap">
+    <iframe id="discord-widget" src="https://e.widgetbot.io/channels/1493490911278272655" width="100%" height="400" title="GOHSY Discord 실시간 채팅" style="border:1px solid #1a1a1a;border-radius:12px;max-width:600px;display:block;margin:0 auto;"></iframe>
+  </div>
+</section>
 
-      const dialog = $("#copyDialog");
-      const copyBox = $("#copyBox");
+<!-- 6. BACK TO GOHSY -->
+<section class="back-section" data-reveal>
+  <div class="section-header">
+    <p class="section-label">MATRIX · GOHSY</p>
+    <h2 class="section-title">돌아가기</h2>
+  </div>
+  <p style="color:#888;font-size:1rem;line-height:1.7;max-width:600px;margin:0 auto">
+    GOHSY 4 Coin Matrix 의 일부입니다.<br>
+    다른 페르소나도 만나보세요.
+  </p>
+  <div class="persona-links">
+    <a href="/" class="btn-gold">GOHSY 메인 →</a>
+    <a href="/daughter/" class="persona-link" style="--pcolor:#7ED321">👧 Daughter</a>
+    <a href="/gohsy/" class="persona-link" style="--pcolor:#D4AF37">🎭 GOHSY</a>
+  </div>
+</section>
 
-      const openers = [$("#btnOpenModal"), $("#btnOpenModal2")].filter(Boolean);
-      openers.forEach(btn => btn.addEventListener("click", () => dialog.showModal()));
+<footer>
+  <div class="links">
+    <a href="/wife/">Wife</a>
+    <a href="/daughter/">Daughter</a>
+    <a href="/gohsy/">GOHSY</a>
+    <a href="/staff/">Backoffice</a>
+    <a href="/card/">Card</a>
+    <a href="https://github.com/dtslib1979/gohsy" target="_blank">GitHub</a>
+  </div>
+  <div>© 2026 GOHSY · EST. 2026.01.13 · Operated by 박씨 · Backoffice 박씨</div>
+</footer>
 
-      $("#btnCloseModal").addEventListener("click", () => dialog.close());
+<script>
+  if (window.Splitting) Splitting();
+  if (window.VanillaTilt) VanillaTilt.init(document.querySelectorAll('[data-tilt]'));
 
-      $("#btnScrollFeatures").addEventListener("click", () => {
-        const el = $("#features");
-        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  if (window.gsap && window.ScrollTrigger){
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.from('.coin-image', {opacity:0, scale:0.6, duration:1.5, ease:'power3.out', delay:0.3});
+    gsap.from('.brand-mark .char', {opacity:0, y:80, duration:0.9, stagger:0.07, ease:'power3.out', delay:0.7});
+    gsap.from('.tagline-en', {opacity:0, y:20, duration:0.8, ease:'power3.out', delay:1.6});
+    gsap.from('.tagline-ko', {opacity:0, y:20, duration:0.8, ease:'power3.out', delay:1.85});
+    gsap.from('.established', {opacity:0, duration:0.6, delay:2.1});
+
+    const reveals = document.querySelectorAll('[data-reveal]');
+    reveals.forEach(el => {
+      gsap.to(el, {
+        opacity:1, y:0, duration:1, ease:'power3.out',
+        scrollTrigger: {trigger:el, start:'top 95%', toggleActions:'play none none none'}
       });
-
-      $("#btnCopy").addEventListener("click", async () => {
-        const text = copyBox.innerText.trim();
-        try{
-          await navigator.clipboard.writeText(text);
-          $("#btnCopy").innerText = "복사됨";
-          setTimeout(() => $("#btnCopy").innerText = "복사하기", 1200);
-        }catch(e){
-          // Fallback
-          const range = document.createRange();
-          range.selectNodeContents(copyBox);
-          const sel = window.getSelection();
-          sel.removeAllRanges();
-          sel.addRange(range);
-          alert("클립보드 권한이 없어서 텍스트를 선택해뒀다. 길게 눌러 복사해.");
+    });
+    setTimeout(() => {
+      reveals.forEach(el => {
+        if (parseFloat(getComputedStyle(el).opacity) < 0.5) {
+          gsap.to(el, {opacity:1, y:0, duration:0.6});
         }
       });
-    })();
-  </script>
+    }, 1500);
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(el => {
+      el.style.opacity = '1'; el.style.transform = 'none';
+    });
+  }
+</script>
+
+<script type="module">
+  const r = await fetch('../data/personas.json');
+  const d = await r.json();
+  const p = d.personas.find(x => x.id === 'wife');
+  const iframe = document.getElementById('wife-youtube');
+  const yt = p?.youtube;
+  if (yt && yt.playlist_id && !yt.playlist_id.includes('PLACEHOLDER')) {
+    iframe.src = `https://www.youtube.com/embed/videoseries?list=${yt.playlist_id}`;
+  } else {
+    iframe.outerHTML = '<div class="yt-placeholder">🔒 채널 준비 중</div>';
+  }
+</script>
+
 </body>
 </html>

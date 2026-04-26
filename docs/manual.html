@@ -1,102 +1,631 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>dtslib 매뉴얼</title>
-  <link rel="icon" href="../assets/icons/logo.jpg">
-  <link rel="apple-touch-icon" href="../assets/icons/logo.jpg">
-  <link rel="manifest" href="../assets/manifest.json">
-  <meta name="theme-color" content="#D4AF37">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <title>Manual — 사용 매뉴얼 | GOHSY</title>
+  <meta name="description" content="GOHSY Manual — 사용 매뉴얼" />
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=JetBrains+Mono:wght@100;200;400;700&display=swap" rel="stylesheet">
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="GOHSY" />
+  <meta property="og:title" content="Manual — 사용 매뉴얼" />
+  <meta property="og:description" content="GOHSY Manual — 사용 매뉴얼" />
+  <meta property="og:image" content="https://gohsy.kr/assets/1.jpg" />
+  <meta property="og:url" content="https://gohsy.kr/docs/manual.html" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Manual — 사용 매뉴얼">
+  <meta name="twitter:description" content="GOHSY Manual — 사용 매뉴얼">
+  <meta name="twitter:image" content="https://gohsy.kr/assets/1.jpg">
+  <link rel="canonical" href="https://gohsy.kr/docs/manual.html">
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebSite",
+    "name":"GOHSY",
+    "url":"https://gohsy.kr/",
+    "description":"GOHSY — 매트릭스 — 와이프(Wife)/Daughter/GOHsy(Guild)",
+    "publisher":{"@type":"Organization","name":"GOHSY","logo":"https://gohsy.kr/assets/mh.jpg"}
+  }
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+  <link rel="stylesheet" href="../assets/discord/discord.css">
+
   <style>
-    :root {
-      --bg: #0F1F15;
-      --bg-card: #1A2E22;
-      --gold: #D4AF37;
-      --text: #F5F5F0;
-      --text-muted: rgba(245,245,240,.6);
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;background:#000}
+    body{
+      font-family:'Pretendard Variable',sans-serif;
+      background:#0a0a0a;color:#f0f0f0;
+      min-height:100vh;overflow-x:hidden;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      padding: 20px;
+    a{color:inherit;text-decoration:none}
+    img,video{max-width:100%;display:block}
+
+    /* === NAV === */
+    nav.top{
+      position:fixed;top:0;left:0;right:0;z-index:50;
+      display:flex;justify-content:space-between;align-items:center;
+      padding:1.25rem 2rem;
+      background:linear-gradient(180deg,rgba(10,10,10,0.92) 0%,rgba(10,10,10,0) 100%);
+      backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
     }
-    .container { max-width: 600px; margin: 0 auto; }
-    h1 { color: var(--gold); margin-bottom: 20px; }
-    h2 { color: var(--gold); margin: 24px 0 12px; font-size: 18px; }
-    p { margin-bottom: 12px; color: var(--text-muted); }
-    ul { margin-left: 20px; margin-bottom: 16px; }
-    li { margin-bottom: 8px; color: var(--text-muted); }
-    code {
-      background: var(--bg-card);
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 13px;
+    nav.top .brand{
+      font-family:'Cinzel',serif;font-weight:600;letter-spacing:.25em;
+      font-size:1.05rem;color:#D4AF37;
+      background:linear-gradient(180deg,#F5DC8C 0%,#D4AF37 50%,#9C7A1E 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
     }
-    .back-link {
-      display: inline-block;
-      color: var(--gold);
-      text-decoration: none;
-      margin-bottom: 20px;
+    nav.top .links{display:flex;gap:1.5rem;font-size:.85rem;color:#888;font-family:'JetBrains Mono',monospace;letter-spacing:.1em}
+    @media(max-width:600px){nav.top .links{gap:.9rem;font-size:.75rem}}
+    nav.top .links a{transition:color .3s}
+    nav.top .links a:hover{color:#D4AF37}
+
+    /* === HERO with VIDEO === */
+    .hero{
+      min-height:100vh;position:relative;overflow:hidden;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;padding:6rem 2rem 4rem;
     }
+    .hero-bg-video{
+      position:absolute;inset:0;width:100%;height:100%;
+      object-fit:cover;opacity:0.18;filter:blur(2px) saturate(1.3);
+      z-index:0;pointer-events:none;
+    }
+    .hero-bg-overlay{
+      position:absolute;inset:0;
+      background:radial-gradient(ellipse at center,rgba(26,20,16,0.4) 0%,rgba(10,10,10,0.95) 75%);
+      z-index:1;
+    }
+    .hero-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center}
+    .coin-image{
+      width:min(60vmin,520px);height:auto;
+      filter:drop-shadow(0 0 80px rgba(212,175,55,0.45));
+      animation:coinFloat 9s ease-in-out infinite;
+      margin-bottom:2.5rem;border-radius:50%;
+    }
+    @keyframes coinFloat{
+      0%,100%{transform:translateY(0) rotate(0deg)}
+      50%{transform:translateY(-25px) rotate(2deg)}
+    }
+    .brand-mark{
+      font-family:'Cinzel',serif;
+      font-size:clamp(2.5rem,11vw,7rem);
+      font-weight:600;letter-spacing:.25em;
+      background:linear-gradient(180deg,#F8E89E 0%,#E5C158 25%,#D4AF37 50%,#A8842E 75%,#5C4A1A 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      margin-bottom:1.5rem;line-height:1;
+      filter:drop-shadow(0 4px 20px rgba(212,175,55,0.3));
+    }
+    .tagline-en{
+      font-family:'Cinzel',serif;
+      font-size:clamp(.95rem,2vw,1.25rem);
+      color:#F5DC8C;letter-spacing:.15em;font-weight:500;
+      margin-bottom:.6rem;text-transform:uppercase;
+    }
+    .tagline-ko{
+      font-size:clamp(.95rem,2vw,1.15rem);
+      color:#d8d8d8;font-weight:300;letter-spacing:.05em;
+      margin-bottom:1rem;
+    }
+    .established{
+      font-family:'JetBrains Mono',monospace;
+      font-size:.8rem;color:#999;letter-spacing:.35em;
+    }
+    .scroll-hint{
+      position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+      font-family:'JetBrains Mono',monospace;font-size:.7rem;
+      color:#555;letter-spacing:.3em;z-index:3;
+      animation:scrollHint 2.2s ease-in-out infinite;
+    }
+    @keyframes scrollHint{
+      0%,100%{opacity:.4;transform:translateX(-50%) translateY(0)}
+      50%{opacity:1;transform:translateX(-50%) translateY(8px)}
+    }
+
+    /* === SECTION COMMON === */
+    section{padding:7rem 2rem;max-width:1400px;margin:0 auto}
+    .section-header{text-align:center;margin-bottom:5rem}
+    .section-label{
+      font-family:'JetBrains Mono',monospace;
+      font-size:.78rem;letter-spacing:.4em;color:#D4AF37;
+      margin-bottom:1.2rem;
+    }
+    .section-title{
+      font-family:'Cinzel',serif;
+      font-size:clamp(2rem,5vw,3.5rem);
+      font-weight:500;letter-spacing:.05em;
+      background:linear-gradient(180deg,#F5DC8C 0%,#D4AF37 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
+    @media(max-width:600px){section{padding:4rem 2rem}}
+
+    /* === CHAPTER NAVIGATION === */
+    .matrix-section{padding:7rem 2rem;border-top:1px solid #1a1a1a}
+    .matrix-grid{
+      display:grid;grid-template-columns:repeat(4,1fr);
+      gap:1.5rem;max-width:1200px;margin:0 auto;
+    }
+    @media(max-width:900px){.matrix-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:480px){.matrix-grid{grid-template-columns:1fr}}
+    .coin-card{
+      position:relative;text-align:center;padding:2rem 1rem;
+      background:linear-gradient(180deg,#161208 0%,#0a0a0a 100%);
+      border:1px solid #1a1410;
+      transition:transform .5s cubic-bezier(.2,.8,.2,1),border-color .4s,box-shadow .4s;
+    }
+    .coin-card:hover{
+      transform:translateY(-8px);
+      border-color:#D4AF37;
+      box-shadow:0 30px 80px rgba(0,0,0,0.6),0 0 60px rgba(212,175,55,0.15);
+    }
+    .coin-card img{
+      width:100%;aspect-ratio:1;object-fit:cover;border-radius:50%;
+      filter:drop-shadow(0 8px 30px rgba(212,175,55,0.25));
+      transition:transform 1s ease;
+    }
+    .coin-card:hover img{transform:rotate(360deg)}
+    .coin-card .coin-name{
+      font-family:'Cinzel',serif;font-weight:600;letter-spacing:.1em;
+      font-size:1.15rem;color:#D4AF37;margin-top:1.2rem;
+    }
+    .coin-card .coin-role{
+      font-family:'JetBrains Mono',monospace;font-size:.7rem;
+      color:#b0b0b0;letter-spacing:.2em;margin-top:.4rem;text-transform:uppercase;
+    }
+
+    /* === CHAPTER CONTENT === */
+    .personas-section{padding:7rem 2rem;border-top:1px solid #1a1a1a;max-width:1400px;margin:0 auto}
+    .persona-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+    @media(max-width:900px){.persona-grid{grid-template-columns:1fr}}
+    .persona-card{
+      position:relative;padding:2.5rem 2rem;
+      background:linear-gradient(180deg,#161616 0%,#0d0d0d 100%);
+      border:1px solid #222;
+      transition:transform .5s cubic-bezier(.2,.8,.2,1),border-color .4s,box-shadow .5s;
+      overflow:hidden;display:flex;flex-direction:column;cursor:pointer;
+      min-height:560px;
+    }
+    .persona-card::before{
+      content:'';position:absolute;top:0;left:0;right:0;height:4px;
+      background:var(--accent,#D4AF37);opacity:.7;
+      transition:opacity .4s,height .4s;
+    }
+    .persona-card::after{
+      content:'';position:absolute;inset:0;
+      background:radial-gradient(circle at 50% 0%,var(--accent,#D4AF37) 0%,transparent 70%);
+      opacity:0;transition:opacity .4s;pointer-events:none;
+    }
+    .persona-card:hover{
+      transform:translateY(-12px) scale(1.02);
+      border-color:var(--accent,#D4AF37);
+      box-shadow:0 30px 80px rgba(0,0,0,0.5);
+    }
+    .persona-card:hover::before{height:8px;opacity:1}
+    .persona-card:hover::after{opacity:.06}
+    .persona-card .coin-art{
+      width:180px;height:180px;border-radius:50%;
+      object-fit:cover;margin:0 auto 1.5rem;
+      filter:drop-shadow(0 8px 25px rgba(0,0,0,0.5));
+      transition:transform .8s ease;
+    }
+    @media(max-width:600px){.persona-card .coin-art{width:220px;height:220px}}
+    .persona-card:hover .coin-art{transform:rotate(15deg) scale(1.05)}
+    .persona-card h3{
+      font-family:'Cinzel',serif;font-size:1.6rem;
+      font-weight:600;letter-spacing:.05em;
+      color:var(--accent,#D4AF37);text-align:center;margin-bottom:.4rem;
+    }
+    .persona-card .ko-name{
+      font-size:1.05rem;font-weight:400;color:#f0f0f0;
+      text-align:center;margin-bottom:1.2rem;letter-spacing:.05em;
+    }
+    .persona-card .role{
+      font-size:.95rem;color:#d0d0d0;line-height:1.7;text-align:center;
+      margin-bottom:1.5rem;
+    }
+    .persona-card .channel-badge{
+      align-self:center;font-family:'JetBrains Mono',monospace;
+      font-size:.7rem;letter-spacing:.25em;color:#c0c0c0;
+      padding:.4rem .9rem;border:1px solid #555;
+      text-transform:uppercase;margin-bottom:auto;
+    }
+    .persona-card .cta{
+      font-family:'JetBrains Mono',monospace;font-size:.8rem;
+      letter-spacing:.2em;color:var(--accent,#D4AF37);
+      padding-top:1.5rem;margin-top:1.5rem;
+      border-top:1px solid #1a1a1a;text-align:center;
+      transition:letter-spacing .3s;
+    }
+    .persona-card:hover .cta{letter-spacing:.3em}
+
+    /* === BACK — WHITEPAPER === */
+    .operator-section{
+      padding:7rem 2rem;border-top:1px solid #1a1a1a;
+      max-width:900px;margin:0 auto;text-align:center;
+    }
+    .operator-photo{
+      width:140px;height:140px;border-radius:50%;
+      object-fit:cover;margin:0 auto 2rem;
+      border:2px solid #D4AF37;
+      filter:drop-shadow(0 0 40px rgba(212,175,55,0.3));
+    }
+    .operator-name{
+      font-family:'Cinzel',serif;font-size:1.6rem;
+      font-weight:500;letter-spacing:.1em;color:#D4AF37;margin-bottom:.4rem;
+    }
+    .operator-role{
+      font-family:'JetBrains Mono',monospace;font-size:.78rem;
+      letter-spacing:.3em;color:#666;text-transform:uppercase;margin-bottom:2rem;
+    }
+    .operator-desc{color:#d8d8d8;line-height:1.85;margin-bottom:2.5rem;font-size:1rem}
+    .operator-desc strong{color:#D4AF37;font-weight:500}
+    .operator-cta-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem}
+    .btn-gold{
+      display:inline-block;padding:.95rem 2rem;
+      border:1px solid #D4AF37;color:#D4AF37;
+      font-family:'JetBrains Mono',monospace;font-size:.82rem;letter-spacing:.2em;
+      transition:background .3s,color .3s,letter-spacing .3s;
+    }
+    .btn-gold:hover{background:#D4AF37;color:#0a0a0a;letter-spacing:.3em}
+    .btn-ghost{
+      display:inline-block;padding:.95rem 2rem;
+      border:1px solid #333;color:#888;
+      font-family:'JetBrains Mono',monospace;font-size:.82rem;letter-spacing:.2em;
+      transition:border-color .3s,color .3s;
+    }
+    .btn-ghost:hover{border-color:#D4AF37;color:#D4AF37}
+    .license-note{
+      display:inline-flex;align-items:center;gap:.8rem;
+      padding:.6rem 1.2rem;border:1px solid #1a1a1a;
+      font-family:'JetBrains Mono',monospace;font-size:.7rem;
+      color:#999;letter-spacing:.2em;
+    }
+    .license-note img{width:24px;height:24px;border-radius:3px;object-fit:cover;opacity:.7}
+
+    /* === DISCORD === */
+    .discord-section{padding:7rem 2rem;border-top:1px solid #1a1a1a;max-width:1400px;margin:0 auto}
+    .discord-widget-wrap{display:flex;flex-direction:column;gap:2rem;align-items:center;max-width:600px;margin:0 auto}
+    .presence-fallback,.feed-fallback{font-family:'JetBrains Mono',monospace;font-size:.9rem;color:#b0b0b0;letter-spacing:.1em;text-align:center;padding:2rem 0}
+
+    /* === TIMELINE === */
+    .timeline-section{padding:7rem 2rem;border-top:1px solid #1a1a1a;max-width:1100px;margin:0 auto}
+    .timeline{position:relative;padding-left:2rem}
+    .timeline::before{
+      content:'';position:absolute;top:0;bottom:0;left:.5rem;
+      width:1px;background:linear-gradient(180deg,#D4AF37 0%,#1a1a1a 100%);
+    }
+    .timeline-item{
+      position:relative;padding:1.5rem 0 1.5rem 2rem;
+    }
+    .timeline-item::before{
+      content:'';position:absolute;left:-.45rem;top:1.9rem;
+      width:14px;height:14px;border-radius:50%;
+      background:#0a0a0a;border:2px solid #D4AF37;
+      box-shadow:0 0 12px rgba(212,175,55,0.4);
+    }
+    .timeline-item.current::before{background:#D4AF37}
+    .timeline-date{
+      font-family:'JetBrains Mono',monospace;font-size:.72rem;
+      color:#666;letter-spacing:.25em;margin-bottom:.4rem;
+    }
+    .timeline-title{
+      font-family:'Cinzel',serif;font-size:1.15rem;font-weight:500;
+      color:#f0f0f0;margin-bottom:.4rem;letter-spacing:.05em;
+    }
+    .timeline-desc{color:#c8c8c8;font-size:.92rem;line-height:1.7}
+
+    /* === FOOTER === */
+    footer{
+      padding:3rem 2rem;text-align:center;
+      border-top:1px solid #1a1a1a;
+      font-family:'JetBrains Mono',monospace;
+      font-size:.72rem;color:#444;letter-spacing:.2em;
+    }
+    footer .links{margin-bottom:1rem;display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap}
+    footer .links a{transition:color .3s}
+    footer .links a:hover{color:#D4AF37}
+
+    /* === REVEAL === */
+    .js [data-reveal]{opacity:0;transform:translateY(40px)}
   </style>
 </head>
 <body>
-  <div class="container">
-    <a href="../" class="back-link">← 홈으로</a>
-    
-    <h1>📖 dtslib 매뉴얼</h1>
-    
-    <h2>1. 개요</h2>
-    <p>dtslib는 GitHub Pages 기반 웹사이트 플랫폼입니다. AI 업무 자동화를 위한 도구와 템플릿을 제공합니다.</p>
-    
-    <h2>2. 시작하기</h2>
-    <ul>
-      <li>GitHub 계정으로 로그인</li>
-      <li>레포지토리 Fork 또는 Clone</li>
-      <li>GitHub Pages 활성화</li>
-      <li><code>config.json</code> 수정</li>
-    </ul>
-    
-    <h2>3. 파일 구조</h2>
-    <ul>
-      <li><code>index.html</code> - 메인 랜딩 페이지</li>
-      <li><code>staff/</code> - 스태프 관리 포털</li>
-      <li><code>card/</code> - 디지털 명함</li>
-      <li><code>tools/</code> - 유틸리티 도구</li>
-      <li><code>config.json</code> - 설정 파일</li>
-    </ul>
-    
-    <h2>4. 레포지토리 구성</h2>
-    <p>dtslib 플랫폼은 6개의 레포지토리로 구성됩니다:</p>
-    <ul>
-      <li><strong>branch</strong> - 메인 사이트 (현재)</li>
-      <li><strong>posts</strong> - 블로그 포스트</li>
-      <li><strong>logs</strong> - 작업 로그</li>
-      <li><strong>pwa</strong> - PWA 앱</li>
-      <li><strong>apk-lab</strong> - 안드로이드 앱</li>
-      <li><strong>media</strong> - 미디어 CDN</li>
-    </ul>
-    
-    <h2>5. Control Panel 도구</h2>
-    <ul>
-      <li><strong>Image Manager</strong> - 이미지 업로드 및 CDN 관리</li>
-      <li><strong>Audio Manager</strong> - 오디오 파일 관리</li>
-      <li><strong>HTML Poster</strong> - 블로그 포스트 배포</li>
-      <li><strong>WebPrompt</strong> - AI 프롬프트 생성기</li>
-      <li><strong>Troubleshoot</strong> - 문제 해결 체크리스트</li>
-    </ul>
-    
-    <h2>6. Claude Code 사용</h2>
-    <p><code>CLAUDE.md</code> 파일을 참고하여 Claude Code와 함께 작업할 수 있습니다.</p>
-    <ul>
-      <li>파일 수정 규칙 준수</li>
-      <li>커밋 메시지 형식 준수</li>
-      <li>보안 사항 준수</li>
-    </ul>
+<script>document.documentElement.classList.add('js');</script>
+
+<nav class="top" aria-label="Main navigation">
+  <a href="/" class="brand">GOHSY</a>
+  <div class="links">
+    <a href="../wife/">Wife</a>
+    <a href="../daughter/">Daughter</a>
+    <a href="../gohsy/">GOHSY</a>
+    <a href="../staff/">Backoffice</a>
   </div>
+</nav>
+
+<!-- 1. HERO with logo video bg + GOHSY coin -->
+<section class="hero">
+  <video class="hero-bg-video" autoplay muted loop playsinline>
+    <source src="../assets/icons/logo-video.mp4" type="video/mp4">
+  </video>
+  <div class="hero-bg-overlay"></div>
+  <div class="hero-inner">
+    <img src="../assets/1.jpg" alt="GOHSY Coin"
+         class="coin-image"
+         data-tilt data-tilt-max="8" data-tilt-glare data-tilt-max-glare="0.3">
+    <h1 class="brand-mark" data-splitting>Manual</h1>
+    <p class="tagline-en">User Guide</p>
+    <p class="tagline-ko">사용 매뉴얼</p>
+    <p class="established">EST. 2026.01.13</p>
+  </div>
+  <div class="scroll-hint">SCROLL ↓</div>
+</section>
+
+<!-- 2. SECTION TABS -->
+<section class="matrix-section">
+  <div class="section-header" data-reveal>
+    <p class="section-label">SECTION TABS</p>
+    <h2 class="section-title">매뉴얼 섹션</h2>
+  </div>
+  <div class="matrix-grid">
+    <a href="#sec1" class="coin-card" data-reveal style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;background:linear-gradient(180deg,#0a0f14 0%,#050505 100%);border:1px solid #1a1a1a;border-top:3px solid #D4AF37;text-decoration:none;color:inherit">
+      <div style="font-size:3rem;margin-bottom:1rem">🚀</div>
+      <div class="coin-name">시작하기</div>
+      <div class="coin-role">Getting Started</div>
+      <div style="font-size:.8rem;color:#888;margin-top:.5rem">GOHSY 첫 진입 가이드</div>
+    </a>
+    <a href="#sec2" class="coin-card" data-reveal style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;background:linear-gradient(180deg,#0a0f14 0%,#050505 100%);border:1px solid #1a1a1a;border-top:3px solid #D4AF37;text-decoration:none;color:inherit">
+      <div style="font-size:3rem;margin-bottom:1rem">👤</div>
+      <div class="coin-name">페르소나</div>
+      <div class="coin-role">Personas</div>
+      <div style="font-size:.8rem;color:#888;margin-top:.5rem">Wife · Daughter · GOHSY 관리</div>
+    </a>
+    <a href="#sec3" class="coin-card" data-reveal style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;background:linear-gradient(180deg,#0a0f14 0%,#050505 100%);border:1px solid #1a1a1a;border-top:3px solid #D4AF37;text-decoration:none;color:inherit">
+      <div style="font-size:3rem;margin-bottom:1rem">📝</div>
+      <div class="coin-name">콘텐츠</div>
+      <div class="coin-role">Content</div>
+      <div style="font-size:.8rem;color:#888;margin-top:.5rem">칠판 · 쇼츠 · 업로드</div>
+    </a>
+    <a href="#sec4" class="coin-card" data-reveal style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;background:linear-gradient(180deg,#0a0f14 0%,#050505 100%);border:1px solid #1a1a1a;border-top:3px solid #D4AF37;text-decoration:none;color:inherit">
+      <div style="font-size:3rem;margin-bottom:1rem">⚙️</div>
+      <div class="coin-name">고급</div>
+      <div class="coin-role">Advanced</div>
+      <div style="font-size:.8rem;color:#888;margin-top:.5rem">인프라 · API · 설정</div>
+    </a>
+  </div>
+</section>
+
+<!-- 3. MANUAL CONTENT -->
+<section class="personas-section" id="sec1">
+  <div class="section-header" data-reveal>
+    <p class="section-label">시작하기</p>
+    <h2 class="section-title">Getting Started</h2>
+  </div>
+  <div style="max-width:800px;margin:0 auto;padding:0 2rem;line-height:1.85;color:#d8d8d8;font-size:1.05rem">
+    <p style="margin-bottom:1.5rem">GOHSY에 오신 것을 환영합니다. GOHSY는 배우 · Wife · Daughter — 3 페르소나 — 3 페르소나의 콘텐츠와 커머스를 통합하는 어필리에이트 매트릭스입니다.</p>
+    <p style="margin-bottom:1.5rem">시작하려면 각 페르소나 페이지를 방문하거나, backoffice에서 운영 현황을 확인하세요. staff 포털에서 아카이브 · 브리핑 · 콘솔 · 워크스테이션에 접근할 수 있습니다.</p>
+    <p style="color:#888;font-style:italic">— GOHSY 생태계에 처음 진입하는 분들을 위한 가이드입니다.</p>
+  </div>
+</section>
+
+<section class="personas-section" id="sec2" style="border-top:1px solid #1a1a1a">
+  <div class="section-header" data-reveal>
+    <p class="section-label">페르소나</p>
+    <h2 class="section-title">Personas</h2>
+  </div>
+  <div style="max-width:800px;margin:0 auto;padding:0 2rem;line-height:1.85;color:#d8d8d8;font-size:1.05rem">
+    <p style="margin-bottom:1.5rem"><strong>Wife</strong> — 어학 · 교육 콘텐츠. YouTube 채널 + Chalkboard Pack 상품.</p>
+    <p style="margin-bottom:1.5rem"><strong>Daughter</strong> — 차세대 크리에이터. GPT로 만드는 AI 장난감. 개발 스트림 및 AI 실험.</p>
+    <p style="margin-bottom:1.5rem"><strong>GOHSY (Guild)</strong> — 배우 · 커머스. KS-001 상품. 쿠팡 · 네이버 · Showroom 유통.</p>
+    <p style="color:#888;font-style:italic">— 각 페르소나의 역할과 콘텐츠 유형을 설명합니다.</p>
+  </div>
+</section>
+
+<section class="personas-section" id="sec3" style="border-top:1px solid #1a1a1a">
+  <div class="section-header" data-reveal>
+    <p class="section-label">콘텐츠</p>
+    <h2 class="section-title">Content</h2>
+  </div>
+  <div style="max-width:800px;margin:0 auto;padding:0 2rem;line-height:1.85;color:#d8d8d8;font-size:1.05rem">
+    <p style="margin-bottom:1.5rem">칠판 컨텐츠 제작: 와이프 수학 강의 촬영 → 편집 → YouTube 업로드. 쇼츠 콘텐츠 병행 제작.</p>
+    <p style="margin-bottom:1.5rem">콘텐츠 캘린더 관리: 주간 업로드 일정 수립 · 썸네일 제작 · 메타데이터 최적화. 각 페르소나별 콘텐츠 큐 운영.</p>
+    <p style="color:#888;font-style:italic">— 콘텐츠 제작부터 배포까지의 워크플로우를 다룹니다.</p>
+  </div>
+</section>
+
+<section class="personas-section" id="sec4" style="border-top:1px solid #1a1a1a">
+  <div class="section-header" data-reveal>
+    <p class="section-label">고급</p>
+    <h2 class="section-title">Advanced</h2>
+  </div>
+  <div style="max-width:800px;margin:0 auto;padding:0 2rem;line-height:1.85;color:#d8d8d8;font-size:1.05rem">
+    <p style="margin-bottom:1.5rem">인프라 관리: Tailscale VPN · Vast.ai GPU · RunPod Pod 운영. 5-Lane agent 시스템 (Claude Code + Aider).</p>
+    <p style="margin-bottom:1.5rem">API 연동: Telegram Bot · Discord Widget · YouTube Data API. parksy-logs 모니터링 시스템.</p>
+    <p style="color:#888;font-style:italic">— 고급 사용자를 위한 인프라 및 API 설정 가이드입니다.</p>
+  </div>
+</section>
+
+<!-- 4. BACK — ABOUT MANUAL -->
+<section class="operator-section" data-reveal>
+  <img src="../assets/icons/profile.jpg" alt="매뉴얼" class="operator-photo">
+  <div class="operator-name">Manual</div>
+  <div class="operator-role">USER GUIDE</div>
+  <p class="operator-desc">
+    <strong>Manual</strong> 은 GOHSY 사용 매뉴얼입니다.<br>
+    시작 · 페르소나 · 콘텐츠 · 고급 — 4개 섹션으로<br>
+    <strong>GOHSY</strong> 사용법을 안내합니다.
+  </p>
+  <div class="operator-cta-row">
+    <a href="../" class="btn-gold">GOHSY →</a>
+  </div>
+  <div class="license-note">
+    <img src="../assets/icons/business-license.jpg" alt="사업자등록">
+    REGISTERED · 정식 등록 사업자
+  </div>
+</section>
+
+<!-- 5. DISCORD -->
+<section class="discord-section" data-reveal>
+  <div class="section-header">
+    <p class="section-label">COMMUNITY · DISCORD</p>
+    <h2 class="section-title">Real-time Hub</h2>
+  </div>
+  <div class="discord-widget-wrap">
+    <div id="gohsy-discord-presence"></div>
+    <div id="gohsy-discord-messages"></div>
+    <div id="gohsy-discord-widget-wrap" style="width:100%;display:flex;justify-content:center">
+      <iframe id="gohsy-discord-widget" loading="lazy" title="GOHSY Discord 실시간 채팅"
+        sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+        allow="clipboard-write"
+        style="width:100%;max-width:600px;height:400px;border-radius:12px;border:1px solid #1a1a1a">
+      </iframe>
+    </div>
+    <a href="#" id="gohsy-discord-invite" class="btn-gold">Discord 참여 →</a>
+  </div>
+</section>
+
+<!-- 6. TIMELINE - 박씨 GOHSY 진화 서사 -->
+<section class="timeline-section">
+  <div class="section-header" data-reveal>
+    <p class="section-label">REPO AS NOVEL · 헌법 제1조</p>
+    <h2 class="section-title">진화의 6 챕터</h2>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item" data-reveal>
+      <div class="timeline-date">CHAPTER 1 · 시작</div>
+      <div class="timeline-title">Celebrity Stories</div>
+      <div class="timeline-desc">셀럽 스토리 편집 방송 — 블러핑 기반 편집 콘텐츠.</div>
+    </div>
+    <div class="timeline-item" data-reveal>
+      <div class="timeline-date">CHAPTER 2 · 전환</div>
+      <div class="timeline-title">A Standard for Real Money</div>
+      <div class="timeline-desc">하이프가 아니라 진짜 돈의 기준. 매크로 금융 + 금속 투자.</div>
+    </div>
+    <div class="timeline-item" data-reveal>
+      <div class="timeline-date">CHAPTER 3 · 확장</div>
+      <div class="timeline-title">Guild HQ + Chalkboard Pack</div>
+      <div class="timeline-desc">과외 길드 본부 + 칠판 콘텐츠 시스템.</div>
+    </div>
+    <div class="timeline-item" data-reveal>
+      <div class="timeline-date">CHAPTER 4 · 각성</div>
+      <div class="timeline-title">Commerce Phase 0~6</div>
+      <div class="timeline-desc">KS-001 첫 상품. 51.5% 마진. 4 채널 (쿠팡 · 네이버 · YouTube · Showroom).</div>
+    </div>
+    <div class="timeline-item" data-reveal>
+      <div class="timeline-date">CHAPTER 5 · 분화</div>
+      <div class="timeline-title">4 Coin Matrix</div>
+      <div class="timeline-desc">GOHSY — 4 Coin Matrix 디자인 완성.</div>
+    </div>
+    <div class="timeline-item current" data-reveal>
+      <div class="timeline-date">CHAPTER 6 · 현재 · 2026-04-25</div>
+      <div class="timeline-title">3 Persona Affiliate Matrix</div>
+      <div class="timeline-desc">Wife · Daughter · GOHSY 페르소나 정식 진입. 박씨 backoffice 인큐베이터 모델 라이브.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="links">
+    <a href="../wife/">Wife</a>
+    <a href="../daughter/">Daughter</a>
+    <a href="../gohsy/">GOHSY</a>
+    <a href="../staff/">Backoffice</a>
+    <a href="../card/">Card</a>
+    <a href="https://github.com/dtslib1979/gohsy" target="_blank">GitHub</a>
+  </div>
+  <div>© 2026 GOHSY · EST. 2026.01.13 · Operated by 박씨 · Whitepaper</div>
+</footer>
+
+<script>
+  if (window.Splitting) Splitting();
+  if (window.VanillaTilt) VanillaTilt.init(document.querySelectorAll('[data-tilt]'));
+
+  if (window.gsap && window.ScrollTrigger){
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Hero entry sequence
+    gsap.from('.coin-image', {opacity:0, scale:0.4, rotation:180, duration:2, ease:'elastic.out(1, 0.6)', delay:0.3});
+    gsap.from('.brand-mark .char', {opacity:0, y:80, duration:0.9, stagger:0.07, ease:'power3.out', delay:0.7});
+    gsap.from('.tagline-en', {opacity:0, y:20, duration:0.8, ease:'power3.out', delay:1.6});
+    gsap.from('.tagline-ko', {opacity:0, y:20, duration:0.8, ease:'power3.out', delay:1.85});
+    gsap.from('.established', {opacity:0, duration:0.6, delay:2.1});
+
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('[data-reveal]');
+    reveals.forEach(el => {
+      gsap.to(el, {
+        opacity:1, y:0, duration:1, ease:'power3.out',
+        scrollTrigger: {trigger:el, start:'top 95%', toggleActions:'play none none none'}
+      });
+    });
+    setTimeout(() => {
+      reveals.forEach(el => {
+        if (parseFloat(getComputedStyle(el).opacity) < 0.5) {
+          gsap.to(el, {opacity:1, y:0, duration:0.6});
+        }
+      });
+    }, 1500);
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(el => {
+      el.style.opacity = '1'; el.style.transform = 'none';
+    });
+  }
+  // 인터랙션: 코인 클릭 → 4 COIN MATRIX
+  const heroCoin = document.querySelector('.coin-image');
+  if (heroCoin) {
+    heroCoin.style.cursor = 'pointer';
+    heroCoin.addEventListener('click', () => {
+      document.querySelector('.matrix-section').scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  }
+  // 인터랙션: SCROLL ↓ 클릭 → 다음 섹션
+  const scrollHint = document.querySelector('.scroll-hint');
+  if (scrollHint) {
+    scrollHint.style.cursor = 'pointer';
+    scrollHint.addEventListener('click', () => {
+      document.querySelector('.matrix-section').scrollIntoView({behavior:'smooth'});
+    });
+  }
+  // 인터랙션: parallax — 마우스에 따라 hero 코인 이동
+  if (window.gsap) {
+    document.querySelector('.hero').addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 20;
+      const y = (e.clientY / window.innerHeight - 0.5) * 20;
+      gsap.to('.coin-image', {x, y, duration:0.6, ease:'power2.out'});
+    });
+  }
+</script>
+
+<script type="module">
+  import { CFG } from '../assets/discord/config.js';
+  import { renderPresence } from '../assets/discord/presence.js';
+  import { renderFeed } from '../assets/discord/messages-feed.js';
+
+  const presenceEl = document.getElementById('gohsy-discord-presence');
+  const feedEl     = document.getElementById('gohsy-discord-messages');
+  if (presenceEl) renderPresence(presenceEl);
+  if (feedEl)     renderFeed(feedEl);
+
+  const widgetIframe = document.getElementById('gohsy-discord-widget');
+  if (widgetIframe) {
+    const ch = CFG.CH_ID && !CFG.CH_ID.includes('PLACEHOLDER') ? `/${CFG.CH_ID}` : '';
+    widgetIframe.src = `https://e.widgetbot.io/channels/${CFG.GUILD_ID}${ch}`;
+  }
+</script>
+
+<script defer src="../assets/js/personas-loader.js"></script>
 </body>
 </html>

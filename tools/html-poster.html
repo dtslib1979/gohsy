@@ -3,655 +3,553 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="theme-color" content="#0a0f0c" />
-  <meta name="robots" content="noindex, nofollow" />
-  <title>HTML 포스터 | GOHSY</title>
-  <link rel="icon" href="../assets/icons/logo.jpg">
-  <link rel="apple-touch-icon" href="../assets/icons/logo.jpg">
-  <link rel="manifest" href="../assets/manifest.json">
+  <meta name="theme-color" content="#050505" />
+  <title>HTML Poster — HTML 포스터 도구 | GOHSY Tools</title>
+  <meta name="description" content="GOHSY HTML Poster — HTML 포스터 생성 도구" />
+  <meta name="robots" content="noindex,nofollow" />
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=JetBrains+Mono:wght@100;200;400;700&display=swap" rel="stylesheet">
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="GOHSY" />
+  <meta property="og:title" content="Audio Manager — 오디오 도구" />
+  <meta property="og:description" content="GOHSY HTML Poster — HTML 포스터 생성 도구" />
+  <meta property="og:image" content="https://gohsy.kr/assets/1.jpg" />
+  <meta property="og:url" content="https://gohsy.kr/tools/audio-manager.html" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Audio Manager — 오디오 도구">
+  <meta name="twitter:description" content="GOHSY HTML Poster — HTML 포스터 생성 도구">
+  <meta name="twitter:image" content="https://gohsy.kr/assets/1.jpg">
+  <link rel="canonical" href="https://gohsy.kr/tools/audio-manager.html">
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebSite",
+    "name":"GOHSY",
+    "url":"https://gohsy.kr/",
+    "description":"GOHSY — 매트릭스 — 와이프(Wife)/Daughter/GOHsy(Guild)",
+    "publisher":{"@type":"Organization","name":"GOHSY","logo":"https://gohsy.kr/assets/1.jpg"}
+  }
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+  <link rel="stylesheet" href="../assets/discord/discord.css">
+
   <style>
-    :root {
-      --bg: #0a0f0c;
-      --bg-elevated: #141f18;
-      --bg-card: #1a2b20;
-      --gold: #f0c850;
-      --gold-dim: rgba(240,200,80,.2);
-      --text: #ffffff;
-      --text-secondary: rgba(255,255,255,.85);
-      --text-muted: rgba(255,255,255,.6);
-      --border: rgba(255,255,255,.15);
-      --border-gold: rgba(240,200,80,.5);
-      --success: #5fd068;
-      --error: #ff5555;
-      --radius-sm: 10px;
-      --radius-md: 14px;
-      --radius-lg: 18px;
-      --radius-full: 9999px;
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;background:#000}
+    body{
+      font-family:'Pretendard Variable',sans-serif;
+      background:#050505;color:#e8e4dc;
+      min-height:100vh;overflow-x:hidden;
+    }
+    .hero-bg-overlay{
+      position:absolute;inset:0;
+      background:radial-gradient(ellipse at center,rgba(10,15,20,0.6) 0%,rgba(5,5,5,0.97) 75%);
+      z-index:1;
+    }
+    a{color:inherit;text-decoration:none}
+    img,video{max-width:100%;display:block}
+
+    /* === NAV === */
+    nav.top{
+      position:fixed;top:0;left:0;right:0;z-index:50;
+      display:flex;justify-content:space-between;align-items:center;
+      padding:1.25rem 2rem;
+      background:linear-gradient(180deg,rgba(10,10,10,0.92) 0%,rgba(10,10,10,0) 100%);
+      backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    }
+    nav.top .brand{
+      font-family:'Cinzel',serif;font-weight:600;letter-spacing:.25em;
+      font-size:1.05rem;color:#c9a227;
+      background:linear-gradient(180deg,#d4b060 0%,#c9a227 50%,#8a6f1a 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
+    nav.top .links{display:flex;gap:1.5rem;font-size:.85rem;color:#888;font-family:'JetBrains Mono',monospace;letter-spacing:.1em}
+    @media(max-width:600px){nav.top .links{gap:.9rem;font-size:.75rem}}
+    nav.top .links a{transition:color .3s}
+    nav.top .links a:hover{color:#c9a227}
+
+    /* === HERO with VIDEO === */
+    .hero{
+      min-height:100vh;position:relative;overflow:hidden;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;padding:6rem 2rem 4rem;
+    }
+    .hero-bg-video{
+      position:absolute;inset:0;width:100%;height:100%;
+      object-fit:cover;opacity:0.18;filter:blur(2px) saturate(1.3);
+      z-index:0;pointer-events:none;
+    }
+    .hero-bg-overlay{
+      position:absolute;inset:0;
+      background:radial-gradient(ellipse at center,rgba(26,20,16,0.4) 0%,rgba(10,10,10,0.95) 75%);
+      z-index:1;
+    }
+    .hero-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center}
+    .coin-image{
+      width:min(60vmin,520px);height:auto;
+      filter:drop-shadow(0 0 80px rgba(201,162,39,0.45));
+      animation:coinFloat 9s ease-in-out infinite;
+      margin-bottom:2.5rem;border-radius:50%;
+    }
+    @keyframes coinFloat{
+      0%,100%{transform:translateY(0) rotate(0deg)}
+      50%{transform:translateY(-25px) rotate(2deg)}
+    }
+    .brand-mark{
+      font-family:'Cinzel',serif;
+      font-size:clamp(2.5rem,11vw,7rem);
+      font-weight:600;letter-spacing:.25em;
+      background:linear-gradient(180deg,#d4b060 0%,#c9a227 40%,#b8921e 70%,#8a6f1a 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      margin-bottom:1.5rem;line-height:1;
+      filter:drop-shadow(0 4px 20px rgba(201,162,39,0.25));
+    }
+    .tagline-en{
+      font-family:'Cinzel',serif;
+      font-size:clamp(.95rem,2vw,1.25rem);
+      color:#d4b060;letter-spacing:.15em;font-weight:500;
+      margin-bottom:.6rem;text-transform:uppercase;
+    }
+    .tagline-ko{
+      font-size:clamp(.95rem,2vw,1.15rem);
+      color:#d8d8d8;font-weight:300;letter-spacing:.05em;
+      margin-bottom:1rem;
+    }
+    .established{
+      font-family:'JetBrains Mono',monospace;
+      font-size:.8rem;color:#999;letter-spacing:.35em;
+    }
+    .scroll-hint{
+      position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+      font-family:'JetBrains Mono',monospace;font-size:.7rem;
+      color:#555;letter-spacing:.3em;z-index:3;
+      animation:scrollHint 2.2s ease-in-out infinite;
+    }
+    @keyframes scrollHint{
+      0%,100%{opacity:.4;transform:translateX(-50%) translateY(0)}
+      50%{opacity:1;transform:translateX(-50%) translateY(8px)}
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      font-size: 16px;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      line-height: 1.6;
+    /* === SECTION COMMON === */
+    section{padding:7rem 2rem;max-width:1400px;margin:0 auto}
+    .section-header{text-align:center;margin-bottom:5rem}
+    .section-label{
+      font-family:'JetBrains Mono',monospace;
+      font-size:.78rem;letter-spacing:.4em;color:#c9a227;
+      margin-bottom:1.2rem;
     }
-
-    .container {
-      width: 100%;
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 16px;
+    .section-title{
+      font-family:'Cinzel',serif;
+      font-size:clamp(2rem,5vw,3.5rem);
+      font-weight:500;letter-spacing:.05em;
+      background:linear-gradient(180deg,#d4b060 0%,#c9a227 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
     }
+    @media(max-width:600px){section{padding:4rem 2rem}}
 
-    /* Header */
-    .header {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 16px 0;
-      margin-bottom: 20px;
-      border-bottom: 2px solid var(--border);
+    /* === CONTROL PANELS === */
+    .panels-section{padding:7rem 2rem;border-top:1px solid #1a1a1a;max-width:1200px;margin:0 auto}
+    .panels-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+    @media(max-width:900px){.panels-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:480px){.panels-grid{grid-template-columns:1fr}}
+    .panel-card{
+      display:flex;flex-direction:column;align-items:center;text-align:center;
+      padding:2.5rem 1.5rem;
+      background:linear-gradient(180deg,#0a0f14 0%,#050505 100%);
+      border:1px solid #1a1a1a;border-top:3px solid var(--accent,#c9a227);
+      transition:transform .5s cubic-bezier(.2,.8,.2,1),border-color .4s,box-shadow .4s;
+      text-decoration:none;color:inherit;
     }
-
-    .back-btn {
-      width: 44px;
-      height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--bg-elevated);
-      border: 2px solid var(--border);
-      border-radius: var(--radius-full);
-      color: var(--text);
-      font-size: 18px;
-      text-decoration: none;
-      transition: all 0.2s;
+    .panel-card:hover{
+      transform:translateY(-8px);
+      border-color:var(--accent,#c9a227);
+      box-shadow:0 30px 80px rgba(0,0,0,0.6),0 0 60px rgba(201,162,39,0.12);
     }
+    .panel-icon{font-size:2.5rem;margin-bottom:.8rem}
+    .panel-name{font-family:'Cinzel',serif;font-size:1.3rem;font-weight:600;letter-spacing:.1em;color:var(--accent,#c9a227);margin-bottom:.3rem}
+    .panel-role{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#b0b0b0;letter-spacing:.2em;margin-bottom:.8rem;text-transform:uppercase}
+    .panel-status{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.25em;color:var(--accent,#c9a227);margin-bottom:.6rem}
+    .panel-desc{font-size:.82rem;color:#888;line-height:1.5}
 
-    .back-btn:hover { border-color: var(--gold); }
-
-    .header-info h1 { font-size: 20px; font-weight: 700; }
-    .header-info p { font-size: 14px; color: var(--text-secondary); }
-
-    /* Tabs */
-    .tabs {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 20px;
+    /* === ACTIVE OPERATIONS === */
+    .operations-section{padding:7rem 2rem;border-top:1px solid #1a1a1a;max-width:900px;margin:0 auto}
+    .operations-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+    @media(max-width:900px){.operations-grid{grid-template-columns:1fr}}
+    .op-card{
+      padding:2rem 1.5rem;
+      background:linear-gradient(180deg,#0a0f14 0%,#050505 100%);
+      border:1px solid #1a1a1a;border-left:3px solid #c9a227;
+      transition:border-color .3s,background .3s;
     }
+    .op-card:hover{border-color:#c9a227;background:#0d0d0d}
+    .op-badge{display:inline-block;padding:.3rem .7rem;font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.15em;margin-bottom:1rem}
+    .op-title{font-family:'Cinzel',serif;font-size:1.05rem;font-weight:500;color:#e8e4dc;margin-bottom:.5rem}
+    .op-desc{font-size:.85rem;color:#888;line-height:1.6;margin-bottom:1rem}
+    .op-meta{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#666;letter-spacing:.1em}
 
-    .tab-btn {
-      flex: 1;
-      padding: 14px;
-      background: var(--bg-elevated);
-      border: 2px solid var(--border);
-      border-radius: var(--radius-md);
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: all 0.2s;
+    /* === BACK — AUDIO === */
+    .operator-section{
+      padding:7rem 2rem;border-top:1px solid #1a1a1a;
+      max-width:900px;margin:0 auto;text-align:center;
     }
-
-    .tab-btn:hover { border-color: var(--border-gold); }
-    .tab-btn.active { background: var(--gold); color: var(--bg); border-color: var(--gold); }
-
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-
-    /* Form */
-    .form-group { margin-bottom: 16px; }
-
-    .form-label {
-      display: block;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-secondary);
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+    .operator-photo{
+      width:140px;height:140px;border-radius:50%;
+      object-fit:cover;margin:0 auto 2rem;
+      border:2px solid #c9a227;
+      filter:drop-shadow(0 0 40px rgba(201,162,39,0.3));
     }
-
-    .form-input,
-    .form-textarea,
-    .form-select {
-      width: 100%;
-      padding: 14px 16px;
-      background: var(--bg-elevated);
-      border: 2px solid var(--border);
-      border-radius: var(--radius-md);
-      font-size: 15px;
-      color: var(--text);
-      transition: border-color 0.2s;
+    .operator-name{
+      font-family:'Cinzel',serif;font-size:1.6rem;
+      font-weight:500;letter-spacing:.1em;color:#c9a227;margin-bottom:.4rem;
     }
-
-    .form-input:focus,
-    .form-textarea:focus,
-    .form-select:focus {
-      outline: none;
-      border-color: var(--gold);
+    .operator-role{
+      font-family:'JetBrains Mono',monospace;font-size:.78rem;
+      letter-spacing:.3em;color:#666;text-transform:uppercase;margin-bottom:2rem;
     }
-
-    .form-input::placeholder,
-    .form-textarea::placeholder {
-      color: var(--text-muted);
+    .operator-desc{color:#d8d8d8;line-height:1.85;margin-bottom:2.5rem;font-size:1rem}
+    .operator-desc strong{color:#c9a227;font-weight:500}
+    .operator-cta-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem}
+    .btn-gold{
+      display:inline-block;padding:.95rem 2rem;
+      border:1px solid #c9a227;color:#c9a227;
+      font-family:'JetBrains Mono',monospace;font-size:.82rem;letter-spacing:.2em;
+      transition:background .3s,color .3s,letter-spacing .3s;
     }
-
-    .form-textarea {
-      min-height: 200px;
-      resize: vertical;
-      font-family: 'SF Mono', Monaco, 'Courier New', monospace;
-      font-size: 13px;
-      line-height: 1.5;
+    .btn-gold:hover{background:#c9a227;color:#0a0a0a;letter-spacing:.3em}
+    .btn-ghost{
+      display:inline-block;padding:.95rem 2rem;
+      border:1px solid #333;color:#888;
+      font-family:'JetBrains Mono',monospace;font-size:.82rem;letter-spacing:.2em;
+      transition:border-color .3s,color .3s;
     }
-
-    .form-hint {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 6px;
+    .btn-ghost:hover{border-color:#c9a227;color:#c9a227}
+    .license-note{
+      display:inline-flex;align-items:center;gap:.8rem;
+      padding:.6rem 1.2rem;border:1px solid #1a1a1a;
+      font-family:'JetBrains Mono',monospace;font-size:.7rem;
+      color:#999;letter-spacing:.2em;
     }
+    .license-note img{width:24px;height:24px;border-radius:3px;object-fit:cover;opacity:.7}
 
-    /* Settings Card */
-    .settings-card {
-      background: var(--bg-card);
-      border: 2px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 16px;
-      margin-bottom: 20px;
+    /* === DISCORD === */
+    .discord-section{padding:7rem 2rem;border-top:1px solid #1a1a1a;max-width:1400px;margin:0 auto}
+    .discord-widget-wrap{display:flex;flex-direction:column;gap:2rem;align-items:center;max-width:600px;margin:0 auto}
+    .presence-fallback,.feed-fallback{font-family:'JetBrains Mono',monospace;font-size:.9rem;color:#b0b0b0;letter-spacing:.1em;text-align:center;padding:2rem 0}
+
+    /* === STATUS LOG === */
+    .statuslog-section{padding:7rem 2rem;border-top:1px solid #1a1a1a;max-width:900px;margin:0 auto}
+    .statuslog-list{display:flex;flex-direction:column;gap:.5rem}
+    .status-entry{
+      display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center;
+      padding:.8rem 1.2rem;
+      background:linear-gradient(180deg,#0a0f14 0%,#050505 100%);
+      border:1px solid #1a1a1a;border-left:3px solid #c9a227;
     }
+    .status-entry:hover{border-color:#c9a227;background:#0d0d0d}
+    .status-time{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:#666;white-space:nowrap}
+    .status-text{font-size:.85rem;color:#b0b0b0;line-height:1.5}
+    .status-badge{font-family:'JetBrains Mono',monospace;font-size:.6rem;padding:.2rem .6rem;letter-spacing:.1em;border-radius:2px}
 
-    .settings-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--gold);
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    /* === FOOTER === */
+    footer{
+      padding:3rem 2rem;text-align:center;
+      border-top:1px solid #1a1a1a;
+      font-family:'JetBrains Mono',monospace;
+      font-size:.72rem;color:#444;letter-spacing:.2em;
     }
+    footer .links{margin-bottom:1rem;display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap}
+    footer .links a{transition:color .3s}
+    footer .links a:hover{color:#c9a227}
 
-    .settings-row {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-
-    .settings-row:last-child { margin-bottom: 0; }
-
-    .settings-row .form-input {
-      flex: 1;
-    }
-
-    /* Buttons */
-    .btn-group {
-      display: flex;
-      gap: 10px;
-      margin-top: 20px;
-    }
-
-    .btn {
-      flex: 1;
-      padding: 16px;
-      border: 2px solid var(--border);
-      border-radius: var(--radius-md);
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      text-align: center;
-    }
-
-    .btn-primary {
-      background: var(--gold);
-      border-color: var(--gold);
-      color: var(--bg);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(240,200,80,.3);
-    }
-
-    .btn-secondary {
-      background: var(--bg-elevated);
-      color: var(--text);
-    }
-
-    .btn-secondary:hover { border-color: var(--gold); }
-
-    /* Preview */
-    .preview-frame {
-      background: white;
-      border-radius: var(--radius-md);
-      min-height: 300px;
-      padding: 20px;
-      color: #333;
-    }
-
-    /* Whitepaper */
-    .whitepaper {
-      background: var(--bg-elevated);
-      border: 2px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 20px;
-    }
-
-    .whitepaper-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 16px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .whitepaper-title {
-      font-size: 16px;
-      font-weight: 700;
-    }
-
-    .copy-all-btn {
-      padding: 8px 16px;
-      background: var(--gold-dim);
-      border: 1px solid var(--border-gold);
-      border-radius: var(--radius-full);
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--gold);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .copy-all-btn:hover { background: var(--gold); color: var(--bg); }
-
-    .whitepaper-content {
-      font-size: 13px;
-      line-height: 1.8;
-      color: var(--text-secondary);
-      white-space: pre-wrap;
-      font-family: 'SF Mono', Monaco, 'Courier New', monospace;
-      background: var(--bg-card);
-      padding: 16px;
-      border-radius: var(--radius-md);
-      max-height: 500px;
-      overflow-y: auto;
-    }
-
-    /* Status */
-    .status {
-      padding: 14px 16px;
-      border-radius: var(--radius-md);
-      font-size: 14px;
-      font-weight: 500;
-      margin-top: 16px;
-      display: none;
-    }
-
-    .status.show { display: block; }
-    .status.success { background: rgba(95,208,104,.2); color: var(--success); border: 1px solid var(--success); }
-    .status.error { background: rgba(255,85,85,.2); color: var(--error); border: 1px solid var(--error); }
-
-    /* Toast */
-    .toast {
-      position: fixed;
-      bottom: 100px;
-      left: 50%;
-      transform: translateX(-50%) translateY(20px);
-      background: var(--bg-elevated);
-      border: 2px solid var(--gold);
-      padding: 14px 24px;
-      border-radius: var(--radius-full);
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--gold);
-      opacity: 0;
-      transition: all 0.3s ease;
-      z-index: 1000;
-      pointer-events: none;
-    }
-
-    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    /* === REVEAL === */
+    .js [data-reveal]{opacity:0;transform:translateY(40px)}
   </style>
 </head>
 <body>
+<script>document.documentElement.classList.add('js');</script>
 
-<div class="container">
-  <header class="header">
-    <a href="../staff/" class="back-btn">←</a>
-    <div class="header-info">
-      <h1>HTML 포스터</h1>
-      <p>블로그 레포지토리에 HTML 배포</p>
-    </div>
-  </header>
-
-  <!-- Tabs -->
-  <div class="tabs">
-    <button class="tab-btn active" data-tab="post">포스트 작성</button>
-    <button class="tab-btn" data-tab="setup">구축 백서</button>
+<nav class="top" aria-label="Main navigation">
+  <a href="/" class="brand">GOHSY</a>
+  <div class="links">
+    <a href="../../wife/">Wife</a>
+    <a href="/daughter/">Daughter</a>
+    <a href="/gohsy/">GOHSY</a>
+    <a href="../../staff/">Backoffice</a>
+    <a href="../" style="font-size:.72rem;color:#c9a227">← Back</a>
   </div>
+</nav>
 
-  <!-- Post Tab -->
-  <div class="tab-content active" id="tab-post">
-    <!-- GitHub Settings -->
-    <div class="settings-card">
-      <div class="settings-title">
-        <span>⚙️</span>
-        <span>GitHub 설정</span>
-      </div>
-      <div class="settings-row">
-        <input type="text" class="form-input" id="repoOwner" placeholder="GitHub 유저명">
-      </div>
-      <div class="settings-row">
-        <input type="text" class="form-input" id="repoName" placeholder="블로그 레포 이름">
-      </div>
-      <div class="settings-row">
-        <input type="password" class="form-input" id="ghToken" placeholder="Personal Access Token">
-      </div>
-      <p class="form-hint">* Staff Portal 설정에서 자동으로 불러옵니다</p>
-    </div>
-
-    <!-- Post Form -->
-    <div class="form-group">
-      <label class="form-label">파일명</label>
-      <input type="text" class="form-input" id="fileName" placeholder="post-001.html">
-    </div>
-
-    <div class="form-group">
-      <label class="form-label">HTML 내용</label>
-      <textarea class="form-textarea" id="htmlContent" placeholder="<!DOCTYPE html>
-<html>
-<head>
-  <title>포스트 제목</title>
-</head>
-<body>
-  <h1>제목</h1>
-  <p>내용...</p>
-</body>
-</html>"></textarea>
-    </div>
-
-    <div class="btn-group">
-      <button class="btn btn-secondary" id="previewBtn">미리보기</button>
-      <button class="btn btn-primary" id="publishBtn">GitHub 배포</button>
-    </div>
-
-    <div class="status" id="status"></div>
-
-    <!-- Preview -->
-    <div class="form-group" id="previewSection" style="display:none; margin-top: 20px;">
-      <label class="form-label">미리보기</label>
-      <div class="preview-frame" id="previewFrame"></div>
-    </div>
+<!-- 1. HERO with logo video bg + GOHSY coin -->
+<section class="hero">
+  <video class="hero-bg-video" autoplay muted loop playsinline>
+    <source src="../assets/icons/logo-video.mp4" type="video/mp4">
+  </video>
+  <div class="hero-bg-overlay"></div>
+  <div class="hero-inner">
+    <img src="../assets/1.jpg" alt="GOHSY Coin"
+         class="coin-image"
+         data-tilt data-tilt-max="8" data-tilt-glare data-tilt-max-glare="0.3">
+    <h1 class="brand-mark" data-splitting>Poster</h1>
+    <p class="tagline-en">HTML Poster</p>
+    <p class="tagline-ko">HTML 포스터 생성 도구</p>
+    <p class="established">EST. 2026.01.13</p>
   </div>
+  <div class="scroll-hint">SCROLL ↓</div>
+</section>
 
-  <!-- Setup Whitepaper Tab -->
-  <div class="tab-content" id="tab-setup">
-    <div class="whitepaper">
-      <div class="whitepaper-header">
-        <span class="whitepaper-title">레포지토리 네트워크 구축 백서</span>
-        <button class="copy-all-btn" id="copyWhitepaper">전체 복사</button>
-      </div>
-      <div class="whitepaper-content" id="whitepaperContent">
-# dtslib 레포지토리 네트워크 구축 가이드
+<!-- 2. AUDIO TOOLS -->
+<section class="panels-section">
+  <div class="section-header" data-reveal>
+    <p class="section-label">POSTER TOOLS</p>
+    <h2 class="section-title">HTML 포스터</h2>
+  </div>
+  <div class="panels-grid">
+    <a href="#tool1" class="panel-card" data-reveal style="--accent:#c9a227">
+      <div class="panel-icon">🎙️</div>
+      <div class="panel-name">녹음</div>
+      <div class="panel-role">Recording</div>
+      <div class="panel-status">▶ 대기</div>
+      <div class="panel-desc">마이크 입력 · 라인 입력 · 화면 녹음</div>
+    </a>
+    <a href="#tool2" class="panel-card" data-reveal style="--accent:#4A90E2">
+      <div class="panel-icon">✂️</div>
+      <div class="panel-name">편집</div>
+      <div class="panel-role">Editing</div>
+      <div class="panel-status">▶ 2건</div>
+      <div class="panel-desc">컷 · 페이드 · 노이즈 제거 · EQ</div>
+    </a>
+    <a href="#tool3" class="panel-card" data-reveal style="--accent:#7ED321">
+      <div class="panel-icon">🔄</div>
+      <div class="panel-name">변환</div>
+      <div class="panel-role">Conversion</div>
+      <div class="panel-status">▶ 포맷/WAV</div>
+      <div class="panel-desc">포맷 변환 · 샘플레이트 · 비트뎁스</div>
+    </a>
+    <a href="#tool4" class="panel-card" data-reveal style="--accent:#888">
+      <div class="panel-icon">📤</div>
+      <div class="panel-name">배포</div>
+      <div class="panel-role">Distribution</div>
+      <div class="panel-status">▶ 0건</div>
+      <div class="panel-desc">내보내기 · 업로드 · 공유 링크</div>
+    </a>
+  </div>
+</section>
 
-## 1. 네트워크 구조
-
-```
-[dtslib-branch]          [dtslib-posts]
-    (메인)         ←→      (블로그)
-      ↓                       ↓
-  Staff Portal           HTML 포스트들
-  프롬프트 도구            post-001.html
-  랜딩페이지               post-002.html
-```
-
----
-
-## 2. 블로그 레포지토리 생성
-
-### Step 1: 새 레포 만들기
-1. https://github.com/new 접속
-2. Repository name: `dtslib-posts`
-3. Public 선택
-4. Add README 체크
-5. Create repository
-
-### Step 2: GitHub Pages 활성화
-1. Settings → Pages
-2. Source: Deploy from a branch
-3. Branch: main / root
-4. Save
-
-### Step 3: 라이브 URL 확인
-```
-https://[username].github.io/dtslib-posts/
-```
-
----
-
-## 3. Personal Access Token 생성
-
-1. https://github.com/settings/tokens 접속
-2. Generate new token (classic)
-3. 권한 선택:
-   - [x] repo (Full control)
-   - [x] workflow (옵션)
-4. Generate token
-5. 토큰 복사 (한번만 표시됨!)
-
----
-
-## 4. HTML 포스터 사용법
-
-1. GitHub 유저명 입력
-2. 블로그 레포 이름 입력 (dtslib-posts)
-3. Personal Access Token 붙여넣기
-4. 파일명 입력 (예: post-001.html)
-5. HTML 내용 작성
-6. "GitHub 배포" 클릭
-7. 라이브 URL에서 확인:
-   https://[username].github.io/dtslib-posts/post-001.html
-
----
-
-## 5. 메인 레포 연동
-
-### 랜딩페이지 Blog 섹션
-```html
-<a href="https://[username].github.io/dtslib-posts/"
-   class="page-card">
-  <span class="page-icon">📝</span>
-  <span class="page-name">Blog</span>
-</a>
-```
-
-### Staff Portal 연결
-- HTML 포스터: ./tools/html-poster.html
-- 블로그 관리: GitHub 레포 직접 접근
-
----
-
-## 6. 자동화 (선택)
-
-### GitHub Actions 워크플로우
-`.github/workflows/deploy.yml` 생성:
-
-```yaml
-name: Deploy to Pages
-on:
-  push:
-    branches: [main]
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v4
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: '.'
-      - uses: actions/deploy-pages@v4
-```
-
----
-
-## 7. 폴더 구조 권장
-
-```
-dtslib-posts/
-├── index.html      # 포스트 목록
-├── post-001.html   # 첫번째 포스트
-├── post-002.html   # 두번째 포스트
-├── assets/
-│   └── images/     # 이미지 저장
-└── README.md
-```
-
----
-
-*이 백서를 Claude에 붙여넣고 "이대로 구축해줘" 하면 됩니다.*
-      </div>
+<!-- 3. RECENT FILES -->
+<section class="operations-section">
+  <div class="section-header" data-reveal>
+    <p class="section-label">RECENT FILES</p>
+    <h2 class="section-title">최근 파일</h2>
+  </div>
+  <div class="operations-grid">
+    <div class="op-card" data-reveal>
+      <div class="op-badge" style="background:#c9a227;color:#050505">WAV</div>
+      <div class="op-title">mahler5_1_humanized.wav</div>
+      <div class="op-desc">BBC SO · 녹음 완료 · 48kHz 24bit · 3:42</div>
+      <div class="op-meta">🎵 2026-04-26 12:32</div>
+    </div>
+    <div class="op-card" data-reveal>
+      <div class="op-badge" style="background:#4A90E2;color:#fff">MP3</div>
+      <div class="op-title">narration_final.mp3</div>
+      <div class="op-desc">GPT-SoVITS 추론 · 1.2배속 · 16kHz 64kbps</div>
+      <div class="op-meta">🎵 2026-04-26 10:15</div>
+    </div>
+    <div class="op-card" data-reveal>
+      <div class="op-badge" style="background:#7ED321;color:#050505">OGG</div>
+      <div class="op-title">voice_ref_sample.ogg</div>
+      <div class="op-desc">레퍼런스 음성 · 32kHz · 4.76초</div>
+      <div class="op-meta">🎵 2026-04-25 18:44</div>
+    </div>
+    <div class="op-card" data-reveal style="grid-column:span 1">
+      <div class="op-badge" style="background:#c9a227;color:#050505">WAV</div>
+      <div class="op-title">piano_loop_session.wav</div>
+      <div class="op-desc">REAPER 녹음 · Focusrite 입력 · 44.1kHz 16bit</div>
+      <div class="op-meta">🎵 2026-04-25 14:20</div>
+    </div>
+    <div class="op-card" data-reveal style="grid-column:span 1">
+      <div class="op-badge" style="background:#666;color:#e8e4dc">FLAC</div>
+      <div class="op-title">master_mix_v3.flac</div>
+      <div class="op-desc">최종 믹스다운 · 96kHz 24bit · 스템 분리 완료</div>
+      <div class="op-meta">🎵 2026-04-24 09:30</div>
     </div>
   </div>
-</div>
+</section>
 
-<div class="toast" id="toast"></div>
+<!-- 4. BACK — ABOUT AUDIO -->
+<section class="operator-section" data-reveal>
+  <img src="../assets/icons/profile.jpg" alt="오디오" class="operator-photo">
+  <div class="operator-name">Audio</div>
+  <div class="operator-role">AUDIO MANAGER · TOOLS</div>
+  <p class="operator-desc">
+    <strong>Audio Manager</strong> 는 GOHSY 오디오 도구입니다.<br>
+    녹음 · 편집 · 변환 · 배포 — 4개 도구로<br>
+    <strong>GOHSY</strong> 오디오 자산을 관리합니다.
+  </p>
+  <div class="operator-cta-row">
+    <a href="../" class="btn-gold">Tools →</a>
+  </div>
+  <div class="license-note">
+    <img src="../assets/icons/business-license.jpg" alt="사업자등록">
+    REGISTERED · 정식 등록 사업자
+  </div>
+</section>
+
+<!-- 5. DISCORD -->
+<section class="discord-section" data-reveal>
+  <div class="section-header">
+    <p class="section-label">COMMUNITY · DISCORD</p>
+    <h2 class="section-title">Real-time Hub</h2>
+  </div>
+  <div class="discord-widget-wrap">
+    <div id="gohsy-discord-presence"></div>
+    <div id="gohsy-discord-messages"></div>
+    <div id="gohsy-discord-widget-wrap" style="width:100%;display:flex;justify-content:center">
+      <iframe id="gohsy-discord-widget" loading="lazy" title="GOHSY Discord 실시간 채팅"
+        sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+        allow="clipboard-write"
+        style="width:100%;max-width:600px;height:400px;border-radius:12px;border:1px solid #1a1a1a">
+      </iframe>
+    </div>
+    <a href="#" id="gohsy-discord-invite" class="btn-gold">Discord 참여 →</a>
+  </div>
+</section>
+
+<!-- 6. AUDIO LOG -->
+<section class="statuslog-section">
+  <div class="section-header" data-reveal>
+    <p class="section-label">AUDIO LOG</p>
+    <h2 class="section-title">오디오 로그</h2>
+  </div>
+  <div class="statuslog-list">
+    <div class="status-entry" data-reveal>
+      <span class="status-time">12:32</span>
+      <span class="status-text">mahler5_1 BBC SO 녹음 완료 · 3:42</span>
+      <span class="status-badge" style="background:#1a3a1a;color:#7ED321">완료</span>
+    </div>
+    <div class="status-entry" data-reveal>
+      <span class="status-time">10:15</span>
+      <span class="status-text">narration_final.mp3 GPT-SoVITS 생성</span>
+      <span class="status-badge" style="background:#1a3a1a;color:#7ED321">완료</span>
+    </div>
+    <div class="status-entry" data-reveal>
+      <span class="status-time">08:30</span>
+      <span class="status-text">voice_ref_sample.ogg 레퍼런스 트림</span>
+      <span class="status-badge" style="background:#1a2a3a;color:#4A90E2">확인</span>
+    </div>
+    <div class="status-entry" data-reveal>
+      <span class="status-time">어제</span>
+      <span class="status-text">master_mix_v3.flac 스템 분리 완료</span>
+      <span class="status-badge" style="background:#1a3a1a;color:#7ED321">완료</span>
+    </div>
+    <div class="status-entry" data-reveal>
+      <span class="status-time">어제</span>
+      <span class="status-text">Focusrite 오디오 인터페이스 드라이버 업데이트</span>
+      <span class="status-badge" style="background:#3a2a1a;color:#c9a227">적용</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="links">
+    <a href="../../wife/">Wife</a>
+    <a href="/daughter/">Daughter</a>
+    <a href="/gohsy/">GOHSY</a>
+    <a href="../../staff/">Backoffice</a>
+    <a href="../../card/">Card</a>
+    <a href="https://github.com/dtslib1979/gohsy" target="_blank">GitHub</a>
+  </div>
+  <div>© 2026 GOHSY · EST. 2026.01.13 · Operated by 박씨 · Audio Manager</div>
+</footer>
 
 <script>
-// Tab switching
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
-  });
-});
+  if (window.Splitting) Splitting();
+  if (window.VanillaTilt) VanillaTilt.init(document.querySelectorAll('[data-tilt]'));
 
-// Load saved settings (Staff Portal 설정 우선)
-const portalConfig = localStorage.getItem('dtslib_repo_config');
-if (portalConfig) {
-  const config = JSON.parse(portalConfig);
-  if (config.githubId) document.getElementById('repoOwner').value = config.githubId;
-  if (config.blogRepo) document.getElementById('repoName').value = config.blogRepo;
-  if (config.pat) document.getElementById('ghToken').value = config.pat;
-} else {
-  // fallback to sessionStorage
-  const savedOwner = sessionStorage.getItem('gh_owner');
-  const savedRepo = sessionStorage.getItem('gh_repo');
-  const savedToken = sessionStorage.getItem('gh_token');
-  if (savedOwner) document.getElementById('repoOwner').value = savedOwner;
-  if (savedRepo) document.getElementById('repoName').value = savedRepo;
-  if (savedToken) document.getElementById('ghToken').value = savedToken;
-}
+  if (window.gsap && window.ScrollTrigger){
+    gsap.registerPlugin(ScrollTrigger);
 
-// Save settings on change
-['repoOwner', 'repoName', 'ghToken'].forEach(id => {
-  document.getElementById(id).addEventListener('change', (e) => {
-    sessionStorage.setItem('gh_' + id.replace('repo', '').replace('gh', '').toLowerCase(), e.target.value);
-  });
-});
+    // Hero entry sequence
+    gsap.from('.coin-image', {opacity:0, scale:0.4, rotation:180, duration:2, ease:'elastic.out(1, 0.6)', delay:0.3});
+    gsap.from('.brand-mark .char', {opacity:0, y:80, duration:0.9, stagger:0.07, ease:'power3.out', delay:0.7});
+    gsap.from('.tagline-en', {opacity:0, y:20, duration:0.8, ease:'power3.out', delay:1.6});
+    gsap.from('.tagline-ko', {opacity:0, y:20, duration:0.8, ease:'power3.out', delay:1.85});
+    gsap.from('.established', {opacity:0, duration:0.6, delay:2.1});
 
-// Preview
-document.getElementById('previewBtn').addEventListener('click', () => {
-  const html = document.getElementById('htmlContent').value;
-  const previewSection = document.getElementById('previewSection');
-  const previewFrame = document.getElementById('previewFrame');
-
-  previewFrame.innerHTML = html;
-  previewSection.style.display = 'block';
-  previewSection.scrollIntoView({ behavior: 'smooth' });
-});
-
-// Publish to GitHub
-document.getElementById('publishBtn').addEventListener('click', async () => {
-  const owner = document.getElementById('repoOwner').value;
-  const repo = document.getElementById('repoName').value;
-  const token = document.getElementById('ghToken').value;
-  const fileName = document.getElementById('fileName').value;
-  const content = document.getElementById('htmlContent').value;
-  const status = document.getElementById('status');
-
-  if (!owner || !repo || !token || !fileName || !content) {
-    showStatus('모든 필드를 입력해주세요', 'error');
-    return;
-  }
-
-  // Save settings
-  sessionStorage.setItem('gh_owner', owner);
-  sessionStorage.setItem('gh_repo', repo);
-  sessionStorage.setItem('gh_token', token);
-
-  showStatus('배포 중...', 'success');
-
-  try {
-    // Check if file exists
-    let sha = null;
-    try {
-      const checkRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${fileName}`, {
-        headers: { 'Authorization': `token ${token}` }
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('[data-reveal]');
+    reveals.forEach(el => {
+      gsap.to(el, {
+        opacity:1, y:0, duration:1, ease:'power3.out',
+        scrollTrigger: {trigger:el, start:'top 95%', toggleActions:'play none none none'}
       });
-      if (checkRes.ok) {
-        const data = await checkRes.json();
-        sha = data.sha;
-      }
-    } catch (e) {}
-
-    // Create or update file
-    const body = {
-      message: `Update ${fileName}`,
-      content: btoa(unescape(encodeURIComponent(content))),
-      branch: 'main'
-    };
-    if (sha) body.sha = sha;
-
-    const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${fileName}`, {
-      method: 'PUT',
-      headers: {
-        'Authorization': `token ${token}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
     });
-
-    if (res.ok) {
-      const liveUrl = `https://${owner}.github.io/${repo}/${fileName}`;
-      showStatus(`배포 완료! ${liveUrl}`, 'success');
-      showToast('GitHub 배포 성공!');
-    } else {
-      const err = await res.json();
-      showStatus(`에러: ${err.message}`, 'error');
-    }
-  } catch (e) {
-    showStatus(`에러: ${e.message}`, 'error');
+    setTimeout(() => {
+      reveals.forEach(el => {
+        if (parseFloat(getComputedStyle(el).opacity) < 0.5) {
+          gsap.to(el, {opacity:1, y:0, duration:0.6});
+        }
+      });
+    }, 1500);
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(el => {
+      el.style.opacity = '1'; el.style.transform = 'none';
+    });
   }
-});
-
-// Copy whitepaper
-document.getElementById('copyWhitepaper').addEventListener('click', () => {
-  const content = document.getElementById('whitepaperContent').textContent;
-  navigator.clipboard.writeText(content).then(() => {
-    showToast('백서가 복사되었습니다');
-  });
-});
-
-function showStatus(msg, type) {
-  const status = document.getElementById('status');
-  status.textContent = msg;
-  status.className = 'status show ' + type;
-}
-
-function showToast(msg) {
-  const toast = document.getElementById('toast');
-  toast.textContent = msg;
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 2000);
-}
+  // 인터랙션: 코인 클릭 → AUDIO TOOLS
+  const heroCoin = document.querySelector('.coin-image');
+  if (heroCoin) {
+    heroCoin.style.cursor = 'pointer';
+    heroCoin.addEventListener('click', () => {
+      document.querySelector('.panels-section').scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  }
+  // 인터랙션: SCROLL ↓ 클릭 → 다음 섹션
+  const scrollHint = document.querySelector('.scroll-hint');
+  if (scrollHint) {
+    scrollHint.style.cursor = 'pointer';
+    scrollHint.addEventListener('click', () => {
+      document.querySelector('.panels-section').scrollIntoView({behavior:'smooth'});
+    });
+  }
+  // 인터랙션: parallax — 마우스에 따라 hero 코인 이동
+  if (window.gsap) {
+    document.querySelector('.hero').addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 20;
+      const y = (e.clientY / window.innerHeight - 0.5) * 20;
+      gsap.to('.coin-image', {x, y, duration:0.6, ease:'power2.out'});
+    });
+  }
 </script>
 
+<script type="module">
+  import { CFG } from '../assets/discord/config.js';
+  import { renderPresence } from '../assets/discord/presence.js';
+  import { renderFeed } from '../assets/discord/messages-feed.js';
+
+  const presenceEl = document.getElementById('gohsy-discord-presence');
+  const feedEl     = document.getElementById('gohsy-discord-messages');
+  if (presenceEl) renderPresence(presenceEl);
+  if (feedEl)     renderFeed(feedEl);
+
+  const widgetIframe = document.getElementById('gohsy-discord-widget');
+  if (widgetIframe) {
+    const ch = CFG.CH_ID && !CFG.CH_ID.includes('PLACEHOLDER') ? `/${CFG.CH_ID}` : '';
+    widgetIframe.src = `https://e.widgetbot.io/channels/${CFG.GUILD_ID}${ch}`;
+  }
+</script>
+
+<script defer src="../assets/js/personas-loader.js"></script>
 </body>
 </html>

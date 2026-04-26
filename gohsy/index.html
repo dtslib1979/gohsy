@@ -1,0 +1,683 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#1f1408" />
+  <title>Guild — GOHSY · 12슬롯 길드</title>
+  <meta name="description" content="GOHSY 12슬롯 길드 — 방송인 · 배우 · 크리에이터 · 커머스" />
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=JetBrains+Mono:wght@100;200;400;700&display=swap" rel="stylesheet">
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="GOHSY" />
+  <meta property="og:title" content="Guild — GOHSY · 12슬롯 길드" />
+  <meta property="og:description" content="GOHSY 12슬롯 길드 — 4 카테고리 × 3 슬롯" />
+  <meta property="og:image" content="https://gohsy.kr/assets/4.jpg" />
+  <meta property="og:url" content="https://gohsy.kr/gohsy/" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Guild — GOHSY · 12슬롯 길드">
+  <meta name="twitter:description" content="GOHSY 12슬롯 길드 — 4 카테고리 × 3 슬롯">
+  <meta name="twitter:image" content="https://gohsy.kr/assets/4.jpg">
+  <link rel="canonical" href="https://gohsy.kr/gohsy/">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;background:#000}
+    body{
+      font-family:'Pretendard Variable',sans-serif;
+      background:radial-gradient(ellipse at 50% 0%,#0F1F15 0%,#0a0a0a 70%);
+      color:#f0f0f0;min-height:100vh;overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none}
+    img,video{max-width:100%;display:block}
+
+    /* === NAV === */
+    nav.top{
+      position:fixed;top:0;left:0;right:0;z-index:50;
+      display:flex;justify-content:space-between;align-items:center;
+      padding:1.25rem 2rem;
+      background:linear-gradient(180deg,rgba(10,10,10,0.92) 0%,rgba(10,10,10,0) 100%);
+      backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    }
+    nav.top .brand{
+      font-family:'Cinzel',serif;font-weight:600;letter-spacing:.25em;
+      font-size:1.05rem;color:#D4AF37;
+      background:linear-gradient(180deg,#F5DC8C 0%,#D4AF37 50%,#9C7A1E 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
+    nav.top .links{display:flex;gap:1.5rem;font-size:.85rem;color:#888;font-family:'JetBrains Mono',monospace;letter-spacing:.1em}
+    @media(max-width:600px){nav.top .links{gap:.9rem;font-size:.75rem}}
+    nav.top .links a{transition:color .3s}
+    nav.top .links a:hover{color:#D4AF37}
+    nav.top .links a.active{color:#D4AF37}
+
+    /* === HERO with VIDEO === */
+    .hero{
+      min-height:100vh;position:relative;overflow:hidden;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;padding:6rem 2rem 4rem;
+    }
+    .hero-bg-video{
+      position:absolute;inset:0;width:100%;height:100%;
+      object-fit:cover;opacity:0.18;filter:blur(2px) saturate(1.3);
+      z-index:0;pointer-events:none;
+    }
+    .hero-bg-overlay{
+      position:absolute;inset:0;
+      background:radial-gradient(ellipse at center,rgba(26,20,16,0.4) 0%,rgba(10,10,10,0.95) 75%);
+      z-index:1;
+    }
+    .hero-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center}
+    .coin-image{
+      width:min(60vmin,520px);height:auto;
+      filter:drop-shadow(0 0 80px rgba(212,175,55,0.45));
+      animation:coinFloat 9s ease-in-out infinite;
+      margin-bottom:2.5rem;border-radius:50%;
+    }
+    @keyframes coinFloat{
+      0%,100%{transform:translateY(0) rotate(0deg)}
+      50%{transform:translateY(-25px) rotate(2deg)}
+    }
+    .brand-mark{
+      font-family:'Cinzel',serif;
+      font-size:clamp(2.5rem,11vw,7rem);
+      font-weight:600;letter-spacing:.25em;
+      background:linear-gradient(180deg,#F8E89E 0%,#E5C158 25%,#D4AF37 50%,#A8842E 75%,#5C4A1A 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      margin-bottom:1.5rem;line-height:1;
+      filter:drop-shadow(0 4px 20px rgba(212,175,55,0.3));
+    }
+    .tagline-en{
+      font-family:'Cinzel',serif;
+      font-size:clamp(.95rem,2vw,1.25rem);
+      color:#F5DC8C;letter-spacing:.15em;font-weight:500;
+      margin-bottom:.6rem;text-transform:uppercase;
+    }
+    .tagline-ko{
+      font-size:clamp(.95rem,2vw,1.15rem);
+      color:#d8d8d8;font-weight:300;letter-spacing:.05em;
+      margin-bottom:1rem;
+    }
+    .established{
+      font-family:'JetBrains Mono',monospace;
+      font-size:.8rem;color:#999;letter-spacing:.35em;
+    }
+    .scroll-hint{
+      position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+      font-family:'JetBrains Mono',monospace;font-size:.7rem;
+      color:#555;letter-spacing:.3em;z-index:3;
+      animation:scrollHint 2.2s ease-in-out infinite;
+    }
+    @keyframes scrollHint{
+      0%,100%{opacity:.4;transform:translateX(-50%) translateY(0)}
+      50%{opacity:1;transform:translateX(-50%) translateY(8px)}
+    }
+
+    /* === SECTION COMMON === */
+    section{padding:7rem 2rem;max-width:1400px;margin:0 auto}
+    .section-header{text-align:center;margin-bottom:5rem}
+    .section-label{
+      font-family:'JetBrains Mono',monospace;
+      font-size:.78rem;letter-spacing:.4em;color:#D4AF37;
+      margin-bottom:1.2rem;
+    }
+    .section-title{
+      font-family:'Cinzel',serif;
+      font-size:clamp(2rem,5vw,3.5rem);
+      font-weight:500;letter-spacing:.05em;
+      background:linear-gradient(180deg,#F5DC8C 0%,#D4AF37 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
+    @media(max-width:600px){section{padding:4rem 2rem}}
+
+    /* === 4 COIN MATRIX === */
+    .matrix-section{padding:7rem 2rem;border-top:1px solid #1a1a1a}
+    .matrix-grid{
+      display:grid;grid-template-columns:repeat(4,1fr);
+      gap:1.5rem;max-width:1200px;margin:0 auto;
+    }
+    @media(max-width:900px){.matrix-grid{grid-template-columns:repeat(2,1fr)}}
+    .coin-card{
+      position:relative;text-align:center;padding:2rem 1rem;
+      background:linear-gradient(180deg,#161208 0%,#0a0a0a 100%);
+      border:1px solid #1a1410;
+      transition:transform .5s cubic-bezier(.2,.8,.2,1),border-color .4s,box-shadow .4s;
+    }
+    .coin-card:hover{
+      transform:translateY(-8px);
+      border-color:#D4AF37;
+      box-shadow:0 30px 80px rgba(0,0,0,0.6),0 0 60px rgba(212,175,55,0.15);
+    }
+    .coin-card img{
+      width:100%;aspect-ratio:1;object-fit:cover;border-radius:50%;
+      filter:drop-shadow(0 8px 30px rgba(212,175,55,0.25));
+      transition:transform 1s ease;
+    }
+    .coin-card:hover img{transform:rotate(360deg)}
+    .coin-card .coin-name{
+      font-family:'Cinzel',serif;font-weight:600;letter-spacing:.1em;
+      font-size:1.15rem;color:#D4AF37;margin-top:1.2rem;
+    }
+    .coin-card .coin-role{
+      font-family:'JetBrains Mono',monospace;font-size:.7rem;
+      color:#666;letter-spacing:.2em;margin-top:.4rem;text-transform:uppercase;
+    }
+
+    /* === PERSONAS GRID === */
+    .personas-section{padding:7rem 2rem;border-top:1px solid #1a1a1a;max-width:1400px;margin:0 auto}
+    .persona-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+    @media(max-width:900px){.persona-grid{grid-template-columns:1fr}}
+    .persona-card{
+      position:relative;padding:2.5rem 2rem;
+      background:linear-gradient(180deg,#161616 0%,#0d0d0d 100%);
+      border:1px solid #222;
+      transition:transform .5s cubic-bezier(.2,.8,.2,1),border-color .4s,box-shadow .5s;
+      overflow:hidden;display:flex;flex-direction:column;cursor:pointer;
+      min-height:560px;
+    }
+    .persona-card::before{
+      content:'';position:absolute;top:0;left:0;right:0;height:4px;
+      background:var(--accent,#D4AF37);opacity:.7;
+      transition:opacity .4s,height .4s;
+    }
+    .persona-card::after{
+      content:'';position:absolute;inset:0;
+      background:radial-gradient(circle at 50% 0%,var(--accent,#D4AF37) 0%,transparent 70%);
+      opacity:0;transition:opacity .4s;pointer-events:none;
+    }
+    .persona-card:hover{
+      transform:translateY(-6px);
+      border-color:var(--accent,#D4AF37);
+      box-shadow:0 30px 80px rgba(0,0,0,0.5);
+    }
+    .persona-card:hover::before{height:8px;opacity:1}
+    .persona-card:hover::after{opacity:.06}
+    .persona-card .coin-art{
+      width:140px;height:140px;border-radius:50%;
+      object-fit:cover;margin:0 auto 1.5rem;
+      filter:drop-shadow(0 8px 25px rgba(0,0,0,0.5));
+      transition:transform .8s ease;
+    }
+    .persona-card:hover .coin-art{transform:rotate(15deg) scale(1.05)}
+    .persona-card h3{
+      font-family:'Cinzel',serif;font-size:1.6rem;
+      font-weight:600;letter-spacing:.05em;
+      color:var(--accent,#D4AF37);text-align:center;margin-bottom:.4rem;
+    }
+    .persona-card .ko-name{
+      font-size:1.05rem;font-weight:300;color:#ddd;
+      text-align:center;margin-bottom:1.2rem;letter-spacing:.05em;
+    }
+    .persona-card .role{
+      font-size:.95rem;color:#bbb;line-height:1.6;text-align:center;
+      margin-bottom:1.5rem;
+    }
+    .persona-card .channel-badge{
+      align-self:center;font-family:'JetBrains Mono',monospace;
+      font-size:.7rem;letter-spacing:.25em;color:#666;
+      padding:.4rem .9rem;border:1px solid #333;
+      text-transform:uppercase;margin-bottom:auto;
+    }
+    .persona-card .cta{
+      font-family:'JetBrains Mono',monospace;font-size:.8rem;
+      letter-spacing:.2em;color:var(--accent,#D4AF37);
+      padding-top:1.5rem;margin-top:1.5rem;
+      border-top:1px solid #1a1a1a;text-align:center;
+      transition:letter-spacing .3s;
+    }
+    .persona-card:hover .cta{letter-spacing:.3em}
+
+    /* === OPERATOR === */
+    .operator-section{
+      padding:7rem 2rem;border-top:1px solid #1a1a1a;
+      max-width:900px;margin:0 auto;text-align:center;
+    }
+    .operator-photo{
+      width:140px;height:140px;border-radius:50%;
+      object-fit:cover;margin:0 auto 2rem;
+      border:2px solid #D4AF37;
+      filter:drop-shadow(0 0 40px rgba(212,175,55,0.3));
+    }
+    .operator-name{
+      font-family:'Cinzel',serif;font-size:1.6rem;
+      font-weight:500;letter-spacing:.1em;color:#D4AF37;margin-bottom:.4rem;
+    }
+    .operator-role{
+      font-family:'JetBrains Mono',monospace;font-size:.78rem;
+      letter-spacing:.3em;color:#666;text-transform:uppercase;margin-bottom:2rem;
+    }
+    .operator-desc{color:#aaa;line-height:1.85;margin-bottom:2.5rem;font-size:1rem}
+    .operator-desc strong{color:#D4AF37;font-weight:500}
+    .operator-cta-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem}
+    .btn-gold{
+      display:inline-block;padding:.95rem 2rem;
+      border:1px solid #D4AF37;color:#D4AF37;
+      font-family:'JetBrains Mono',monospace;font-size:.82rem;letter-spacing:.2em;
+      transition:background .3s,color .3s,letter-spacing .3s;
+    }
+    .btn-gold:hover{background:#D4AF37;color:#0a0a0a;letter-spacing:.3em}
+    .btn-ghost{
+      display:inline-block;padding:.95rem 2rem;
+      border:1px solid #333;color:#888;
+      font-family:'JetBrains Mono',monospace;font-size:.82rem;letter-spacing:.2em;
+      transition:border-color .3s,color .3s;
+    }
+    .btn-ghost:hover{border-color:#D4AF37;color:#D4AF37}
+    .license-note{
+      display:inline-flex;align-items:center;gap:.8rem;
+      padding:.6rem 1.2rem;border:1px solid #1a1a1a;
+      font-family:'JetBrains Mono',monospace;font-size:.7rem;
+      color:#555;letter-spacing:.2em;
+    }
+    .license-note img{width:24px;height:24px;border-radius:3px;object-fit:cover;opacity:.7}
+
+    /* === PRODUCT SPOTLIGHT === */
+    .product-section{padding:7rem 2rem;border-top:1px solid #1f1408;max-width:1200px;margin:0 auto}
+    .product-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+    @media(max-width:768px){.product-grid{grid-template-columns:1fr}}
+    .product-visual{background:linear-gradient(135deg,#1f1408 0%,#0a0a0a 100%);border:1px solid #2a1f10;border-radius:12px;aspect-ratio:3/4;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden}
+    .product-visual__id{font-family:'JetBrains Mono',monospace;font-size:clamp(4rem,12vw,9rem);font-weight:700;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1px #F5A623;opacity:.5;line-height:1;user-select:none}
+    .product-visual__badge{position:absolute;top:1.5rem;left:1.5rem;padding:.35rem .8rem;font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.2em;background:#D4AF37;color:#0a0a0a;font-weight:600}
+    .product-info__id{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:#666;letter-spacing:.25em;margin-bottom:1rem}
+    .product-info__name{font-family:'Cinzel',serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:500;letter-spacing:.05em;color:#f0f0f0;margin-bottom:1.5rem;line-height:1.3}
+    .product-info__price-group{display:flex;align-items:baseline;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap}
+    .product-info__price{font-size:2rem;font-weight:600;color:#D4AF37}
+    .product-info__cost{font-size:1rem;color:#666;text-decoration:line-through}
+    .product-info__margin{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:#5fd068;letter-spacing:.1em}
+    .product-info__channels{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1.5rem}
+    .ch-tag{padding:.3rem .7rem;font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.15em;border:1px solid;transition:border-color .3s}
+    .product-info__contents{border-top:1px solid #1a1a1a;padding-top:1.5rem;margin-bottom:1.5rem}
+    .product-info__contents-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.3em;color:#666;margin-bottom:.8rem;text-transform:uppercase}
+    .product-info__item{font-size:.88rem;color:#aaa;padding:.5rem 0;border-bottom:1px solid #111;display:flex;align-items:center;gap:.6rem}
+    .product-info__item::before{content:'';width:1px;height:10px;background:#444;flex-shrink:0}
+
+    /* === CHANNEL MATRIX === */
+    .channel-section{padding:7rem 2rem;border-top:1px solid #1f1408;max-width:1200px;margin:0 auto}
+    .channel-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+    @media(max-width:900px){.channel-grid{grid-template-columns:repeat(2,1fr)}}
+    .channel-card{position:relative;padding:2rem 1.5rem;background:linear-gradient(180deg,#161616 0%,#0d0d0d 100%);border:1px solid #1f1408;border-top:3px solid #D4AF37;text-align:center;transition:transform .5s cubic-bezier(.2,.8,.2,1),border-color .4s,box-shadow .5s;cursor:default}
+    .channel-card:hover{transform:translateY(-6px);border-color:#D4AF37;box-shadow:0 30px 80px rgba(0,0,0,0.5)}
+    .channel-card .num{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#666;letter-spacing:.3em;margin-bottom:.5rem}
+    .channel-card .name{font-family:'Cinzel',serif;font-size:1.2rem;font-weight:600;color:#D4AF37;margin-bottom:.6rem}
+    .channel-card .price{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:#aaa;margin-bottom:.6rem;letter-spacing:.05em}
+    .channel-card .desc{font-size:.85rem;color:#888;line-height:1.6}
+
+    /* === STATS ROW === */
+    .stats-section{padding:7rem 2rem;border-top:1px solid #1f1408;max-width:1200px;margin:0 auto}
+    .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+    @media(max-width:768px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+    .stat-card{text-align:center;padding:2.5rem 1.5rem;background:linear-gradient(180deg,#161616 0%,#0d0d0d 100%);border:1px solid #1f1408}
+    .stat-card .val{font-family:'Cinzel',serif;font-size:clamp(2rem,4vw,3rem);font-weight:600;color:#D4AF37;margin-bottom:.5rem}
+    .stat-card .label{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:#666;letter-spacing:.25em;text-transform:uppercase}
+
+    /* === PHASE TIMELINE === */
+    .phase-section{padding:7rem 2rem;border-top:1px solid #1f1408;max-width:1100px;margin:0 auto}
+    .phase-timeline{position:relative;padding-left:2rem}
+    .phase-timeline::before{content:'';position:absolute;top:0;bottom:0;left:.5rem;width:1px;background:linear-gradient(180deg,#F5A623 0%,#1a1a1a 100%)}
+    .phase-item{position:relative;padding:1.5rem 0 1.5rem 2rem}
+    .phase-item::before{content:'';position:absolute;left:-.45rem;top:1.9rem;width:14px;height:14px;border-radius:50%;background:#0a0a0a;border:2px solid #D4AF37;box-shadow:0 0 12px rgba(245,166,35,0.4)}
+    .phase-item.current::before{background:#D4AF37}
+    .phase-item .date{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:#666;letter-spacing:.25em;margin-bottom:.4rem}
+    .phase-item .title{font-family:'Cinzel',serif;font-size:1.15rem;font-weight:500;color:#ddd;margin-bottom:.4rem;letter-spacing:.05em}
+    .phase-item .desc{color:#888;font-size:.92rem;line-height:1.6}
+
+    /* === BACK SECTION === */
+    .back-section{padding:7rem 2rem;border-top:1px solid #1f1408;max-width:900px;margin:0 auto;text-align:center}
+    .back-section .persona-links{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin-top:3rem}
+    .back-section .persona-link{padding:1rem 2rem;border:1px solid #333;font-family:'JetBrains Mono',monospace;font-size:.82rem;letter-spacing:.2em;transition:border-color .3s,color .3s,transform .3s}
+    .back-section .persona-link:hover{transform:translateY(-4px);border-color:var(--pcolor,#F5A623);color:var(--pcolor,#F5A623)}
+    .timeline{position:relative;padding-left:2rem}
+    .timeline::before{
+      content:'';position:absolute;top:0;bottom:0;left:.5rem;
+      width:1px;background:linear-gradient(180deg,#D4AF37 0%,#1a1a1a 100%);
+    }
+    .timeline-item{
+      position:relative;padding:1.5rem 0 1.5rem 2rem;
+    }
+    .timeline-item::before{
+      content:'';position:absolute;left:-.45rem;top:1.9rem;
+      width:14px;height:14px;border-radius:50%;
+      background:#0a0a0a;border:2px solid #D4AF37;
+      box-shadow:0 0 12px rgba(212,175,55,0.4);
+    }
+    .timeline-item.current::before{background:#D4AF37}
+    .timeline-date{
+      font-family:'JetBrains Mono',monospace;font-size:.72rem;
+      color:#666;letter-spacing:.25em;margin-bottom:.4rem;
+    }
+    .timeline-title{
+      font-family:'Cinzel',serif;font-size:1.15rem;font-weight:500;
+      color:#ddd;margin-bottom:.4rem;letter-spacing:.05em;
+    }
+    .timeline-desc{color:#888;font-size:.92rem;line-height:1.6}
+
+    /* === FOOTER === */
+    footer{
+      padding:3rem 2rem;text-align:center;
+      border-top:1px solid #1a1a1a;
+      font-family:'JetBrains Mono',monospace;
+      font-size:.72rem;color:#444;letter-spacing:.2em;
+    }
+    footer .links{margin-bottom:1rem;display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap}
+    footer .links a{transition:color .3s}
+    footer .links a:hover{color:#D4AF37}
+
+    /* === YOUTUBE === */
+    .youtube-section{padding:7rem 2rem;border-top:1px solid #2a2010;max-width:900px;margin:0 auto;text-align:center}
+    .youtube-embed-wrap{max-width:800px;margin:0 auto;aspect-ratio:16/9;background:#0d0d0d;border:1px solid #2a2010;border-radius:8px;overflow:hidden}
+    .youtube-embed-wrap iframe{width:100%;height:100%;border:0}
+    .yt-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.85rem;color:#555;letter-spacing:.2em}
+
+    /* === DISCORD === */
+    .discord-section{padding:7rem 2rem;border-top:1px solid #2a2010;max-width:1400px;margin:0 auto}
+    .discord-widget-wrap{display:flex;justify-content:center;align-items:center}
+
+    /* === REVEAL === */
+    .js [data-reveal]{opacity:0;transform:translateY(40px)}
+  </style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js');</script>
+
+<nav class="top" aria-label="Main navigation">
+  <a href="/" class="brand">GOHSY</a>
+  <div class="links">
+    <a href="/wife/">Wife</a>
+    <a href="../daughter/">Daughter</a>
+    <a href="../" class="active">Guild</a>
+    <a href="../staff/">Backoffice</a>
+  </div>
+</nav>
+
+<!-- 1. HERO with logo video bg + GOHSY coin -->
+<section class="hero">
+  <video class="hero-bg-video" autoplay muted loop playsinline>
+    <source src="../assets/icons/logo-video.mp4" type="video/mp4">
+  </video>
+  <div class="hero-bg-overlay"></div>
+  <div class="hero-inner">
+    <img src="../assets/4.jpg" alt="GOHSY Coin" class="coin-image"
+         data-tilt data-tilt-max="8" data-tilt-glare data-tilt-max-glare="0.3">
+    <h1 class="brand-mark" data-splitting>GOHSY</h1>
+    <p class="tagline-en">12 Slots · One Guild · Real Standard.</p>
+    <p class="tagline-ko">와이프 · 딸 콘텐츠를 키트로 — 어필리에이트 커머스</p>
+    <p class="established">EST. 2026.01.13</p>
+  </div>
+  <div class="scroll-hint">SCROLL ↓</div>
+</section>
+
+<!-- 2. PRODUCT SPOTLIGHT — 2026.01.13 -->
+<section class="product-section" data-reveal>
+  <div class="section-header">
+    <p class="section-label">GUILD · 12 SLOTS</p>
+    <h2 class="section-title">2026.01.13</h2>
+  </div>
+  <div class="product-grid">
+    <div class="product-visual" data-tilt data-tilt-max="8" data-tilt-glare data-tilt-max-glare="0.15">
+      <div class="product-visual__id">KS<br>001</div>
+      <div class="product-visual__badge">NEW</div>
+    </div>
+    <div class="product-info">
+      <div class="product-info__id">2026.01.13 / kit/basic</div>
+      <h3 class="product-info__name">4 카테고리 × 3 슬롯<br>12슬롯 길드 시스템</h3>
+      <div class="product-info__price-group">
+        <span class="product-info__price">12 SLOTS</span>
+        <span class="product-info__cost">원가 4 CATS</span>
+        <span class="product-info__margin">4 CATEGORIES</span>
+      </div>
+      <div class="product-info__channels">
+        <span class="ch-tag" style="color:#b84c4c;border-color:#b84c4c">SLOT 1-3 · 방송인</span>
+        <span class="ch-tag" style="color:#2db400;border-color:#2db400">SLOT 4-6 · 배우</span>
+        <span class="ch-tag" style="color:#ff3333;border-color:#ff3333">SLOT 7-9 · 크리에이터</span>
+        <span class="ch-tag" style="color:#D4AF37;border-color:#D4AF37">SLOT 10-12 · 커머스</span>
+      </div>
+      <div class="product-info__contents">
+        <div class="product-info__contents-label">구성품</div>
+        <div class="product-info__item">SLOT 1-3 · 방송인 — 예능 · 토크 · ASMR · 라디오</div>
+        <div class="product-info__item">SLOT 4-6 · 배우 — 드라마 · 영화 · 연극 · 보이스</div>
+        <div class="product-info__item">SLOT 7-9 · 크리에이터 — 예술 · 패션 · 미디어 · 디자인</div>
+        <div class="product-info__item">SLOT 10-12 · 커머스 — 쇼핑 · 리뷰 · 광고 · 마케팅</div>
+        <div class="product-info__item">박씨 backoffice 인프라 · 12슬롯 길드 총괄</div>
+      </div>
+      <a href="showroom/" class="btn-gold">쇼룸에서 보기 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 3. CHANNEL MATRIX — 4 채널 -->
+<section class="channel-section" data-reveal>
+  <div class="section-header">
+    <p class="section-label">SLOT · 카테고리</p>
+    <h2 class="section-title">4 Category Matrix</h2>
+  </div>
+  <div class="channel-grid">
+    <div class="channel-card" data-tilt data-tilt-max="6" data-tilt-glare data-tilt-max-glare="0.08">
+      <div class="num">방송인</div>
+      <div class="name">쿠팡</div>
+      <div class="price">SLOT 1-3</div>
+      <div class="desc">예능 · 토크 · ASMR · 라디오</div>
+    </div>
+    <div class="channel-card" data-tilt data-tilt-max="6" data-tilt-glare data-tilt-max-glare="0.08">
+      <div class="num">배우</div>
+      <div class="name">네이버</div>
+      <div class="price">SLOT 4-6</div>
+      <div class="desc">드라마 · 영화 · 연극 · 보이스</div>
+    </div>
+    <div class="channel-card" data-tilt data-tilt-max="6" data-tilt-glare data-tilt-max-glare="0.08">
+      <div class="num">크리에이터</div>
+      <div class="name">SLOT 7-9 · 크리에이터</div>
+      <div class="price">—</div>
+      <div class="desc">예술 · 패션 · 미디어 · 디자인</div>
+    </div>
+    <div class="channel-card" data-tilt data-tilt-max="6" data-tilt-glare data-tilt-max-glare="0.08">
+      <div class="num">커머스</div>
+      <div class="name">SLOT 10-12 · 커머스</div>
+      <div class="price">12 SLOTS</div>
+      <div class="desc">쇼핑 · 리뷰 · 광고 · 마케팅</div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. STATS ROW -->
+<section class="stats-section" data-reveal>
+  <div class="section-header">
+    <p class="section-label">GUILD · STATS</p>
+    <h2 class="section-title">GOHSY Guild by Numbers</h2>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-card" data-tilt data-tilt-max="4" data-tilt-glare data-tilt-max-glare="0.06">
+      <div class="val"><span class="stat-num" data-target="12">0</span>%</div>
+      <div class="label">길드 슬롯</div>
+    </div>
+    <div class="stat-card" data-tilt data-tilt-max="4" data-tilt-glare data-tilt-max-glare="0.06">
+      <div class="val"><span class="stat-num" data-target="3">0</span></div>
+      <div class="label">페르소나</div>
+    </div>
+    <div class="stat-card" data-tilt data-tilt-max="4" data-tilt-glare data-tilt-max-glare="0.06">
+      <div class="val"><span class="stat-num" data-target="1">0</span></div>
+      <div class="label">운영 개월</div>
+    </div>
+    <div class="stat-card" data-tilt data-tilt-max="4" data-tilt-glare data-tilt-max-glare="0.06">
+      <div class="val" style="font-size:clamp(1.2rem,2.5vw,1.8rem)">2026.01.13</div>
+      <div class="label">설립일</div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. PHASE TIMELINE — 진화 0~6 -->
+<section class="phase-section" data-reveal>
+  <div class="section-header">
+    <p class="section-label">TIMELINE · 진화</p>
+    <h2 class="section-title">Commerce Evolution</h2>
+  </div>
+  <div class="phase-timeline">
+    <div class="phase-item" data-reveal>
+      <div class="date">PHASE 0 · ARCHIVE</div>
+      <div class="title">설립 — Voices for the Voiceless</div>
+      <div class="desc"><br>GOHSY 설립. 배우 길드 비전 선언./ 아카이브. 커머스 디렉토리 구조 생성.</div>
+    </div>
+    <div class="phase-item" data-reveal>
+      <div class="date">PHASE 1 · CATALOG</div>
+      <div class="title">페르소나 합류</div>
+      <div class="desc">FACTORY.json, 카탈로그 스키마, 파이프라인 계약, 자동화 엔진, GPU 렌더러.</div>
+    </div>
+    <div class="phase-item" data-reveal>
+      <div class="date">PHASE 2 · DESIGN</div>
+      <div class="title">12슬롯 길드</div>
+      <div class="desc"><br>12슬롯 길드 본부 오픈. 4 카테고리 × 3 슬롯., 컴포넌트, 애니메이션, 랜딩 CSS.</div>
+    </div>
+    <div class="phase-item" data-reveal>
+      <div class="date">PHASE 3 · SHOWROOM</div>
+      <div class="title">SLOT 10-12 · 커머스 + Workstation</div>
+      <div class="desc"><br>커머스 채널 확보. 쿠팡 · 네이버 · Showroom. 오퍼레이터 콘솔, 워크스테이션 대시보드.</div>
+    </div>
+    <div class="phase-item" data-reveal>
+      <div class="date">PHASE 4 · CONFIG</div>
+      <div class="title">Platform 확장</div>
+      <div class="desc">config.json, branch 설정 커머스 버전으로 마이그레이션.</div>
+    </div>
+    <div class="phase-item" data-reveal>
+      <div class="date">PHASE 5 · SCRIPTS</div>
+      <div class="title">인큐베이터</div>
+      <div class="desc"><br>박씨 backoffice 인큐베이터 모델 안정화. HQ 동기화, card 검증 도구.</div>
+    </div>
+    <div class="phase-item" data-reveal>
+      <div class="date">PHASE 6 · 2026.01.13</div>
+      <div class="title">2026.01.13 설립일 등록</div>
+      <div class="desc"><br>4 Coin Matrix 완성. GOHSY · Wife · Daughter · Guild. 키트 카드 작성. 파이프라인 첫 실행 검증.</div>
+    </div>
+    <div class="phase-item current" data-reveal>
+      <div class="date">TODAY · 2026-커머스-25</div>
+      <div class="title">현재 — 4 Coin Matrix</div>
+      <div class="desc">GOHSY sub-page 메인 디자인 시스템 적용. 6 섹션 인터랙티브.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. YOUTUBE PLAYLIST -->
+<section class="youtube-section" data-reveal>
+  <div class="section-header">
+    <p class="section-label">YOUTUBE · 길드</p>
+    <h2 class="section-title">GOHSY · Guild Channel</h2>
+  </div>
+  <div class="youtube-embed-wrap">
+    <iframe id="guild-youtube" title="GOHSY SLOT 7-9 · 크리에이터 playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</section>
+
+<!-- 7. DISCORD -->
+<section class="discord-section" data-reveal>
+  <div class="section-header">
+    <p class="section-label">COMMUNITY · DISCORD</p>
+    <h2 class="section-title">GOHSY · Guild Hub</h2>
+  </div>
+  <div class="discord-widget-wrap">
+    <iframe id="discord-widget" src="https://e.widgetbot.io/channels/1493490911278272655" width="100%" height="400" title="GOHSY Guild Discord 실시간 채팅" style="border:1px solid #1a1a1a;border-radius:12px;max-width:600px;display:block;margin:0 auto;"></iframe>
+  </div>
+</section>
+
+<!-- 7. BACK TO MATRIX -->
+<section class="back-section" data-reveal>
+  <div class="section-header">
+    <p class="section-label">MATRIX · GOHSY</p>
+    <h2 class="section-title">Guild in Matrix</h2>
+  </div>
+  <p style="color:#888;font-size:1rem;line-height:1.7;max-width:600px;margin:0 auto">
+    <br>GOHSY Guild는 GOHSY 4 Coin Matrix 의 일부입니다.<br>
+    다른 페르소나도 만나보세요.
+  </p>
+  <div class="persona-links">
+    <a href="/" class="btn-gold">GOHSY 메인 →</a>
+    <a href="/wife/" class="persona-link" style="--pcolor:#4A90E2">🧮 와이프 · Wife</a>
+    <a href="/daughter/" class="persona-link" style="--pcolor:#7ED321">🏗️ 딸 · Daughter</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="links">
+    <a href="/wife/">Wife</a>
+    <a href="../daughter/">Daughter</a>
+    <a href="../">Guild</a>
+    <a href="../staff/">Backoffice</a>
+    <a href="../card/">Card</a>
+    <a href="https://github.com/dtslib1979/gohsy" target="_blank">GitHub</a>
+  </div>
+  <div>© 2026 GOHSY · EST. 2026.01.13 · Operated by 박씨 · Guild Master · Backoffice 박씨</div>
+</footer>
+
+<script>
+  if (window.Splitting) Splitting();
+  if (window.VanillaTilt) VanillaTilt.init(document.querySelectorAll('[data-tilt]'));
+
+  if (window.gsap && window.ScrollTrigger){
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Hero entry sequence
+    gsap.from('.coin-image', {opacity:0, scale:0.6, duration:1.5, ease:'power3.out', delay:0.3});
+    gsap.from('.brand-mark .char', {opacity:0, y:80, duration:0.9, stagger:0.07, ease:'power3.out', delay:0.7});
+    gsap.from('.tagline-en', {opacity:0, y:20, duration:0.8, ease:'power3.out', delay:1.6});
+    gsap.from('.tagline-ko', {opacity:0, y:20, duration:0.8, ease:'power3.out', delay:1.85});
+    gsap.from('.established', {opacity:0, duration:0.6, delay:2.1});
+
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('[data-reveal]');
+    reveals.forEach(el => {
+      gsap.to(el, {
+        opacity:1, y:0, duration:1, ease:'power3.out',
+        scrollTrigger: {trigger:el, start:'top 95%', toggleActions:'play none none none'}
+      });
+    });
+    setTimeout(() => {
+      reveals.forEach(el => {
+        if (parseFloat(getComputedStyle(el).opacity) < 0.5) {
+          gsap.to(el, {opacity:1, y:0, duration:0.6});
+        }
+      });
+    }, 1500);
+
+    // Stats count-up
+    document.querySelectorAll('.stat-num[data-target]').forEach(el => {
+      const target = parseFloat(el.dataset.target);
+      const isInt = target % 1 === 0;
+      gsap.to(el, {
+        textContent: target,
+        duration: 2.2,
+        snap: { textContent: isInt ? 1 : 0.1 },
+        scrollTrigger: { trigger: el.closest('.stats-section'), start: 'top 85%' }
+      });
+    });
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(el => {
+      el.style.opacity = '1'; el.style.transform = 'none';
+    });
+  }
+</script>
+
+<script type="module">
+  const r = await fetch('../data/personas.json');
+  const d = await r.json();
+  const p = d.personas.find(x => x.id === 'gohsy');
+  const iframe = document.getElementById('gohsy-youtube');
+  const yt = p?.youtube;
+  if (yt && yt.playlist_id && !yt.playlist_id.includes('PLACEHOLDER')) {
+    iframe.src = `https://www.youtube.com/embed/videoseries?list=${yt.playlist_id}`;
+  } else {
+    iframe.outerHTML = '<div class="yt-placeholder">🔒 채널 준비 중</div>';
+  }
+</script>
+
+<script defer src="../assets/js/personas-loader.js"></script>
+</body>
+</html>

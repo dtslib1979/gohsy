@@ -1,0 +1,16 @@
+# aider
+.aider.chat.history.md
+.aider.input.history
+.aider.tags.cache.v4/
+.aider*
+
+# legacy backups
+*.legacy
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

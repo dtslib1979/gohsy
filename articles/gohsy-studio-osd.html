@@ -2,707 +2,436 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Gohsy Studio Integrated Whitepaper — Operational Standard Document (OSD) v1.01" />
-  <title>Gohsy Studio OSD — Operational Standard Document v1.01</title>
-  <link rel="icon" href="../assets/icons/logo.jpg">
-  <link rel="apple-touch-icon" href="../assets/icons/logo.jpg">
-  <link rel="manifest" href="../assets/manifest.json">
-  <meta name="theme-color" content="#D4AF37">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0d1827" />
+  <title>GOHSY</title>
+  <meta name="description" content="GOHSY — 배우 · 커머스 · 길드" />
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=JetBrains+Mono:wght@100;200;400;700&display=swap" rel="stylesheet">
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="GOHSY" />
+  <meta property="og:title" content="GOHSY" />
+  <meta property="og:description" content="중학 · 고교 수학을 매일의 칠판으로. 와이프 수학 강의 채널." />
+  <meta property="og:image" content="https://gohsy.kr/assets/2.jpg" />
+  <meta property="og:url" content="https://gohsy.kr/wife/" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GOHSY">
+  <meta name="twitter:description" content="중학 · 고교 수학을 매일의 칠판으로. 와이프 수학 강의 채널.">
+  <meta name="twitter:image" content="https://gohsy.kr/assets/2.jpg">
+  <link rel="canonical" href="https://gohsy.kr/wife/">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+
   <style>
-    :root{
-      --bg: #0b0f0d;
-      --panel: #0f1713;
-      --panel-2: #0c1310;
-      --text: #e8ecea;
-      --muted: #a9b2ad;
-      --line: rgba(255,255,255,.10);
-
-      --gold: #d4af37;
-      --gold-2: rgba(212,175,55,.18);
-      --silver: #c8ccd0;
-
-      --shadow: 0 14px 40px rgba(0,0,0,.45);
-      --radius: 18px;
-      --radius-lg: 24px;
-
-      --container: 900px;
-    }
-
-    *{ box-sizing: border-box; }
-    html,body{ height: 100%; }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;background:#000}
     body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Segoe UI", Roboto, Arial, sans-serif;
-      background: radial-gradient(1200px 700px at 20% 10%, rgba(212,175,55,.10), transparent 55%),
-                  radial-gradient(900px 600px at 85% 0%, rgba(200,204,208,.08), transparent 50%),
-                  var(--bg);
-      color: var(--text);
-      line-height: 1.65;
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
+      font-family:'Pretendard Variable',sans-serif;
+      background:radial-gradient(ellipse at 50% 0%,#0d1827 0%,#0a0a0a 70%);
+      color:#f0f0f0;min-height:100vh;overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none}
+    img,video{max-width:100%;display:block}
+
+    /* === NAV === */
+    nav.top{
+      position:fixed;top:0;left:0;right:0;z-index:50;
+      display:flex;justify-content:space-between;align-items:center;
+      padding:1.25rem 2rem;
+      background:linear-gradient(180deg,rgba(13,24,39,0.92) 0%,rgba(13,24,39,0) 100%);
+      backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    }
+    nav.top .brand{
+      font-family:'Cinzel',serif;font-weight:600;letter-spacing:.25em;
+      font-size:1.05rem;
+      background:linear-gradient(180deg,#F5DC8C 0%,#D4AF37 50%,#9C7A1E 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
+    nav.top .links{display:flex;gap:1.5rem;font-size:.85rem;color:#888;font-family:'JetBrains Mono',monospace;letter-spacing:.1em}
+    @media(max-width:600px){nav.top .links{gap:.9rem;font-size:.75rem}}
+    nav.top .links a{transition:color .3s}
+    nav.top .links a:hover{color:#D4AF37}
+    nav.top .links a.active{color:#4A90E2}
+
+    /* === SECTION COMMON === */
+    section{padding:7rem 2rem;max-width:1400px;margin:0 auto}
+    .section-header{text-align:center;margin-bottom:5rem}
+    .section-label{
+      font-family:'JetBrains Mono',monospace;
+      font-size:.78rem;letter-spacing:.4em;color:#4A90E2;
+      margin-bottom:1.2rem;
+    }
+    .section-title{
+      font-family:'Cinzel',serif;
+      font-size:clamp(2rem,5vw,3.5rem);
+      font-weight:500;letter-spacing:.05em;
+      background:linear-gradient(180deg,#F5DC8C 0%,#D4AF37 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
+    @media(max-width:600px){section{padding:4rem 2rem}}
+
+    /* === HERO === */
+    .hero{
+      min-height:100vh;position:relative;overflow:hidden;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;padding:6rem 2rem 4rem;
+    }
+    .hero-bg-glow{
+      position:absolute;top:-30%;left:50%;transform:translateX(-50%);
+      width:80vmin;height:80vmin;
+      background:radial-gradient(circle,rgba(74,144,226,0.12) 0%,transparent 60%);
+      pointer-events:none;z-index:0;
+    }
+    .hero-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center}
+    .coin-image{
+      width:min(50vmin,420px);height:auto;
+      filter:drop-shadow(0 0 80px rgba(74,144,226,0.35));
+      animation:coinFloat 9s ease-in-out infinite;
+      margin-bottom:2.5rem;border-radius:50%;
+    }
+    @keyframes coinFloat{
+      0%,100%{transform:translateY(0) rotate(0deg)}
+      50%{transform:translateY(-25px) rotate(2deg)}
+    }
+    .brand-mark{
+      font-family:'Cinzel',serif;
+      font-size:clamp(2.5rem,11vw,7rem);
+      font-weight:600;letter-spacing:.15em;
+      background:linear-gradient(180deg,#F8E89E 0%,#E5C158 25%,#D4AF37 50%,#A8842E 75%,#5C4A1A 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      margin-bottom:1.5rem;line-height:1;
+      filter:drop-shadow(0 4px 20px rgba(74,144,226,0.3));
+    }
+    .tagline-en{
+      font-family:'Cinzel',serif;
+      font-size:clamp(.95rem,2vw,1.25rem);
+      color:#4A90E2;letter-spacing:.15em;font-weight:500;
+      margin-bottom:.6rem;text-transform:uppercase;
+    }
+    .tagline-ko{
+      font-size:clamp(.95rem,2vw,1.15rem);
+      color:#d8d8d8;font-weight:300;letter-spacing:.05em;
+      margin-bottom:1rem;
+    }
+    .established{
+      font-family:'JetBrains Mono',monospace;
+      font-size:.8rem;color:#999;letter-spacing:.35em;
+    }
+    .scroll-hint{
+      position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+      font-family:'JetBrains Mono',monospace;font-size:.7rem;
+      color:#555;letter-spacing:.3em;z-index:3;
+      animation:scrollHint 2.2s ease-in-out infinite;
+    }
+    @keyframes scrollHint{
+      0%,100%{opacity:.4;transform:translateX(-50%) translateY(0)}
+      50%{opacity:1;transform:translateX(-50%) translateY(8px)}
     }
 
-    a{ color: inherit; text-decoration: none; }
-    .container{
-      width: min(100% - 32px, var(--container));
-      margin: 0 auto;
+    /* === CHALKBOARD CONCEPT === */
+    .chalkboard-section{
+      padding:7rem 2rem;border-top:1px solid #1a2a3a;
+      max-width:1200px;margin:0 auto;
+    }
+    .chalkboard-grid{
+      display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
+    }
+    @media(max-width:768px){.chalkboard-grid{grid-template-columns:1fr;gap:2rem}}
+    .chalkboard-visual{
+      background:linear-gradient(135deg,#1a2a3a 0%,#0d1827 100%);
+      border:1px solid #2a3a4a;border-radius:12px;
+      aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;
+      position:relative;overflow:hidden;
+    }
+    .chalkboard-visual svg{width:60%;height:60%;opacity:.6}
+    .chalkboard-text h3{
+      font-family:'Cinzel',serif;font-size:1.6rem;font-weight:500;
+      color:#4A90E2;margin-bottom:1.5rem;letter-spacing:.05em;
+    }
+    .chalkboard-text p{
+      color:#aaa;line-height:1.85;font-size:1rem;margin-bottom:1rem;
+    }
+    .chalkboard-text .highlight{color:#4A90E2;font-weight:500}
+
+    /* === YOUTUBE === */
+    .youtube-section{
+      padding:7rem 2rem;border-top:1px solid #1a2a3a;
+      max-width:900px;margin:0 auto;text-align:center;
+    }
+    .youtube-embed-wrap{
+      max-width:800px;margin:0 auto;aspect-ratio:16/9;
+      background:#0d0d0d;border:1px solid #1a2a3a;border-radius:8px;
+      overflow:hidden;
+    }
+    .youtube-embed-wrap iframe{width:100%;height:100%;border:0}
+    .yt-placeholder{
+      width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+      font-family:'JetBrains Mono',monospace;font-size:.85rem;color:#555;letter-spacing:.2em;
     }
 
-    /* Header */
-    header{
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(10px);
-      background: rgba(11,15,13,.72);
-      border-bottom: 1px solid var(--line);
+    /* === CURRICULUM === */
+    .curriculum-section{
+      padding:7rem 2rem;border-top:1px solid #1a2a3a;
+      max-width:1200px;margin:0 auto;
     }
-    .header-inner{
-      display:flex;
-      align-items:center;
-      justify-content: space-between;
-      padding: 14px 0;
-      gap: 18px;
+    .curriculum-grid{
+      display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;
     }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap: 12px;
+    @media(max-width:900px){.curriculum-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:500px){.curriculum-grid{grid-template-columns:1fr}}
+    .curriculum-card{
+      padding:2rem 1.5rem;
+      background:linear-gradient(180deg,#161616 0%,#0d0d0d 100%);
+      border:1px solid #1a2a3a;border-top:3px solid #4A90E2;
+      text-align:center;transition:transform .5s cubic-bezier(.2,.8,.2,1),border-color .4s,box-shadow .5s;
     }
-    .logo{
-      width: 40px;
-      height: 40px;
-      border-radius: 14px;
-      display:grid;
-      place-items:center;
-      background: linear-gradient(180deg, rgba(212,175,55,.26), rgba(212,175,55,.06));
-      border: 1px solid rgba(212,175,55,.40);
-      box-shadow: 0 10px 28px rgba(0,0,0,.35);
+    .curriculum-card:hover{
+      transform:translateY(-6px);
+      border-color:#4A90E2;
+      box-shadow:0 30px 80px rgba(0,0,0,0.5);
     }
-    .logo svg{ width: 22px; height: 22px; }
-    .brand-title{
-      display:flex;
-      flex-direction: column;
-      gap: 2px;
+    .curriculum-card .level{
+      font-family:'Cinzel',serif;font-size:1.3rem;font-weight:600;
+      color:#4A90E2;margin-bottom:.8rem;
     }
-    .brand-title strong{
-      font-weight: 800;
-      letter-spacing: .2px;
+    .curriculum-card .title{
+      font-family:'JetBrains Mono',monospace;font-size:.8rem;
+      color:#888;letter-spacing:.2em;margin-bottom:.8rem;
     }
-    .brand-title span{
-      font-size: 12px;
-      color: var(--muted);
+    .curriculum-card .desc{
+      font-size:.9rem;color:#aaa;line-height:1.6;
     }
 
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap: 10px;
-      padding: 10px 14px;
-      border-radius: 14px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.05);
-      color: var(--text);
-      font-weight: 700;
-      font-size: 14px;
-      cursor:pointer;
-      transition: transform .12s ease, background .2s ease, border-color .2s ease;
-      user-select:none;
-      white-space: nowrap;
+    /* === BACK === */
+    .back-section{
+      padding:7rem 2rem;border-top:1px solid #1a2a3a;
+      max-width:900px;margin:0 auto;text-align:center;
     }
-    .btn:hover{
-      background: rgba(255,255,255,.08);
-      border-color: rgba(255,255,255,.16);
-      transform: translateY(-1px);
+    .back-section .persona-links{
+      display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;
+      margin-top:3rem;
     }
-    .btn-primary{
-      border-color: rgba(212,175,55,.45);
-      background: linear-gradient(180deg, rgba(212,175,55,.20), rgba(212,175,55,.06));
+    .back-section .persona-link{
+      padding:1rem 2rem;border:1px solid #333;
+      font-family:'JetBrains Mono',monospace;font-size:.82rem;letter-spacing:.2em;
+      transition:border-color .3s,color .3s,transform .3s;
     }
+    .back-section .persona-link:hover{transform:translateY(-4px);border-color:var(--pcolor,#4A90E2);color:var(--pcolor,#4A90E2)}
 
-    /* Main Content */
-    main{ padding: 34px 0 80px; }
-
-    .doc-header{
-      text-align: center;
-      margin-bottom: 40px;
-    }
-    .doc-header .kicker{
-      display:inline-flex;
-      align-items:center;
-      gap: 10px;
-      padding: 8px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(212,175,55,.35);
-      background: rgba(212,175,55,.08);
-      color: var(--silver);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: .3px;
-      margin-bottom: 16px;
-      text-transform: uppercase;
-    }
-    .doc-header h1{
-      margin: 0 0 12px;
-      font-size: 36px;
-      line-height: 1.15;
-      letter-spacing: -0.5px;
-    }
-    .doc-header .subtitle{
-      margin: 0;
-      color: var(--muted);
-      font-size: 15px;
-    }
-    .doc-header .version{
-      margin-top: 12px;
-      font-size: 13px;
-      color: var(--gold);
-      font-weight: 600;
-    }
-
-    /* Declaration Block */
-    .declaration{
-      border-radius: var(--radius);
-      border: 1px solid rgba(212,175,55,.35);
-      background: rgba(212,175,55,.06);
-      padding: 28px;
-      margin-bottom: 32px;
-    }
-    .declaration h2{
-      margin: 0 0 16px;
-      font-size: 18px;
-      color: var(--gold);
-    }
-    .declaration p{
-      margin: 0 0 14px;
-      color: var(--text);
-    }
-    .declaration blockquote{
-      margin: 20px 0 0;
-      padding: 16px 20px;
-      border-left: 3px solid var(--gold);
-      background: rgba(0,0,0,.25);
-      border-radius: 0 14px 14px 0;
-      font-weight: 600;
-      font-size: 15px;
-    }
-    .declaration .principle{
-      margin-top: 20px;
-      padding: 16px;
-      background: rgba(0,0,0,.20);
-      border-radius: 14px;
-    }
-    .declaration .principle p{
-      margin: 6px 0;
-      font-size: 14px;
-    }
-    .declaration .principle strong{
-      color: var(--gold);
-    }
-
-    /* Section */
-    section{
-      margin-bottom: 28px;
-    }
-    section h2{
-      margin: 0 0 16px;
-      font-size: 20px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--line);
-    }
-    section h2 .num{
-      color: var(--gold);
-      margin-right: 8px;
-    }
-    section h3{
-      margin: 20px 0 10px;
-      font-size: 16px;
-      color: var(--silver);
-    }
-    section p{
-      margin: 0 0 12px;
-      color: var(--muted);
-    }
-    section ul{
-      margin: 0 0 16px;
-      padding: 0 0 0 20px;
-      color: var(--muted);
-    }
-    section li{
-      margin: 8px 0;
-    }
-
-    /* Code/Schema Block */
-    .schema{
-      background: rgba(0,0,0,.30);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 16px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      font-size: 13px;
-      line-height: 1.6;
-      color: var(--silver);
-      overflow-x: auto;
-      margin: 16px 0;
-    }
-
-    /* Power Graph */
-    .power-graph{
-      background: rgba(0,0,0,.25);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 20px;
-      margin: 16px 0;
-    }
-    .power-graph pre{
-      margin: 0;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      font-size: 13px;
-      line-height: 1.7;
-      color: var(--text);
-    }
-    .power-graph .note{
-      margin-top: 14px;
-      font-size: 13px;
-      color: var(--muted);
-      font-style: italic;
-    }
-
-    /* Track Cards */
-    .tracks{
-      display: grid;
-      gap: 14px;
-    }
-    .track{
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
-      padding: 20px;
-    }
-    .track h4{
-      margin: 0 0 8px;
-      font-size: 16px;
-      color: var(--text);
-    }
-    .track h4 .label{
-      display: inline-block;
-      padding: 4px 10px;
-      border-radius: 8px;
-      background: rgba(212,175,55,.15);
-      color: var(--gold);
-      font-size: 12px;
-      font-weight: 700;
-      margin-right: 10px;
-    }
-    .track p{
-      margin: 0;
-      font-size: 14px;
-    }
-
-    /* Phase Table */
-    .phases{
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin: 16px 0;
-    }
-    .phase{
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: rgba(0,0,0,.20);
-      padding: 18px;
-      text-align: center;
-    }
-    .phase .num{
-      font-size: 24px;
-      font-weight: 800;
-      color: var(--gold);
-    }
-    .phase h4{
-      margin: 8px 0;
-      font-size: 15px;
-    }
-    .phase p{
-      margin: 0;
-      font-size: 13px;
-    }
-
-    /* Control Keys */
-    .control-keys{
-      display: grid;
-      gap: 12px;
-    }
-    .ck{
-      display: flex;
-      gap: 14px;
-      align-items: flex-start;
-      padding: 14px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: rgba(255,255,255,.02);
-    }
-    .ck .key{
-      flex-shrink: 0;
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: rgba(212,175,55,.12);
-      border: 1px solid rgba(212,175,55,.30);
-      display: grid;
-      place-items: center;
-      font-size: 13px;
-      font-weight: 800;
-      color: var(--gold);
-    }
-    .ck .content h4{
-      margin: 0 0 4px;
-      font-size: 14px;
-      color: var(--text);
-    }
-    .ck .content p{
-      margin: 0;
-      font-size: 13px;
-    }
-
-    /* Mission Block */
-    .mission{
-      border: 2px solid var(--gold);
-      border-radius: var(--radius);
-      background: rgba(212,175,55,.08);
-      padding: 28px;
-      text-align: center;
-      margin: 32px 0;
-    }
-    .mission h2{
-      margin: 0 0 16px;
-      font-size: 18px;
-      color: var(--gold);
-      border: none;
-      padding: 0;
-    }
-    .mission blockquote{
-      margin: 0;
-      font-size: 17px;
-      font-weight: 600;
-      color: var(--text);
-      line-height: 1.6;
-    }
-    .mission .note{
-      margin-top: 16px;
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    /* Final Seal */
-    .seal{
-      text-align: center;
-      padding: 40px 20px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius-lg);
-      background: linear-gradient(180deg, rgba(0,0,0,.30), rgba(0,0,0,.15));
-    }
-    .seal h2{
-      margin: 0 0 20px;
-      font-size: 20px;
-      border: none;
-      padding: 0;
-    }
-    .seal p{
-      margin: 8px 0;
-      font-size: 14px;
-    }
-    .seal .status{
-      margin-top: 24px;
-      padding: 14px 24px;
-      display: inline-block;
-      border: 1px solid var(--gold);
-      border-radius: 12px;
-      background: rgba(212,175,55,.12);
-      color: var(--gold);
-      font-weight: 700;
-      font-size: 14px;
-    }
-    .seal .final{
-      margin-top: 20px;
-      font-size: 18px;
-      font-weight: 800;
-      color: var(--text);
-    }
-
-    /* Footer */
+    /* === FOOTER === */
     footer{
-      margin-top: 40px;
-      padding: 20px 0;
-      border-top: 1px solid var(--line);
-      text-align: center;
-      color: var(--muted);
-      font-size: 13px;
+      padding:3rem 2rem;text-align:center;
+      border-top:1px solid #1a2a3a;
+      font-family:'JetBrains Mono',monospace;
+      font-size:.72rem;color:#444;letter-spacing:.2em;
     }
+    footer .links{margin-bottom:1rem;display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap}
+    footer .links a{transition:color .3s}
+    footer .links a:hover{color:#D4AF37}
 
-    /* Responsive */
-    @media (max-width: 720px){
-      .doc-header h1{ font-size: 28px; }
-      .phases{ grid-template-columns: 1fr; }
-      .declaration{ padding: 20px; }
-    }
-    @media (max-width: 480px){
-      .container{ width: min(100% - 18px, var(--container)); }
-      .doc-header h1{ font-size: 24px; }
-    }
+    /* === DISCORD === */
+    .discord-section{padding:7rem 2rem;border-top:1px solid #1a2a3a;max-width:1400px;margin:0 auto}
+    .discord-widget-wrap{display:flex;justify-content:center;align-items:center}
+
+    /* === REVEAL === */
+    .js [data-reveal]{opacity:0;transform:translateY(40px)}
   </style>
 </head>
-
 <body>
-  <header>
-    <div class="container">
-      <div class="header-inner">
-        <a class="brand" href="../" aria-label="Gohsy 홈으로">
-          <div class="logo" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M12 2.8c5.08 0 9.2 4.12 9.2 9.2S17.08 21.2 12 21.2 2.8 17.08 2.8 12 6.92 2.8 12 2.8Z"
-                    stroke="rgba(212,175,55,.95)" stroke-width="1.6"/>
-              <path d="M12 6.8v7.1" stroke="rgba(200,204,208,.9)" stroke-width="1.6" stroke-linecap="round"/>
-              <path d="M8.6 10.2h6.8" stroke="rgba(200,204,208,.9)" stroke-width="1.6" stroke-linecap="round"/>
-              <path d="M9 15.8c.9 1 2 1.6 3 1.6s2.1-.6 3-1.6"
-                    stroke="rgba(212,175,55,.9)" stroke-width="1.6" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div class="brand-title">
-            <strong>Gohsy Studio</strong>
-            <span>Operational Standard Document</span>
-          </div>
-        </a>
+<script>document.documentElement.classList.add('js');</script>
 
-        <a class="btn btn-primary" href="../articles/">Articles</a>
-      </div>
+<nav class="top" aria-label="Main navigation">
+  <a href="/" class="brand">GOHSY</a>
+  <div class="links">
+    <a href="/wife/" class="active">Wife</a>
+    <a href="/daughter/">Daughter</a>
+    <a href="/gohsy/">GOHSY</a>
+    <a href="/staff/">Backoffice</a>
+  </div>
+</nav>
+
+<!-- 1. HERO -->
+<section class="hero">
+  <div class="hero-bg-glow"></div>
+  <div class="hero-inner">
+    <img src="../assets/2.jpg" alt="GOHSY" class="coin-image"
+         data-tilt data-tilt-max="8" data-tilt-glare data-tilt-max-glare="0.3">
+    <h1 class="brand-mark" data-splitting>GOHSY</h1>
+    <p class="tagline-en">Voices for the Voiceless</p>
+    <p class="tagline-ko">배우 · 커머스 · 12슬롯 길드</p>
+    <p class="established">EST. 2026.01.13</p>
+  </div>
+  <div class="scroll-hint">SCROLL ↓</div>
+</section>
+
+<!-- 2. CHALKBOARD CONCEPT -->
+<section class="chalkboard-section" data-reveal>
+  <div class="section-header">
+    <p class="section-label">CONCEPT · CHALKBOARD</p>
+    <h2 class="section-title">매일의 칠판</h2>
+  </div>
+  <div class="chalkboard-grid">
+    <div class="chalkboard-visual" data-tilt data-tilt-max="5" data-tilt-glare data-tilt-max-glare="0.1">
+      <svg viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="10" width="180" height="130" stroke="#4A90E2" stroke-width="2" fill="none" opacity=".5"/>
+        <line x1="30" y1="45" x2="170" y2="45" stroke="#4A90E2" stroke-width="1.5" opacity=".3"/>
+        <line x1="30" y1="65" x2="170" y2="65" stroke="#4A90E2" stroke-width="1.5" opacity=".3"/>
+        <line x1="30" y1="85" x2="170" y2="85" stroke="#4A90E2" stroke-width="1.5" opacity=".3"/>
+        <line x1="30" y1="105" x2="90" y2="105" stroke="#4A90E2" stroke-width="1.5" opacity=".3"/>
+        <text x="30" y="38" fill="#4A90E2" font-size="8" font-family="monospace" opacity=".6">∫ f(x) dx = F(b) - F(a)</text>
+        <text x="30" y="58" fill="#4A90E2" font-size="8" font-family="monospace" opacity=".6">x² + y² = r²</text>
+        <text x="30" y="78" fill="#4A90E2" font-size="8" font-family="monospace" opacity=".6">sin²θ + cos²θ = 1</text>
+        <text x="30" y="98" fill="#4A90E2" font-size="8" font-family="monospace" opacity=".6">f(x) = lim h→0</text>
+        <circle cx="160" cy="90" r="25" stroke="#4A90E2" stroke-width="1" opacity=".3" fill="none"/>
+        <line x1="160" y1="90" x2="160" y2="65" stroke="#4A90E2" stroke-width="1" opacity=".3"/>
+        <line x1="160" y1="90" x2="180" y2="90" stroke="#4A90E2" stroke-width="1" opacity=".3"/>
+      </svg>
     </div>
-  </header>
-
-  <main>
-    <div class="container">
-      <!-- Document Header -->
-      <div class="doc-header">
-        <span class="kicker">FINAL — Sealed</span>
-        <h1>Gohsy Studio<br/>Integrated Whitepaper</h1>
-        <p class="subtitle">Operational Standard Document (OSD)</p>
-        <p class="version">v1.01</p>
-      </div>
-
-      <!-- 0. Executive Declaration -->
-      <div class="declaration">
-        <h2>0. Executive Declaration (불변 선언)</h2>
-        <p>이 문서는 기획서가 아니다. 설득을 목적으로 하지 않으며, 합의를 요구하지 않는다.</p>
-        <p>이 문서의 목적은 단 하나다.</p>
-
-        <blockquote>인간을 소모하지 않고, 시스템이 스스로 굴러가게 만드는 것.</blockquote>
-
-        <div class="principle">
-          <p><strong>인간</strong>은 놀고 (Play)</p>
-          <p><strong>시스템</strong>은 기억하고 (Record)</p>
-          <p><strong>엔진</strong>은 판단한다 (Decide)</p>
-        </div>
-
-        <p style="margin-top: 16px; margin-bottom: 0;">이 구조는 협업이 아니라 <strong>아키텍처</strong>이며, 감정이 아닌 <strong>불변식(Invariant)</strong> 위에 놓인다.</p>
-      </div>
-
-      <!-- 1. Scope -->
-      <section>
-        <h2><span class="num">1.</span> Scope</h2>
-        <ul>
-          <li><strong>Project Name:</strong> Gohsy Studio</li>
-          <li><strong>Nature:</strong> Human-in-the-loop Media Engine</li>
-          <li><strong>Target:</strong> 배우 출신 인간 노드(Gohsy)를 활용한 콘텐츠 엔진 가동</li>
-        </ul>
-
-        <h3>Operating Principle</h3>
-        <ul>
-          <li><strong>인간</strong> = 입력 노드 (Input Node)</li>
-          <li><strong>Parksy</strong> = 엔진 소유자 (Engine Owner)</li>
-          <li><strong>시스템</strong> = 판단 주체 (Decision Layer)</li>
-        </ul>
-      </section>
-
-      <!-- 2. Mathematical Schema -->
-      <section>
-        <h2><span class="num">2.</span> Mathematical Schema</h2>
-
-        <h3>2.1 Set Definition</h3>
-        <div class="schema">S_talent = {현장성, 발성, 톤, 심미안}
-S_system = {자동화, 판단, 적분, 배포}
-S_gap    = S_system \ S_talent
-
-→ S_gap은 Parksy가 전담한다.</div>
-
-        <h3>2.2 Function Mapping</h3>
-        <div class="schema">f : S_talent → Role
-f(Gohsy) = Field Performer / Voice Node
-
-¬PD, ¬Planner, ¬Operator
-
-Gohsy는 설계자가 아니다. 설계 요구는 시스템 오류로 간주한다.</div>
-
-        <h3>2.3 Power Graph (권력 구조)</h3>
-        <div class="power-graph">
-          <pre>Parksy (Root)
- ├─ owns → Engine / Pipeline / Decision Logic
- └─ provides → Kit / Mission / Boundary
-        ↓
-      Gohsy (Branch)
-        └─ outputs → Raw Media (Voice / Image)</pre>
-          <p class="note">엔진 소유권은 절대 이전되지 않는다.</p>
-        </div>
-      </section>
-
-      <!-- 3. Content Architecture -->
-      <section>
-        <h2><span class="num">3.</span> Content Architecture — 3 Track Fixed</h2>
-        <p>Track은 선택 불가. 성과가 아닌 존재 조건이다.</p>
-
-        <div class="tracks">
-          <div class="track">
-            <h4><span class="label">Track A</span> Object POV Theater (Core)</h4>
-            <p>사물 1인칭 독백 · 정지 화면 + 고품질 음성<br/>
-            <strong>목적:</strong> Retention / Comment / Algorithm Trigger</p>
-          </div>
-
-          <div class="track">
-            <h4><span class="label">Track B</span> Field Reality</h4>
-            <p>현장 관찰 · 리포터 톤<br/>
-            <strong>목적:</strong> 세계관 확장 / 신뢰</p>
-          </div>
-
-          <div class="track">
-            <h4><span class="label">Track C</span> Life Tools</h4>
-            <p>일상 도구 / 루틴<br/>
-            <strong>목적:</strong> 수익 연결 (Affiliate)</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- 4. Phase Roadmap -->
-      <section>
-        <h2><span class="num">4.</span> Phase Roadmap (점진 수렴 구조)</h2>
-
-        <div class="phases">
-          <div class="phase">
-            <div class="num">1</div>
-            <h4>Seed</h4>
-            <p>Raw Capture 축적<br/>판단 없음</p>
-          </div>
-
-          <div class="phase">
-            <div class="num">2</div>
-            <h4>Loop</h4>
-            <p>반응 기반 포맷 고정<br/>시스템 주도 반복</p>
-          </div>
-
-          <div class="phase">
-            <div class="num">3</div>
-            <h4>Replication</h4>
-            <p>온톨로지화<br/>인간 노드 교체 가능</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- 5. Control Key System -->
-      <section>
-        <h2><span class="num">5.</span> Control Key System</h2>
-
-        <div class="control-keys">
-          <div class="ck">
-            <div class="key">CK1</div>
-            <div class="content">
-              <h4>Upload Frequency</h4>
-              <p>시스템은 업로드 빈도만 본다. 인간의 의도는 측정하지 않는다.</p>
-            </div>
-          </div>
-
-          <div class="ck">
-            <div class="key">CK2</div>
-            <div class="content">
-              <h4>Response Latency</h4>
-              <p>지연은 평가가 아니라 상태 신호다.</p>
-            </div>
-          </div>
-
-          <div class="ck">
-            <div class="key">CK3</div>
-            <div class="content">
-              <h4>PD Mode Lock</h4>
-              <p>설계자 개입 금지선. 피드백 요구 = 시스템 위반.</p>
-            </div>
-          </div>
-
-          <div class="ck">
-            <div class="key">CK4</div>
-            <div class="content">
-              <h4>Transition Trigger</h4>
-              <p>Phase 전이는 숫자가 아닌 신호로 판단.</p>
-            </div>
-          </div>
-
-          <div class="ck">
-            <div class="key">CK5</div>
-            <div class="content">
-              <h4>Exit Guarantee</h4>
-              <p>언제든 이탈 가능. 시스템 데미지 0.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 6. Algorithm Alignment -->
-      <section>
-        <h2><span class="num">6.</span> Algorithm Alignment (YouTube)</h2>
-        <ul>
-          <li>Audio Hook Ratio 우선</li>
-          <li>Retention > Editing</li>
-          <li>Consistency > Inspiration</li>
-        </ul>
-        <p style="margin-top: 12px;"><strong>인간 리듬은 제거되고, 시스템 리듬만 남는다.</strong></p>
-      </section>
-
-      <!-- 7. Risk Mitigation -->
-      <section>
-        <h2><span class="num">7.</span> Risk Mitigation (Minimal)</h2>
-        <ul>
-          <li>강제 없음</li>
-          <li>설득 없음</li>
-          <li>충돌 시 즉시 정지</li>
-        </ul>
-
-        <h3>Fallback (단일 선언)</h3>
-        <div class="schema">실패 시:
-스코프 축소 → 역할 축소 → 동결
-관계는 유지한다.</div>
-      </section>
-
-      <!-- 8. First Mission -->
-      <div class="mission">
-        <h2>8. First Mission (유일한 명령)</h2>
-        <blockquote>"집에 있는 낡은 물건 하나 찍고, 이 대본 그대로 1분만 녹음해줘. 나머지는 내가 한다."</blockquote>
-        <p class="note">설명 금지. 맥락 제공 금지.</p>
-      </div>
-
-      <!-- 9. Final Seal -->
-      <div class="seal">
-        <h2>9. Final Seal</h2>
-        <p>이 문서는 더 이상 수정되지 않는다.</p>
-        <p>추가 설명 없음</p>
-        <p>설득 없음</p>
-        <p>개선 회의 없음</p>
-        <p style="margin-top: 16px; color: var(--text);">이 구조가 실패해도, 엔진은 남는다.</p>
-
-        <div class="status">Gohsy Studio v1.01 — ACTIVE</div>
-        <p class="final">끝났다.</p>
-      </div>
-
-      <footer>
-        <p>Gohsy Studio · Operational Standard Document v1.01</p>
-      </footer>
+    <div class="chalkboard-text">
+      <h3>칠판 위의 수학</h3>
+      <p>와이프는 <span class="highlight">중학 · 고교 수학</span>을 칠판에 직접 쓰며 강의합니다.</p>
+      <p>박씨 backoffice 가 영상 제작 · 편집 · 업로드 · SEO 를 담당하고, 와이프는 오직 <span class="highlight">강의 콘텐츠</span> 자체에 집중합니다.</p>
+      <p>하루 1개 — 매일의 칠판. 수학이 어려운 게 아니라 설명을 못 들어서 그런 겁니다.</p>
     </div>
-  </main>
+  </div>
+</section>
+
+<!-- 3. YOUTUBE PLAYLIST -->
+<section class="youtube-section" data-reveal>
+  <div class="section-header">
+    <p class="section-label">YOUTUBE · PLAYLIST</p>
+    <h2 class="section-title">강의 채널</h2>
+  </div>
+  <div class="youtube-embed-wrap">
+    <iframe id="wife-youtube" title="GOHSY YouTube playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</section>
+
+<!-- 4. CURRICULUM PREVIEW -->
+<section class="curriculum-section" data-reveal>
+  <div class="section-header">
+    <p class="section-label">CURRICULUM · 커리큘럼</p>
+    <h2 class="section-title">수학 로드맵</h2>
+  </div>
+  <div class="curriculum-grid">
+    <div class="curriculum-card" data-tilt data-tilt-max="6" data-tilt-glare data-tilt-max-glare="0.08">
+      <div class="level">중1</div>
+      <div class="title">수학 기초</div>
+      <div class="desc">정수와 유리수 · 방정식 · 함수의 기초 · 도형의 성질</div>
+    </div>
+    <div class="curriculum-card" data-tilt data-tilt-max="6" data-tilt-glare data-tilt-max-glare="0.08">
+      <div class="level">중2</div>
+      <div class="title">수학 심화</div>
+      <div class="desc">연립방정식 · 부등식 · 확률 · 삼각형의 성질</div>
+    </div>
+    <div class="curriculum-card" data-tilt data-tilt-max="6" data-tilt-glare data-tilt-max-glare="0.08">
+      <div class="level">중3</div>
+      <div class="title">고등 대비</div>
+      <div class="desc">이차방정식 · 이차함수 · 피타고라스 · 삼각비</div>
+    </div>
+    <div class="curriculum-card" data-tilt data-tilt-max="6" data-tilt-glare data-tilt-max-glare="0.08">
+      <div class="level">고1</div>
+      <div class="title">고등수학</div>
+      <div class="desc">다항식 · 방정식과 부등식 · 도형의 방정식 · 함수</div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. DISCORD -->
+<section class="discord-section" data-reveal>
+  <div class="section-header">
+    <p class="section-label">COMMUNITY · DISCORD</p>
+    <h2 class="section-title">GOHSY · Hub</h2>
+  </div>
+  <div class="discord-widget-wrap">
+    <iframe id="discord-widget" src="https://e.widgetbot.io/channels/1493490911278272655" width="100%" height="400" title="GOHSY Discord 실시간 채팅" style="border:1px solid #1a1a1a;border-radius:12px;max-width:600px;display:block;margin:0 auto;"></iframe>
+  </div>
+</section>
+
+<!-- 6. BACK TO GOHSY -->
+<section class="back-section" data-reveal>
+  <div class="section-header">
+    <p class="section-label">MATRIX · GOHSY</p>
+    <h2 class="section-title">돌아가기</h2>
+  </div>
+  <p style="color:#888;font-size:1rem;line-height:1.7;max-width:600px;margin:0 auto">
+    GOHSY 4 Coin Matrix 의 일부입니다.<br>
+    다른 페르소나도 만나보세요.
+  </p>
+  <div class="persona-links">
+    <a href="/" class="btn-gold">GOHSY 메인 →</a>
+    <a href="/daughter/" class="persona-link" style="--pcolor:#7ED321">👧 Daughter</a>
+    <a href="/gohsy/" class="persona-link" style="--pcolor:#D4AF37">🎭 GOHSY</a>
+  </div>
+</section>
+
+<footer>
+  <div class="links">
+    <a href="/wife/">Wife</a>
+    <a href="/daughter/">Daughter</a>
+    <a href="/gohsy/">GOHSY</a>
+    <a href="/staff/">Backoffice</a>
+    <a href="/card/">Card</a>
+    <a href="https://github.com/dtslib1979/gohsy" target="_blank">GitHub</a>
+  </div>
+  <div>© 2026 GOHSY · EST. 2026.01.13 · Operated by 박씨 · Backoffice 박씨</div>
+</footer>
+
+<script>
+  if (window.Splitting) Splitting();
+  if (window.VanillaTilt) VanillaTilt.init(document.querySelectorAll('[data-tilt]'));
+
+  if (window.gsap && window.ScrollTrigger){
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.from('.coin-image', {opacity:0, scale:0.6, duration:1.5, ease:'power3.out', delay:0.3});
+    gsap.from('.brand-mark .char', {opacity:0, y:80, duration:0.9, stagger:0.07, ease:'power3.out', delay:0.7});
+    gsap.from('.tagline-en', {opacity:0, y:20, duration:0.8, ease:'power3.out', delay:1.6});
+    gsap.from('.tagline-ko', {opacity:0, y:20, duration:0.8, ease:'power3.out', delay:1.85});
+    gsap.from('.established', {opacity:0, duration:0.6, delay:2.1});
+
+    const reveals = document.querySelectorAll('[data-reveal]');
+    reveals.forEach(el => {
+      gsap.to(el, {
+        opacity:1, y:0, duration:1, ease:'power3.out',
+        scrollTrigger: {trigger:el, start:'top 95%', toggleActions:'play none none none'}
+      });
+    });
+    setTimeout(() => {
+      reveals.forEach(el => {
+        if (parseFloat(getComputedStyle(el).opacity) < 0.5) {
+          gsap.to(el, {opacity:1, y:0, duration:0.6});
+        }
+      });
+    }, 1500);
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(el => {
+      el.style.opacity = '1'; el.style.transform = 'none';
+    });
+  }
+</script>
+
+<script type="module">
+  const r = await fetch('../data/personas.json');
+  const d = await r.json();
+  const p = d.personas.find(x => x.id === 'wife');
+  const iframe = document.getElementById('wife-youtube');
+  const yt = p?.youtube;
+  if (yt && yt.playlist_id && !yt.playlist_id.includes('PLACEHOLDER')) {
+    iframe.src = `https://www.youtube.com/embed/videoseries?list=${yt.playlist_id}`;
+  } else {
+    iframe.outerHTML = '<div class="yt-placeholder">🔒 채널 준비 중</div>';
+  }
+</script>
+
 </body>
 </html>

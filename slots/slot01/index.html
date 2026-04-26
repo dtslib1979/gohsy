@@ -1,106 +1,437 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>길드장 | GOHSY 방송/배우 길드</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0d1827" />
+  <title>GOHSY</title>
+  <meta name="description" content="GOHSY — 배우 · 커머스 · 길드" />
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=JetBrains+Mono:wght@100;200;400;700&display=swap" rel="stylesheet">
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="GOHSY" />
+  <meta property="og:title" content="GOHSY" />
+  <meta property="og:description" content="중학 · 고교 수학을 매일의 칠판으로. 와이프 수학 강의 채널." />
+  <meta property="og:image" content="https://gohsy.kr/assets/2.jpg" />
+  <meta property="og:url" content="https://gohsy.kr/wife/" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GOHSY">
+  <meta name="twitter:description" content="중학 · 고교 수학을 매일의 칠판으로. 와이프 수학 강의 채널.">
+  <meta name="twitter:image" content="https://gohsy.kr/assets/2.jpg">
+  <link rel="canonical" href="https://gohsy.kr/wife/">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #0a0a14;
-      color: #f5f5f5;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;background:#000}
+    body{
+      font-family:'Pretendard Variable',sans-serif;
+      background:radial-gradient(ellipse at 50% 0%,#0d1827 0%,#0a0a0a 70%);
+      color:#f0f0f0;min-height:100vh;overflow-x:hidden;
     }
-    .container {
-      text-align: center;
-      padding: 40px 20px;
-      max-width: 400px;
+    a{color:inherit;text-decoration:none}
+    img,video{max-width:100%;display:block}
+
+    /* === NAV === */
+    nav.top{
+      position:fixed;top:0;left:0;right:0;z-index:50;
+      display:flex;justify-content:space-between;align-items:center;
+      padding:1.25rem 2rem;
+      background:linear-gradient(180deg,rgba(13,24,39,0.92) 0%,rgba(13,24,39,0) 100%);
+      backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
     }
-    .avatar {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #D4AF37, #8b5cf6);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 48px;
-      margin: 0 auto 24px;
-      box-shadow: 0 10px 40px rgba(212, 175, 55, 0.3);
+    nav.top .brand{
+      font-family:'Cinzel',serif;font-weight:600;letter-spacing:.25em;
+      font-size:1.05rem;
+      background:linear-gradient(180deg,#F5DC8C 0%,#D4AF37 50%,#9C7A1E 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
     }
-    h1 {
-      font-size: 28px;
-      margin-bottom: 8px;
-      color: #D4AF37;
+    nav.top .links{display:flex;gap:1.5rem;font-size:.85rem;color:#888;font-family:'JetBrains Mono',monospace;letter-spacing:.1em}
+    @media(max-width:600px){nav.top .links{gap:.9rem;font-size:.75rem}}
+    nav.top .links a{transition:color .3s}
+    nav.top .links a:hover{color:#D4AF37}
+    nav.top .links a.active{color:#4A90E2}
+
+    /* === SECTION COMMON === */
+    section{padding:7rem 2rem;max-width:1400px;margin:0 auto}
+    .section-header{text-align:center;margin-bottom:5rem}
+    .section-label{
+      font-family:'JetBrains Mono',monospace;
+      font-size:.78rem;letter-spacing:.4em;color:#4A90E2;
+      margin-bottom:1.2rem;
     }
-    .title {
-      font-size: 14px;
-      color: rgba(255,255,255,.6);
-      margin-bottom: 24px;
+    .section-title{
+      font-family:'Cinzel',serif;
+      font-size:clamp(2rem,5vw,3.5rem);
+      font-weight:500;letter-spacing:.05em;
+      background:linear-gradient(180deg,#F5DC8C 0%,#D4AF37 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
     }
-    .tagline {
-      font-size: 16px;
-      line-height: 1.6;
-      color: rgba(255,255,255,.8);
-      margin-bottom: 32px;
+    @media(max-width:600px){section{padding:4rem 2rem}}
+
+    /* === HERO === */
+    .hero{
+      min-height:100vh;position:relative;overflow:hidden;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;padding:6rem 2rem 4rem;
     }
-    .actions {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+    .hero-bg-glow{
+      position:absolute;top:-30%;left:50%;transform:translateX(-50%);
+      width:80vmin;height:80vmin;
+      background:radial-gradient(circle,rgba(74,144,226,0.12) 0%,transparent 60%);
+      pointer-events:none;z-index:0;
     }
-    .btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 16px;
-      background: rgba(212, 175, 55, 0.1);
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      border-radius: 12px;
-      color: #D4AF37;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 600;
-      transition: all 0.2s;
+    .hero-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center}
+    .coin-image{
+      width:min(50vmin,420px);height:auto;
+      filter:drop-shadow(0 0 80px rgba(74,144,226,0.35));
+      animation:coinFloat 9s ease-in-out infinite;
+      margin-bottom:2.5rem;border-radius:50%;
     }
-    .btn:hover {
-      background: rgba(212, 175, 55, 0.2);
-      border-color: #D4AF37;
+    @keyframes coinFloat{
+      0%,100%{transform:translateY(0) rotate(0deg)}
+      50%{transform:translateY(-25px) rotate(2deg)}
     }
-    .back {
-      margin-top: 32px;
+    .brand-mark{
+      font-family:'Cinzel',serif;
+      font-size:clamp(2.5rem,11vw,7rem);
+      font-weight:600;letter-spacing:.15em;
+      background:linear-gradient(180deg,#F8E89E 0%,#E5C158 25%,#D4AF37 50%,#A8842E 75%,#5C4A1A 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      margin-bottom:1.5rem;line-height:1;
+      filter:drop-shadow(0 4px 20px rgba(74,144,226,0.3));
     }
-    .back a {
-      color: rgba(255,255,255,.5);
-      text-decoration: none;
-      font-size: 14px;
+    .tagline-en{
+      font-family:'Cinzel',serif;
+      font-size:clamp(.95rem,2vw,1.25rem);
+      color:#4A90E2;letter-spacing:.15em;font-weight:500;
+      margin-bottom:.6rem;text-transform:uppercase;
     }
+    .tagline-ko{
+      font-size:clamp(.95rem,2vw,1.15rem);
+      color:#d8d8d8;font-weight:300;letter-spacing:.05em;
+      margin-bottom:1rem;
+    }
+    .established{
+      font-family:'JetBrains Mono',monospace;
+      font-size:.8rem;color:#999;letter-spacing:.35em;
+    }
+    .scroll-hint{
+      position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+      font-family:'JetBrains Mono',monospace;font-size:.7rem;
+      color:#555;letter-spacing:.3em;z-index:3;
+      animation:scrollHint 2.2s ease-in-out infinite;
+    }
+    @keyframes scrollHint{
+      0%,100%{opacity:.4;transform:translateX(-50%) translateY(0)}
+      50%{opacity:1;transform:translateX(-50%) translateY(8px)}
+    }
+
+    /* === CHALKBOARD CONCEPT === */
+    .chalkboard-section{
+      padding:7rem 2rem;border-top:1px solid #1a2a3a;
+      max-width:1200px;margin:0 auto;
+    }
+    .chalkboard-grid{
+      display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
+    }
+    @media(max-width:768px){.chalkboard-grid{grid-template-columns:1fr;gap:2rem}}
+    .chalkboard-visual{
+      background:linear-gradient(135deg,#1a2a3a 0%,#0d1827 100%);
+      border:1px solid #2a3a4a;border-radius:12px;
+      aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;
+      position:relative;overflow:hidden;
+    }
+    .chalkboard-visual svg{width:60%;height:60%;opacity:.6}
+    .chalkboard-text h3{
+      font-family:'Cinzel',serif;font-size:1.6rem;font-weight:500;
+      color:#4A90E2;margin-bottom:1.5rem;letter-spacing:.05em;
+    }
+    .chalkboard-text p{
+      color:#aaa;line-height:1.85;font-size:1rem;margin-bottom:1rem;
+    }
+    .chalkboard-text .highlight{color:#4A90E2;font-weight:500}
+
+    /* === YOUTUBE === */
+    .youtube-section{
+      padding:7rem 2rem;border-top:1px solid #1a2a3a;
+      max-width:900px;margin:0 auto;text-align:center;
+    }
+    .youtube-embed-wrap{
+      max-width:800px;margin:0 auto;aspect-ratio:16/9;
+      background:#0d0d0d;border:1px solid #1a2a3a;border-radius:8px;
+      overflow:hidden;
+    }
+    .youtube-embed-wrap iframe{width:100%;height:100%;border:0}
+    .yt-placeholder{
+      width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+      font-family:'JetBrains Mono',monospace;font-size:.85rem;color:#555;letter-spacing:.2em;
+    }
+
+    /* === CURRICULUM === */
+    .curriculum-section{
+      padding:7rem 2rem;border-top:1px solid #1a2a3a;
+      max-width:1200px;margin:0 auto;
+    }
+    .curriculum-grid{
+      display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;
+    }
+    @media(max-width:900px){.curriculum-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:500px){.curriculum-grid{grid-template-columns:1fr}}
+    .curriculum-card{
+      padding:2rem 1.5rem;
+      background:linear-gradient(180deg,#161616 0%,#0d0d0d 100%);
+      border:1px solid #1a2a3a;border-top:3px solid #4A90E2;
+      text-align:center;transition:transform .5s cubic-bezier(.2,.8,.2,1),border-color .4s,box-shadow .5s;
+    }
+    .curriculum-card:hover{
+      transform:translateY(-6px);
+      border-color:#4A90E2;
+      box-shadow:0 30px 80px rgba(0,0,0,0.5);
+    }
+    .curriculum-card .level{
+      font-family:'Cinzel',serif;font-size:1.3rem;font-weight:600;
+      color:#4A90E2;margin-bottom:.8rem;
+    }
+    .curriculum-card .title{
+      font-family:'JetBrains Mono',monospace;font-size:.8rem;
+      color:#888;letter-spacing:.2em;margin-bottom:.8rem;
+    }
+    .curriculum-card .desc{
+      font-size:.9rem;color:#aaa;line-height:1.6;
+    }
+
+    /* === BACK === */
+    .back-section{
+      padding:7rem 2rem;border-top:1px solid #1a2a3a;
+      max-width:900px;margin:0 auto;text-align:center;
+    }
+    .back-section .persona-links{
+      display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;
+      margin-top:3rem;
+    }
+    .back-section .persona-link{
+      padding:1rem 2rem;border:1px solid #333;
+      font-family:'JetBrains Mono',monospace;font-size:.82rem;letter-spacing:.2em;
+      transition:border-color .3s,color .3s,transform .3s;
+    }
+    .back-section .persona-link:hover{transform:translateY(-4px);border-color:var(--pcolor,#4A90E2);color:var(--pcolor,#4A90E2)}
+
+    /* === FOOTER === */
+    footer{
+      padding:3rem 2rem;text-align:center;
+      border-top:1px solid #1a2a3a;
+      font-family:'JetBrains Mono',monospace;
+      font-size:.72rem;color:#444;letter-spacing:.2em;
+    }
+    footer .links{margin-bottom:1rem;display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap}
+    footer .links a{transition:color .3s}
+    footer .links a:hover{color:#D4AF37}
+
+    /* === DISCORD === */
+    .discord-section{padding:7rem 2rem;border-top:1px solid #1a2a3a;max-width:1400px;margin:0 auto}
+    .discord-widget-wrap{display:flex;justify-content:center;align-items:center}
+
+    /* === REVEAL === */
+    .js [data-reveal]{opacity:0;transform:translateY(40px)}
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="avatar">👑</div>
-    <h1>길드장</h1>
-    <p class="title">GOHSY 방송/배우 길드 Slot 01</p>
-    <p class="tagline">Voices for the Voiceless<br>방송/배우 길드를 이끕니다</p>
+<script>document.documentElement.classList.add('js');</script>
 
-    <div class="actions">
-      <a href="../../modules/walkie.html" class="btn">
-        🎤 워키토키로 글쓰기
-      </a>
-      <a href="../../console/" class="btn">
-        🎛️ 관제 콘솔
-      </a>
+<nav class="top" aria-label="Main navigation">
+  <a href="/" class="brand">GOHSY</a>
+  <div class="links">
+    <a href="/wife/" class="active">Wife</a>
+    <a href="/daughter/">Daughter</a>
+    <a href="/gohsy/">GOHSY</a>
+    <a href="/staff/">Backoffice</a>
+  </div>
+</nav>
+
+<!-- 1. HERO -->
+<section class="hero">
+  <div class="hero-bg-glow"></div>
+  <div class="hero-inner">
+    <img src="../assets/2.jpg" alt="GOHSY" class="coin-image"
+         data-tilt data-tilt-max="8" data-tilt-glare data-tilt-max-glare="0.3">
+    <h1 class="brand-mark" data-splitting>GOHSY</h1>
+    <p class="tagline-en">Voices for the Voiceless</p>
+    <p class="tagline-ko">배우 · 커머스 · 12슬롯 길드</p>
+    <p class="established">EST. 2026.01.13</p>
+  </div>
+  <div class="scroll-hint">SCROLL ↓</div>
+</section>
+
+<!-- 2. CHALKBOARD CONCEPT -->
+<section class="chalkboard-section" data-reveal>
+  <div class="section-header">
+    <p class="section-label">CONCEPT · CHALKBOARD</p>
+    <h2 class="section-title">매일의 칠판</h2>
+  </div>
+  <div class="chalkboard-grid">
+    <div class="chalkboard-visual" data-tilt data-tilt-max="5" data-tilt-glare data-tilt-max-glare="0.1">
+      <svg viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="10" width="180" height="130" stroke="#4A90E2" stroke-width="2" fill="none" opacity=".5"/>
+        <line x1="30" y1="45" x2="170" y2="45" stroke="#4A90E2" stroke-width="1.5" opacity=".3"/>
+        <line x1="30" y1="65" x2="170" y2="65" stroke="#4A90E2" stroke-width="1.5" opacity=".3"/>
+        <line x1="30" y1="85" x2="170" y2="85" stroke="#4A90E2" stroke-width="1.5" opacity=".3"/>
+        <line x1="30" y1="105" x2="90" y2="105" stroke="#4A90E2" stroke-width="1.5" opacity=".3"/>
+        <text x="30" y="38" fill="#4A90E2" font-size="8" font-family="monospace" opacity=".6">∫ f(x) dx = F(b) - F(a)</text>
+        <text x="30" y="58" fill="#4A90E2" font-size="8" font-family="monospace" opacity=".6">x² + y² = r²</text>
+        <text x="30" y="78" fill="#4A90E2" font-size="8" font-family="monospace" opacity=".6">sin²θ + cos²θ = 1</text>
+        <text x="30" y="98" fill="#4A90E2" font-size="8" font-family="monospace" opacity=".6">f(x) = lim h→0</text>
+        <circle cx="160" cy="90" r="25" stroke="#4A90E2" stroke-width="1" opacity=".3" fill="none"/>
+        <line x1="160" y1="90" x2="160" y2="65" stroke="#4A90E2" stroke-width="1" opacity=".3"/>
+        <line x1="160" y1="90" x2="180" y2="90" stroke="#4A90E2" stroke-width="1" opacity=".3"/>
+      </svg>
     </div>
-
-    <div class="back">
-      <a href="../../">← 메인으로</a>
+    <div class="chalkboard-text">
+      <h3>칠판 위의 수학</h3>
+      <p>와이프는 <span class="highlight">중학 · 고교 수학</span>을 칠판에 직접 쓰며 강의합니다.</p>
+      <p>12슬롯 길드의 첫 번째 슬롯 — 길드장이 직접 운영합니다.</p>
+      <p>하루 1개 — 매일의 칠판. 수학이 어려운 게 아니라 설명을 못 들어서 그런 겁니다.</p>
     </div>
   </div>
+</section>
+
+<!-- 3. YOUTUBE PLAYLIST -->
+<section class="youtube-section" data-reveal>
+  <div class="section-header">
+    <p class="section-label">SLOT 01 · PROFILE</p>
+    <h2 class="section-title">강의 채널</h2>
+  </div>
+  <div class="youtube-embed-wrap">
+    <iframe id="wife-youtube" title="GOHSY YouTube playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</section>
+
+<!-- 4. CURRICULUM PREVIEW -->
+<section class="curriculum-section" data-reveal>
+  <div class="section-header">
+    <p class="section-label">SLOT · INFO</p>
+    <h2 class="section-title">수학 로드맵</h2>
+  </div>
+  <div class="curriculum-grid">
+    <div class="curriculum-card" data-tilt data-tilt-max="6" data-tilt-glare data-tilt-max-glare="0.08">
+      <div class="level">중1</div>
+      <div class="title">수학 기초</div>
+      <div class="desc">정수와 유리수 · 방정식 · 함수의 기초 · 도형의 성질</div>
+    </div>
+    <div class="curriculum-card" data-tilt data-tilt-max="6" data-tilt-glare data-tilt-max-glare="0.08">
+      <div class="level">중2</div>
+      <div class="title">수학 심화</div>
+      <div class="desc">연립방정식 · 부등식 · 확률 · 삼각형의 성질</div>
+    </div>
+    <div class="curriculum-card" data-tilt data-tilt-max="6" data-tilt-glare data-tilt-max-glare="0.08">
+      <div class="level">중3</div>
+      <div class="title">고등 대비</div>
+      <div class="desc">이차방정식 · 이차함수 · 피타고라스 · 삼각비</div>
+    </div>
+    <div class="curriculum-card" data-tilt data-tilt-max="6" data-tilt-glare data-tilt-max-glare="0.08">
+      <div class="level">고1</div>
+      <div class="title">고등수학</div>
+      <div class="desc">다항식 · 방정식과 부등식 · 도형의 방정식 · 함수</div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. DISCORD -->
+<section class="discord-section" data-reveal>
+  <div class="section-header">
+    <p class="section-label">COMMUNITY · DISCORD</p>
+    <h2 class="section-title">GOHSY · Hub</h2>
+  </div>
+  <div class="discord-widget-wrap">
+    <iframe id="discord-widget" src="https://e.widgetbot.io/channels/1493490911278272655" width="100%" height="400" title="GOHSY Discord 실시간 채팅" style="border:1px solid #1a1a1a;border-radius:12px;max-width:600px;display:block;margin:0 auto;"></iframe>
+  </div>
+</section>
+
+<!-- 6. BACK TO GOHSY -->
+<section class="back-section" data-reveal>
+  <div class="section-header">
+    <p class="section-label">MATRIX · GOHSY</p>
+    <h2 class="section-title">돌아가기</h2>
+  </div>
+  <p style="color:#888;font-size:1rem;line-height:1.7;max-width:600px;margin:0 auto">
+    GOHSY 4 Coin Matrix 의 일부입니다.<br>
+    다른 페르소나도 만나보세요.
+  </p>
+  <div class="persona-links">
+    <a href="/" class="btn-gold">GOHSY 메인 →</a>
+    <a href="/daughter/" class="persona-link" style="--pcolor:#7ED321">👧 Daughter</a>
+    <a href="/gohsy/" class="persona-link" style="--pcolor:#D4AF37">🎭 GOHSY</a>
+  </div>
+</section>
+
+<footer>
+  <div class="links">
+    <a href="/wife/">Wife</a>
+    <a href="/daughter/">Daughter</a>
+    <a href="/gohsy/">GOHSY</a>
+    <a href="/staff/">Backoffice</a>
+    <a href="/card/">Card</a>
+    <a href="https://github.com/dtslib1979/gohsy" target="_blank">GitHub</a>
+  </div>
+  <div>© 2026 GOHSY · EST. 2026.01.13 · Operated by 박씨 · Backoffice 박씨</div>
+</footer>
+
+<script>
+  if (window.Splitting) Splitting();
+  if (window.VanillaTilt) VanillaTilt.init(document.querySelectorAll('[data-tilt]'));
+
+  if (window.gsap && window.ScrollTrigger){
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.from('.coin-image', {opacity:0, scale:0.6, duration:1.5, ease:'power3.out', delay:0.3});
+    gsap.from('.brand-mark .char', {opacity:0, y:80, duration:0.9, stagger:0.07, ease:'power3.out', delay:0.7});
+    gsap.from('.tagline-en', {opacity:0, y:20, duration:0.8, ease:'power3.out', delay:1.6});
+    gsap.from('.tagline-ko', {opacity:0, y:20, duration:0.8, ease:'power3.out', delay:1.85});
+    gsap.from('.established', {opacity:0, duration:0.6, delay:2.1});
+
+    const reveals = document.querySelectorAll('[data-reveal]');
+    reveals.forEach(el => {
+      gsap.to(el, {
+        opacity:1, y:0, duration:1, ease:'power3.out',
+        scrollTrigger: {trigger:el, start:'top 95%', toggleActions:'play none none none'}
+      });
+    });
+    setTimeout(() => {
+      reveals.forEach(el => {
+        if (parseFloat(getComputedStyle(el).opacity) < 0.5) {
+          gsap.to(el, {opacity:1, y:0, duration:0.6});
+        }
+      });
+    }, 1500);
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(el => {
+      el.style.opacity = '1'; el.style.transform = 'none';
+    });
+  }
+</script>
+
+<script type="module">
+  const r = await fetch('../data/personas.json');
+  const d = await r.json();
+  const p = d.personas.find(x => x.id === 'wife');
+  const iframe = document.getElementById('wife-youtube');
+  const yt = p?.youtube;
+  if (yt && yt.playlist_id && !yt.playlist_id.includes('PLACEHOLDER')) {
+    iframe.src = `https://www.youtube.com/embed/videoseries?list=${yt.playlist_id}`;
+  } else {
+    iframe.outerHTML = '<div class="yt-placeholder">🔒 채널 준비 중</div>';
+  }
+</script>
+
 </body>
 </html>

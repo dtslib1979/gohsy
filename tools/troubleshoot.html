@@ -3,455 +3,553 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="theme-color" content="#0a0f0c" />
-  <title>GitHub Pages 트러블슈팅</title>
-  <link rel="icon" href="../assets/icons/logo.jpg">
-  <link rel="apple-touch-icon" href="../assets/icons/logo.jpg">
-  <link rel="manifest" href="../assets/manifest.json">
+  <meta name="theme-color" content="#050505" />
+  <title>Troubleshoot — 문제 해결 | GOHSY Tools</title>
+  <meta name="description" content="GOHSY Troubleshoot — 문제 해결 도구" />
+  <meta name="robots" content="noindex,nofollow" />
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=JetBrains+Mono:wght@100;200;400;700&display=swap" rel="stylesheet">
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="GOHSY" />
+  <meta property="og:title" content="Troubleshoot — 문제 해결" />
+  <meta property="og:description" content="GOHSY Troubleshoot — 문제 해결 도구" />
+  <meta property="og:image" content="https://gohsy.kr/assets/1.jpg" />
+  <meta property="og:url" content="https://gohsy.kr/tools/troubleshoot.html" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Troubleshoot — 문제 해결">
+  <meta name="twitter:description" content="GOHSY Troubleshoot — 문제 해결 도구">
+  <meta name="twitter:image" content="https://gohsy.kr/assets/1.jpg">
+  <link rel="canonical" href="https://gohsy.kr/tools/troubleshoot.html">
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebSite",
+    "name":"GOHSY",
+    "url":"https://gohsy.kr/",
+    "description":"GOHSY — 매트릭스 — 와이프(Wife)/Daughter/GOHsy(Guild)",
+    "publisher":{"@type":"Organization","name":"GOHSY","logo":"https://gohsy.kr/assets/1.jpg"}
+  }
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+  <link rel="stylesheet" href="../assets/discord/discord.css">
+
   <style>
-    :root {
-      --bg: #0a0f0c;
-      --bg-elevated: #141f18;
-      --gold: #f0c850;
-      --gold-dim: rgba(240,200,80,.2);
-      --text: #ffffff;
-      --text-secondary: rgba(255,255,255,.85);
-      --text-muted: rgba(255,255,255,.6);
-      --border: rgba(255,255,255,.15);
-      --success: #5fd068;
-      --error: #ff5555;
-      --warning: #ffaa00;
-      --radius-sm: 10px;
-      --radius-md: 14px;
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;background:#000}
+    body{
+      font-family:'Pretendard Variable',sans-serif;
+      background:#050505;color:#e8e4dc;
+      min-height:100vh;overflow-x:hidden;
+    }
+    .hero-bg-overlay{
+      position:absolute;inset:0;
+      background:radial-gradient(ellipse at center,rgba(10,15,20,0.6) 0%,rgba(5,5,5,0.97) 75%);
+      z-index:1;
+    }
+    a{color:inherit;text-decoration:none}
+    img,video{max-width:100%;display:block}
+
+    /* === NAV === */
+    nav.top{
+      position:fixed;top:0;left:0;right:0;z-index:50;
+      display:flex;justify-content:space-between;align-items:center;
+      padding:1.25rem 2rem;
+      background:linear-gradient(180deg,rgba(10,10,10,0.92) 0%,rgba(10,10,10,0) 100%);
+      backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    }
+    nav.top .brand{
+      font-family:'Cinzel',serif;font-weight:600;letter-spacing:.25em;
+      font-size:1.05rem;color:#c9a227;
+      background:linear-gradient(180deg,#d4b060 0%,#c9a227 50%,#8a6f1a 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
+    nav.top .links{display:flex;gap:1.5rem;font-size:.85rem;color:#888;font-family:'JetBrains Mono',monospace;letter-spacing:.1em}
+    @media(max-width:600px){nav.top .links{gap:.9rem;font-size:.75rem}}
+    nav.top .links a{transition:color .3s}
+    nav.top .links a:hover{color:#c9a227}
+
+    /* === HERO with VIDEO === */
+    .hero{
+      min-height:100vh;position:relative;overflow:hidden;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;padding:6rem 2rem 4rem;
+    }
+    .hero-bg-video{
+      position:absolute;inset:0;width:100%;height:100%;
+      object-fit:cover;opacity:0.18;filter:blur(2px) saturate(1.3);
+      z-index:0;pointer-events:none;
+    }
+    .hero-bg-overlay{
+      position:absolute;inset:0;
+      background:radial-gradient(ellipse at center,rgba(26,20,16,0.4) 0%,rgba(10,10,10,0.95) 75%);
+      z-index:1;
+    }
+    .hero-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center}
+    .coin-image{
+      width:min(60vmin,520px);height:auto;
+      filter:drop-shadow(0 0 80px rgba(201,162,39,0.45));
+      animation:coinFloat 9s ease-in-out infinite;
+      margin-bottom:2.5rem;border-radius:50%;
+    }
+    @keyframes coinFloat{
+      0%,100%{transform:translateY(0) rotate(0deg)}
+      50%{transform:translateY(-25px) rotate(2deg)}
+    }
+    .brand-mark{
+      font-family:'Cinzel',serif;
+      font-size:clamp(2.5rem,11vw,7rem);
+      font-weight:600;letter-spacing:.25em;
+      background:linear-gradient(180deg,#d4b060 0%,#c9a227 40%,#b8921e 70%,#8a6f1a 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      margin-bottom:1.5rem;line-height:1;
+      filter:drop-shadow(0 4px 20px rgba(201,162,39,0.25));
+    }
+    .tagline-en{
+      font-family:'Cinzel',serif;
+      font-size:clamp(.95rem,2vw,1.25rem);
+      color:#d4b060;letter-spacing:.15em;font-weight:500;
+      margin-bottom:.6rem;text-transform:uppercase;
+    }
+    .tagline-ko{
+      font-size:clamp(.95rem,2vw,1.15rem);
+      color:#d8d8d8;font-weight:300;letter-spacing:.05em;
+      margin-bottom:1rem;
+    }
+    .established{
+      font-family:'JetBrains Mono',monospace;
+      font-size:.8rem;color:#999;letter-spacing:.35em;
+    }
+    .scroll-hint{
+      position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+      font-family:'JetBrains Mono',monospace;font-size:.7rem;
+      color:#555;letter-spacing:.3em;z-index:3;
+      animation:scrollHint 2.2s ease-in-out infinite;
+    }
+    @keyframes scrollHint{
+      0%,100%{opacity:.4;transform:translateX(-50%) translateY(0)}
+      50%{opacity:1;transform:translateX(-50%) translateY(8px)}
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      font-size: 15px;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      padding: 16px;
-      line-height: 1.5;
+    /* === SECTION COMMON === */
+    section{padding:7rem 2rem;max-width:1400px;margin:0 auto}
+    .section-header{text-align:center;margin-bottom:5rem}
+    .section-label{
+      font-family:'JetBrains Mono',monospace;
+      font-size:.78rem;letter-spacing:.4em;color:#c9a227;
+      margin-bottom:1.2rem;
     }
-
-    .container { max-width: 500px; margin: 0 auto; }
-
-    .back-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 16px;
-      background: var(--bg-elevated);
-      border: 2px solid var(--border);
-      border-radius: 999px;
-      font-size: 13px;
-      color: var(--text-secondary);
-      text-decoration: none;
-      margin-bottom: 20px;
+    .section-title{
+      font-family:'Cinzel',serif;
+      font-size:clamp(2rem,5vw,3.5rem);
+      font-weight:500;letter-spacing:.05em;
+      background:linear-gradient(180deg,#d4b060 0%,#c9a227 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
     }
+    @media(max-width:600px){section{padding:4rem 2rem}}
 
-    .back-btn:hover { border-color: var(--gold); color: var(--gold); }
-
-    header {
-      text-align: center;
-      padding: 20px 0;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 20px;
+    /* === CONTROL PANELS === */
+    .panels-section{padding:7rem 2rem;border-top:1px solid #1a1a1a;max-width:1200px;margin:0 auto}
+    .panels-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+    @media(max-width:900px){.panels-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:480px){.panels-grid{grid-template-columns:1fr}}
+    .panel-card{
+      display:flex;flex-direction:column;align-items:center;text-align:center;
+      padding:2.5rem 1.5rem;
+      background:linear-gradient(180deg,#0a0f14 0%,#050505 100%);
+      border:1px solid #1a1a1a;border-top:3px solid var(--accent,#c9a227);
+      transition:transform .5s cubic-bezier(.2,.8,.2,1),border-color .4s,box-shadow .4s;
+      text-decoration:none;color:inherit;
     }
-
-    .page-icon { font-size: 48px; margin-bottom: 12px; }
-    .page-title { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
-    .page-desc { font-size: 13px; color: var(--text-secondary); }
-
-    .checklist { display: flex; flex-direction: column; gap: 12px; }
-
-    .check-item {
-      background: var(--bg-elevated);
-      border: 2px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 14px;
-      transition: all 0.2s;
+    .panel-card:hover{
+      transform:translateY(-8px);
+      border-color:var(--accent,#c9a227);
+      box-shadow:0 30px 80px rgba(0,0,0,0.6),0 0 60px rgba(201,162,39,0.12);
     }
+    .panel-icon{font-size:2.5rem;margin-bottom:.8rem}
+    .panel-name{font-family:'Cinzel',serif;font-size:1.3rem;font-weight:600;letter-spacing:.1em;color:var(--accent,#c9a227);margin-bottom:.3rem}
+    .panel-role{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#b0b0b0;letter-spacing:.2em;margin-bottom:.8rem;text-transform:uppercase}
+    .panel-status{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.25em;color:var(--accent,#c9a227);margin-bottom:.6rem}
+    .panel-desc{font-size:.82rem;color:#888;line-height:1.5}
 
-    .check-item.checked { border-color: var(--success); }
-    .check-item.error { border-color: var(--error); }
-
-    .check-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      cursor: pointer;
+    /* === ACTIVE OPERATIONS === */
+    .operations-section{padding:7rem 2rem;border-top:1px solid #1a1a1a;max-width:900px;margin:0 auto}
+    .operations-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+    @media(max-width:900px){.operations-grid{grid-template-columns:1fr}}
+    .op-card{
+      padding:2rem 1.5rem;
+      background:linear-gradient(180deg,#0a0f14 0%,#050505 100%);
+      border:1px solid #1a1a1a;border-left:3px solid #c9a227;
+      transition:border-color .3s,background .3s;
     }
+    .op-card:hover{border-color:#c9a227;background:#0d0d0d}
+    .op-badge{display:inline-block;padding:.3rem .7rem;font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.15em;margin-bottom:1rem}
+    .op-title{font-family:'Cinzel',serif;font-size:1.05rem;font-weight:500;color:#e8e4dc;margin-bottom:.5rem}
+    .op-desc{font-size:.85rem;color:#888;line-height:1.6;margin-bottom:1rem}
+    .op-meta{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#666;letter-spacing:.1em}
 
-    .check-box {
-      width: 28px;
-      height: 28px;
-      border: 2px solid var(--border);
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      flex-shrink: 0;
-      transition: all 0.2s;
+    /* === BACK — TROUBLESHOOT === */
+    .operator-section{
+      padding:7rem 2rem;border-top:1px solid #1a1a1a;
+      max-width:900px;margin:0 auto;text-align:center;
     }
-
-    .check-item.checked .check-box {
-      background: var(--success);
-      border-color: var(--success);
+    .operator-photo{
+      width:140px;height:140px;border-radius:50%;
+      object-fit:cover;margin:0 auto 2rem;
+      border:2px solid #c9a227;
+      filter:drop-shadow(0 0 40px rgba(201,162,39,0.3));
     }
-
-    .check-item.error .check-box {
-      background: var(--error);
-      border-color: var(--error);
+    .operator-name{
+      font-family:'Cinzel',serif;font-size:1.6rem;
+      font-weight:500;letter-spacing:.1em;color:#c9a227;margin-bottom:.4rem;
     }
-
-    .check-info { flex: 1; }
-    .check-title { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
-    .check-desc { font-size: 12px; color: var(--text-muted); }
-
-    .check-action {
-      display: none;
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px solid var(--border);
+    .operator-role{
+      font-family:'JetBrains Mono',monospace;font-size:.78rem;
+      letter-spacing:.3em;color:#666;text-transform:uppercase;margin-bottom:2rem;
     }
-
-    .check-item.error .check-action { display: block; }
-
-    .action-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 10px 16px;
-      background: var(--gold);
-      border: none;
-      border-radius: var(--radius-sm);
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--bg);
-      text-decoration: none;
-      cursor: pointer;
+    .operator-desc{color:#d8d8d8;line-height:1.85;margin-bottom:2.5rem;font-size:1rem}
+    .operator-desc strong{color:#c9a227;font-weight:500}
+    .operator-cta-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem}
+    .btn-gold{
+      display:inline-block;padding:.95rem 2rem;
+      border:1px solid #c9a227;color:#c9a227;
+      font-family:'JetBrains Mono',monospace;font-size:.82rem;letter-spacing:.2em;
+      transition:background .3s,color .3s,letter-spacing .3s;
     }
-
-    .action-btn:hover { opacity: 0.9; }
-
-    .action-note {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 8px;
+    .btn-gold:hover{background:#c9a227;color:#0a0a0a;letter-spacing:.3em}
+    .btn-ghost{
+      display:inline-block;padding:.95rem 2rem;
+      border:1px solid #333;color:#888;
+      font-family:'JetBrains Mono',monospace;font-size:.82rem;letter-spacing:.2em;
+      transition:border-color .3s,color .3s;
     }
-
-    .section-title {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--gold);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin: 24px 0 12px;
+    .btn-ghost:hover{border-color:#c9a227;color:#c9a227}
+    .license-note{
+      display:inline-flex;align-items:center;gap:.8rem;
+      padding:.6rem 1.2rem;border:1px solid #1a1a1a;
+      font-family:'JetBrains Mono',monospace;font-size:.7rem;
+      color:#999;letter-spacing:.2em;
     }
+    .license-note img{width:24px;height:24px;border-radius:3px;object-fit:cover;opacity:.7}
 
-    .status-bar {
-      background: var(--bg-elevated);
-      border: 2px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 16px;
-      margin-top: 24px;
-      text-align: center;
+    /* === DISCORD === */
+    .discord-section{padding:7rem 2rem;border-top:1px solid #1a1a1a;max-width:1400px;margin:0 auto}
+    .discord-widget-wrap{display:flex;flex-direction:column;gap:2rem;align-items:center;max-width:600px;margin:0 auto}
+    .presence-fallback,.feed-fallback{font-family:'JetBrains Mono',monospace;font-size:.9rem;color:#b0b0b0;letter-spacing:.1em;text-align:center;padding:2rem 0}
+
+    /* === STATUS LOG === */
+    .statuslog-section{padding:7rem 2rem;border-top:1px solid #1a1a1a;max-width:900px;margin:0 auto}
+    .statuslog-list{display:flex;flex-direction:column;gap:.5rem}
+    .status-entry{
+      display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center;
+      padding:.8rem 1.2rem;
+      background:linear-gradient(180deg,#0a0f14 0%,#050505 100%);
+      border:1px solid #1a1a1a;border-left:3px solid #c9a227;
     }
+    .status-entry:hover{border-color:#c9a227;background:#0d0d0d}
+    .status-time{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:#666;white-space:nowrap}
+    .status-text{font-size:.85rem;color:#b0b0b0;line-height:1.5}
+    .status-badge{font-family:'JetBrains Mono',monospace;font-size:.6rem;padding:.2rem .6rem;letter-spacing:.1em;border-radius:2px}
 
-    .status-icon { font-size: 32px; margin-bottom: 8px; }
-    .status-text { font-size: 14px; font-weight: 600; }
-    .status-sub { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
-
-    .reset-btn {
-      display: block;
-      width: 100%;
-      padding: 14px;
-      background: transparent;
-      border: 2px solid var(--border);
-      border-radius: var(--radius-md);
-      font-size: 14px;
-      color: var(--text-secondary);
-      cursor: pointer;
-      margin-top: 16px;
+    /* === FOOTER === */
+    footer{
+      padding:3rem 2rem;text-align:center;
+      border-top:1px solid #1a1a1a;
+      font-family:'JetBrains Mono',monospace;
+      font-size:.72rem;color:#444;letter-spacing:.2em;
     }
+    footer .links{margin-bottom:1rem;display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap}
+    footer .links a{transition:color .3s}
+    footer .links a:hover{color:#c9a227}
 
-    .reset-btn:hover { border-color: var(--error); color: var(--error); }
+    /* === REVEAL === */
+    .js [data-reveal]{opacity:0;transform:translateY(40px)}
   </style>
 </head>
 <body>
+<script>document.documentElement.classList.add('js');</script>
 
-<div class="container">
-  <a href="../staff/" class="back-btn">← Secret Office</a>
+<nav class="top" aria-label="Main navigation">
+  <a href="/" class="brand">GOHSY</a>
+  <div class="links">
+    <a href="../../wife/">Wife</a>
+    <a href="../../daughter/">Daughter</a>
+    <a href="../../gohsy/">GOHSY</a>
+    <a href="../../staff/">Backoffice</a>
+    <a href="../" style="font-size:.72rem;color:#c9a227">← Back</a>
+  </div>
+</nav>
 
-  <header>
-    <div class="page-icon">🔧</div>
-    <h1 class="page-title">GitHub Pages 트러블슈팅</h1>
-    <p class="page-desc">페이지가 안 열리면 순서대로 체크하세요</p>
-  </header>
+<!-- 1. HERO with logo video bg + GOHSY coin -->
+<section class="hero">
+  <video class="hero-bg-video" autoplay muted loop playsinline>
+    <source src="../assets/icons/logo-video.mp4" type="video/mp4">
+  </video>
+  <div class="hero-bg-overlay"></div>
+  <div class="hero-inner">
+    <img src="../assets/1.jpg" alt="GOHSY Coin"
+         class="coin-image"
+         data-tilt data-tilt-max="8" data-tilt-glare data-tilt-max-glare="0.3">
+    <h1 class="brand-mark" data-splitting>Troubleshoot</h1>
+    <p class="tagline-en">Troubleshooting Tools</p>
+    <p class="tagline-ko">문제 해결 도구</p>
+    <p class="established">EST. 2026.01.13</p>
+  </div>
+  <div class="scroll-hint">SCROLL ↓</div>
+</section>
 
-  <p class="section-title">1. GitHub 설정</p>
-  <div class="checklist">
-    <div class="check-item" data-id="pages-enabled">
-      <div class="check-header" onclick="toggleCheck('pages-enabled')">
-        <div class="check-box"></div>
-        <div class="check-info">
-          <p class="check-title">GitHub Pages 활성화</p>
-          <p class="check-desc">Settings → Pages → Source 설정됨</p>
-        </div>
-      </div>
-      <div class="check-action">
-        <p class="action-note">Claude Code: "GitHub Pages 활성화해줘"</p>
-      </div>
+<!-- 2. TROUBLE CATEGORIES -->
+<section class="panels-section">
+  <div class="section-header" data-reveal>
+    <p class="section-label">TROUBLE CATEGORIES</p>
+    <h2 class="section-title">문제 해결 카테고리</h2>
+  </div>
+  <div class="panels-grid">
+    <a href="#cat1" class="panel-card" data-reveal style="--accent:#c9a227">
+      <div class="panel-icon">🔗</div>
+      <div class="panel-name">페이지</div>
+      <div class="panel-role">Page</div>
+      <div class="panel-status">▶ 7건</div>
+      <div class="panel-desc">404 오류 · 로딩 불가 · 스타일 깨짐 · 리다이렉트</div>
+    </a>
+    <a href="#cat2" class="panel-card" data-reveal style="--accent:#4A90E2">
+      <div class="panel-icon">📦</div>
+      <div class="panel-name">배포</div>
+      <div class="panel-role">Deploy</div>
+      <div class="panel-status">▶ 4건</div>
+      <div class="panel-desc">GitHub Pages · Cloudflare · 도메인 · SSL</div>
+    </a>
+    <a href="#cat3" class="panel-card" data-reveal style="--accent:#5865F2">
+      <div class="panel-icon">💬</div>
+      <div class="panel-name">Discord</div>
+      <div class="panel-role">Discord</div>
+      <div class="panel-status">▶ 5건</div>
+      <div class="panel-desc">위젯 끊김 · 초대 링크 · 봇 오류 · 임베드</div>
+    </a>
+    <a href="#cat4" class="panel-card" data-reveal style="--accent:#FF0000">
+      <div class="panel-icon">▶</div>
+      <div class="panel-name">YouTube</div>
+      <div class="panel-role">YouTube</div>
+      <div class="panel-status">▶ 3건</div>
+      <div class="panel-desc">업로드 실패 · API 오류 · 썸네일 · 메타데이터</div>
+    </a>
+  </div>
+</section>
+
+<!-- 3. RECENT ISSUES -->
+<section class="operations-section">
+  <div class="section-header" data-reveal>
+    <p class="section-label">RECENT ISSUES</p>
+    <h2 class="section-title">최근 문제</h2>
+  </div>
+  <div class="operations-grid">
+    <div class="op-card" data-reveal>
+      <div class="op-badge" style="background:#c9a227;color:#050505">404</div>
+      <div class="op-title">tools/image-manager.html 404 오류</div>
+      <div class="op-desc">GitHub Pages 캐시 · 재배포 후 해결</div>
+      <div class="op-meta">⚠️ 2026-04-26 14:20</div>
     </div>
-
-    <div class="check-item" data-id="branch-main">
-      <div class="check-header" onclick="toggleCheck('branch-main')">
-        <div class="check-box"></div>
-        <div class="check-info">
-          <p class="check-title">배포 브랜치 확인</p>
-          <p class="check-desc">main 브랜치에서 배포 설정됨</p>
-        </div>
-      </div>
-      <div class="check-action">
-        <p class="action-note">Claude Code: "기본 브랜치 main으로 설정해줘"</p>
-      </div>
+    <div class="op-card" data-reveal>
+      <div class="op-badge" style="background:#4A90E2;color:#fff">SSL</div>
+      <div class="op-title">gohsy.kr SSL 인증서 만료 임박</div>
+      <div class="op-desc">Cloudflare · 자동 갱신 확인 · 7일 남음</div>
+      <div class="op-meta">⚠️ 2026-04-26 11:00</div>
     </div>
-
-    <div class="check-item" data-id="nojekyll">
-      <div class="check-header" onclick="toggleCheck('nojekyll')">
-        <div class="check-box"></div>
-        <div class="check-info">
-          <p class="check-title">.nojekyll 파일 존재</p>
-          <p class="check-desc">Jekyll 빌드 비활성화됨</p>
-        </div>
-      </div>
-      <div class="check-action">
-        <p class="action-note">Claude Code: ".nojekyll 파일 만들어줘"</p>
-      </div>
+    <div class="op-card" data-reveal>
+      <div class="op-badge" style="background:#5865F2;color:#fff">DC</div>
+      <div class="op-title">Discord 위젯 연결 끊김</div>
+      <div class="op-desc">WidgetBot 서버 점검 · 30분 후 복구</div>
+      <div class="op-meta">⚠️ 2026-04-25 22:15</div>
     </div>
-
-    <div class="check-item" data-id="actions-enabled">
-      <div class="check-header" onclick="toggleCheck('actions-enabled')">
-        <div class="check-box"></div>
-        <div class="check-info">
-          <p class="check-title">GitHub Actions 활성화</p>
-          <p class="check-desc">워크플로우 실행 가능 상태</p>
-        </div>
-      </div>
-      <div class="check-action">
-        <p class="action-note">Claude Code: "Actions 활성화 확인해줘"</p>
-      </div>
+    <div class="op-card" data-reveal style="grid-column:span 1">
+      <div class="op-badge" style="background:#FF0000;color:#fff">YT</div>
+      <div class="op-title">YouTube 업로드 API 403 오류</div>
+      <div class="op-desc">OAuth 토큰 만료 · 재발급 완료</div>
+      <div class="op-meta">⚠️ 2026-04-25 16:30</div>
+    </div>
+    <div class="op-card" data-reveal style="grid-column:span 1">
+      <div class="op-badge" style="background:#666;color:#e8e4dc">DNS</div>
+      <div class="op-title">dtslib.kr DNS 전파 지연</div>
+      <div class="op-desc">네임서버 변경 · 48시간 전파 대기</div>
+      <div class="op-meta">⚠️ 2026-04-24 08:00</div>
     </div>
   </div>
+</section>
 
-  <p class="section-title">2. 파일 구조</p>
-  <div class="checklist">
-    <div class="check-item" data-id="index-exists">
-      <div class="check-header" onclick="toggleCheck('index-exists')">
-        <div class="check-box"></div>
-        <div class="check-info">
-          <p class="check-title">index.html 존재</p>
-          <p class="check-desc">루트에 index.html 파일 있음</p>
-        </div>
-      </div>
-      <div class="check-action">
-        <p class="action-note">Claude Code: "index.html 있는지 확인해줘"</p>
-      </div>
+<!-- 4. BACK — ABOUT TROUBLESHOOT -->
+<section class="operator-section" data-reveal>
+  <img src="../assets/icons/profile.jpg" alt="문제 해결" class="operator-photo">
+  <div class="operator-name">Troubleshoot</div>
+  <div class="operator-role">TROUBLESHOOT · TOOLS</div>
+  <p class="operator-desc">
+    <strong>Troubleshoot</strong> 은 GOHSY 문제 해결 도구입니다.<br>
+    페이지 · 배포 · Discord · YouTube — 4개 카테고리로<br>
+    <strong>GOHSY</strong> 시스템 문제를 진단하고 해결합니다.
+  </p>
+  <div class="operator-cta-row">
+    <a href="../" class="btn-gold">Tools →</a>
+  </div>
+  <div class="license-note">
+    <img src="../assets/icons/business-license.jpg" alt="사업자등록">
+    REGISTERED · 정식 등록 사업자
+  </div>
+</section>
+
+<!-- 5. DISCORD -->
+<section class="discord-section" data-reveal>
+  <div class="section-header">
+    <p class="section-label">COMMUNITY · DISCORD</p>
+    <h2 class="section-title">Real-time Hub</h2>
+  </div>
+  <div class="discord-widget-wrap">
+    <div id="gohsy-discord-presence"></div>
+    <div id="gohsy-discord-messages"></div>
+    <div id="gohsy-discord-widget-wrap" style="width:100%;display:flex;justify-content:center">
+      <iframe id="gohsy-discord-widget" loading="lazy" title="GOHSY Discord 실시간 채팅"
+        sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+        allow="clipboard-write"
+        style="width:100%;max-width:600px;height:400px;border-radius:12px;border:1px solid #1a1a1a">
+      </iframe>
     </div>
+    <a href="#" id="gohsy-discord-invite" class="btn-gold">Discord 참여 →</a>
+  </div>
+</section>
 
-    <div class="check-item" data-id="file-pushed">
-      <div class="check-header" onclick="toggleCheck('file-pushed')">
-        <div class="check-box"></div>
-        <div class="check-info">
-          <p class="check-title">파일 푸시 완료</p>
-          <p class="check-desc">최신 커밋이 GitHub에 반영됨</p>
-        </div>
-      </div>
-      <div class="check-action">
-        <p class="action-note">Claude Code: "git push 해줘"</p>
-      </div>
+<!-- 6. ISSUE LOG -->
+<section class="statuslog-section">
+  <div class="section-header" data-reveal>
+    <p class="section-label">ISSUE LOG</p>
+    <h2 class="section-title">이슈 로그</h2>
+  </div>
+  <div class="statuslog-list">
+    <div class="status-entry" data-reveal>
+      <span class="status-time">14:20</span>
+      <span class="status-text">image-manager.html 404 · GitHub Pages 재배포</span>
+      <span class="status-badge" style="background:#1a3a1a;color:#7ED321">해결</span>
+    </div>
+    <div class="status-entry" data-reveal>
+      <span class="status-time">11:00</span>
+      <span class="status-text">SSL 인증서 만료 임박 · Cloudflare 자동 갱신</span>
+      <span class="status-badge" style="background:#1a3a1a;color:#7ED321">해결</span>
+    </div>
+    <div class="status-entry" data-reveal>
+      <span class="status-time">22:15</span>
+      <span class="status-text">Discord 위젯 끊김 · WidgetBot 서버 점검</span>
+      <span class="status-badge" style="background:#1a2a3a;color:#4A90E2">모니터링</span>
+    </div>
+    <div class="status-entry" data-reveal>
+      <span class="status-time">16:30</span>
+      <span class="status-text">YouTube API 403 · OAuth 토큰 재발급</span>
+      <span class="status-badge" style="background:#1a3a1a;color:#7ED321">해결</span>
+    </div>
+    <div class="status-entry" data-reveal>
+      <span class="status-time">어제</span>
+      <span class="status-text">dtslib.kr DNS 전파 · 네임서버 변경</span>
+      <span class="status-badge" style="background:#3a2a1a;color:#c9a227">진행중</span>
     </div>
   </div>
+</section>
 
-  <p class="section-title">3. 도메인 설정 (선택)</p>
-  <div class="checklist">
-    <div class="check-item" data-id="cname-file">
-      <div class="check-header" onclick="toggleCheck('cname-file')">
-        <div class="check-box"></div>
-        <div class="check-info">
-          <p class="check-title">CNAME 파일 확인</p>
-          <p class="check-desc">커스텀 도메인 설정 파일</p>
-        </div>
-      </div>
-      <div class="check-action">
-        <p class="action-note">Claude Code: "CNAME 파일에 example.com 넣어줘"</p>
-      </div>
-    </div>
-
-    <div class="check-item" data-id="dns-cname">
-      <div class="check-header" onclick="toggleCheck('dns-cname')">
-        <div class="check-box"></div>
-        <div class="check-info">
-          <p class="check-title">DNS CNAME 레코드</p>
-          <p class="check-desc">호스팅 업체에서 설정 (카페24 등)</p>
-        </div>
-      </div>
-      <div class="check-action">
-        <p class="action-note">도메인 업체에서: CNAME → username.github.io</p>
-      </div>
-    </div>
-
-    <div class="check-item" data-id="dns-propagation">
-      <div class="check-header" onclick="toggleCheck('dns-propagation')">
-        <div class="check-box"></div>
-        <div class="check-info">
-          <p class="check-title">DNS 전파 대기</p>
-          <p class="check-desc">변경 후 최대 48시간 소요</p>
-        </div>
-      </div>
-      <div class="check-action">
-        <p class="action-note">기다리면 됨 (보통 10분~24시간)</p>
-      </div>
-    </div>
+<!-- FOOTER -->
+<footer>
+  <div class="links">
+    <a href="../../wife/">Wife</a>
+    <a href="../../daughter/">Daughter</a>
+    <a href="../../gohsy/">GOHSY</a>
+    <a href="../../staff/">Backoffice</a>
+    <a href="../../card/">Card</a>
+    <a href="https://github.com/dtslib1979/gohsy" target="_blank">GitHub</a>
   </div>
-
-  <p class="section-title">4. 배포 확인</p>
-  <div class="checklist">
-    <div class="check-item" data-id="deployment-status">
-      <div class="check-header" onclick="toggleCheck('deployment-status')">
-        <div class="check-box"></div>
-        <div class="check-info">
-          <p class="check-title">배포 상태 확인</p>
-          <p class="check-desc">GitHub Actions 배포 성공</p>
-        </div>
-      </div>
-      <div class="check-action">
-        <p class="action-note">Claude Code: "배포 상태 확인해줘"</p>
-      </div>
-    </div>
-
-    <div class="check-item" data-id="cache-clear">
-      <div class="check-header" onclick="toggleCheck('cache-clear')">
-        <div class="check-box"></div>
-        <div class="check-info">
-          <p class="check-title">브라우저 캐시 삭제</p>
-          <p class="check-desc">새로고침 또는 시크릿 모드</p>
-        </div>
-      </div>
-      <div class="check-action">
-        <p class="action-note">시크릿/프라이빗 모드로 접속해보기</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="status-bar" id="statusBar">
-    <div class="status-icon" id="statusIcon">📋</div>
-    <p class="status-text" id="statusText">체크리스트를 진행하세요</p>
-    <p class="status-sub" id="statusSub">0 / 10 완료</p>
-  </div>
-
-  <button class="reset-btn" onclick="resetAll()">🔄 전체 초기화</button>
-</div>
+  <div>© 2026 GOHSY · EST. 2026.01.13 · Operated by 박씨 · Troubleshoot</div>
+</footer>
 
 <script>
-const STORAGE_KEY = 'troubleshoot_checks';
-const totalItems = document.querySelectorAll('.check-item').length;
+  if (window.Splitting) Splitting();
+  if (window.VanillaTilt) VanillaTilt.init(document.querySelectorAll('[data-tilt]'));
 
-// 저장된 상태 불러오기
-function loadState() {
-  const saved = localStorage.getItem(STORAGE_KEY);
-  if (saved) {
-    const state = JSON.parse(saved);
-    Object.keys(state).forEach(id => {
-      const item = document.querySelector(`[data-id="${id}"]`);
-      if (item) {
-        item.className = 'check-item ' + state[id];
-        updateCheckBox(item, state[id]);
-      }
+  if (window.gsap && window.ScrollTrigger){
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Hero entry sequence
+    gsap.from('.coin-image', {opacity:0, scale:0.4, rotation:180, duration:2, ease:'elastic.out(1, 0.6)', delay:0.3});
+    gsap.from('.brand-mark .char', {opacity:0, y:80, duration:0.9, stagger:0.07, ease:'power3.out', delay:0.7});
+    gsap.from('.tagline-en', {opacity:0, y:20, duration:0.8, ease:'power3.out', delay:1.6});
+    gsap.from('.tagline-ko', {opacity:0, y:20, duration:0.8, ease:'power3.out', delay:1.85});
+    gsap.from('.established', {opacity:0, duration:0.6, delay:2.1});
+
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('[data-reveal]');
+    reveals.forEach(el => {
+      gsap.to(el, {
+        opacity:1, y:0, duration:1, ease:'power3.out',
+        scrollTrigger: {trigger:el, start:'top 95%', toggleActions:'play none none none'}
+      });
+    });
+    setTimeout(() => {
+      reveals.forEach(el => {
+        if (parseFloat(getComputedStyle(el).opacity) < 0.5) {
+          gsap.to(el, {opacity:1, y:0, duration:0.6});
+        }
+      });
+    }, 1500);
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(el => {
+      el.style.opacity = '1'; el.style.transform = 'none';
     });
   }
-  updateStatus();
-}
-
-// 체크 토글
-function toggleCheck(id) {
-  const item = document.querySelector(`[data-id="${id}"]`);
-  const current = item.classList.contains('checked') ? 'checked' :
-                  item.classList.contains('error') ? 'error' : '';
-
-  let next = '';
-  if (current === '') next = 'checked';
-  else if (current === 'checked') next = 'error';
-  else next = '';
-
-  item.className = 'check-item ' + next;
-  updateCheckBox(item, next);
-  saveState();
-  updateStatus();
-}
-
-function updateCheckBox(item, state) {
-  const box = item.querySelector('.check-box');
-  if (state === 'checked') box.textContent = '✓';
-  else if (state === 'error') box.textContent = '✕';
-  else box.textContent = '';
-}
-
-// 상태 저장
-function saveState() {
-  const state = {};
-  document.querySelectorAll('.check-item').forEach(item => {
-    const id = item.dataset.id;
-    if (item.classList.contains('checked')) state[id] = 'checked';
-    else if (item.classList.contains('error')) state[id] = 'error';
-  });
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-}
-
-// 상태 업데이트
-function updateStatus() {
-  const checked = document.querySelectorAll('.check-item.checked').length;
-  const errors = document.querySelectorAll('.check-item.error').length;
-
-  const icon = document.getElementById('statusIcon');
-  const text = document.getElementById('statusText');
-  const sub = document.getElementById('statusSub');
-
-  sub.textContent = `${checked} / ${totalItems} 완료`;
-
-  if (errors > 0) {
-    icon.textContent = '⚠️';
-    text.textContent = `${errors}개 항목 확인 필요`;
-    text.style.color = 'var(--error)';
-  } else if (checked === totalItems) {
-    icon.textContent = '✅';
-    text.textContent = '모든 설정 완료!';
-    text.style.color = 'var(--success)';
-  } else {
-    icon.textContent = '📋';
-    text.textContent = '체크리스트를 진행하세요';
-    text.style.color = 'var(--text)';
+  // 인터랙션: 코인 클릭 → TROUBLE CATEGORIES
+  const heroCoin = document.querySelector('.coin-image');
+  if (heroCoin) {
+    heroCoin.style.cursor = 'pointer';
+    heroCoin.addEventListener('click', () => {
+      document.querySelector('.panels-section').scrollIntoView({behavior:'smooth', block:'start'});
+    });
   }
-}
-
-// 전체 초기화
-function resetAll() {
-  localStorage.removeItem(STORAGE_KEY);
-  document.querySelectorAll('.check-item').forEach(item => {
-    item.className = 'check-item';
-    item.querySelector('.check-box').textContent = '';
-  });
-  updateStatus();
-}
-
-// 초기화
-loadState();
+  // 인터랙션: SCROLL ↓ 클릭 → 다음 섹션
+  const scrollHint = document.querySelector('.scroll-hint');
+  if (scrollHint) {
+    scrollHint.style.cursor = 'pointer';
+    scrollHint.addEventListener('click', () => {
+      document.querySelector('.panels-section').scrollIntoView({behavior:'smooth'});
+    });
+  }
+  // 인터랙션: parallax — 마우스에 따라 hero 코인 이동
+  if (window.gsap) {
+    document.querySelector('.hero').addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 20;
+      const y = (e.clientY / window.innerHeight - 0.5) * 20;
+      gsap.to('.coin-image', {x, y, duration:0.6, ease:'power2.out'});
+    });
+  }
 </script>
 
+<script type="module">
+  import { CFG } from '../assets/discord/config.js';
+  import { renderPresence } from '../assets/discord/presence.js';
+  import { renderFeed } from '../assets/discord/messages-feed.js';
+
+  const presenceEl = document.getElementById('gohsy-discord-presence');
+  const feedEl     = document.getElementById('gohsy-discord-messages');
+  if (presenceEl) renderPresence(presenceEl);
+  if (feedEl)     renderFeed(feedEl);
+
+  const widgetIframe = document.getElementById('gohsy-discord-widget');
+  if (widgetIframe) {
+    const ch = CFG.CH_ID && !CFG.CH_ID.includes('PLACEHOLDER') ? `/${CFG.CH_ID}` : '';
+    widgetIframe.src = `https://e.widgetbot.io/channels/${CFG.GUILD_ID}${ch}`;
+  }
+</script>
+
+<script defer src="../assets/js/personas-loader.js"></script>
 </body>
 </html>
