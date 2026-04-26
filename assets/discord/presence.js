@@ -17,7 +17,8 @@ export async function renderPresence(el) {
     return;
   }
   try {
-    el.textContent = await fetchCount();
+    const n = await fetchCount();
+    el.innerHTML = `<span class="presence"><span class="presence-dot"></span> ${n}명 온라인</span>`;
   } catch {
     el.textContent = '—';
   }
